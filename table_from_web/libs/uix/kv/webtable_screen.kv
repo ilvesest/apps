@@ -1,0 +1,22 @@
+<MainWidget>:
+    
+    rows: 2
+    Label:
+        text: "Extract table from Web"
+        size_hint: 1, 0.25
+        font_size: self.width / 20
+    
+    GridLayout:
+        cols:2
+        Label:
+            text: "Website URL:"
+            size_hint: .25, 1
+            font_size: self.width / 10
+        TextInput:
+            id: url_input
+            multiline: False
+            on_text_validate: root.on_text_validate(self)
+            
+
+
+        
