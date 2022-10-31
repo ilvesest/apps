@@ -17,4 +17,6 @@ class WebTable(App):
     def build(self):
         Factory.register('MainWidget', 
                          module="libs.uix.baseclass.webtable_screen")
+        Factory.register('PathButton',
+                         module="libs.uix.baseclass.webtable_screen")
         return Factory.MainWidget()

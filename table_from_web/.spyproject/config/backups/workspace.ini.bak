@@ -4,7 +4,7 @@ save_data_on_exit = True
 save_history = True
 save_non_project_files = False
 project_type = 'empty-project-type'
-recent_files = ['main.py', 'libs/uix/webtable_screen.py']
+recent_files = ['main.py', 'libs/uix/baseclass/webtable_screen.py', 'libs/uix/kv/webtable_screen.kv', 'webtable_app.py', '../../data_science/jupyter_anaconda/python_api/kivy_/button_click/main.py']
 
 [main]
 version = 0.2.0
