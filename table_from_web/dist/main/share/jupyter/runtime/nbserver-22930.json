@@ -1,0 +1,12 @@
+{
+  "base_url": "/",
+  "hostname": "localhost",
+  "notebook_dir": "/home/tonu",
+  "password": false,
+  "pid": 22930,
+  "port": 8890,
+  "secure": false,
+  "sock": "",
+  "token": "714321e11abaebfe934700340fdcc2712869c56327c45675",
+  "url": "http://localhost:8890/"
+}

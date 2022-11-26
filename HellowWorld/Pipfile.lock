@@ -1,0 +1,28 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "0d6de6f8aab3b3244bdbe95c057b3b38969f6d78c6b77d965b179b400a9724c8"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.10"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "nuitka": {
+            "hashes": [
+                "sha256:1706631e5582f65621e0863f0a3a5ab69ce66ef1811f602f003917128e3f2f7a"
+            ],
+            "index": "pypi",
+            "version": "==1.2.2"
+        }
+    },
+    "develop": {}
+}
