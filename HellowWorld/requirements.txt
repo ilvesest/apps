@@ -1,0 +1,5 @@
+-i https://pypi.org/simple
+glibc==0.6.1
+nuitka==1.2.4
+ordered-set==4.1.0
+patchelf==0.17.0.0

@@ -1,0 +1,23 @@
+# get (running) glibc version in python
+os.confstr('CS_GNU_LIBC_VERSION')
+
+# get (running) glibc version in ubuntu terminal
+ldd --version
+
+# list of all glibc tarballs
+https://ftp.gnu.org/gnu/glibc/
+
+# to build any glibc version from source
+mkdir $HOME/glibc/ && cd $HOME/glibc
+wget http://ftp.gnu.org/gnu/libc/glibc-2.32.tar.gz
+tar -xvzf glibc-2.32.tar.gz
+mkdir build 
+mkdir glibc-2.32-install
+cd build
+~/glibc/glibc-2.32/configure --prefix=$HOME/glibc/glibc-2.32-install
+make
+make install
+
+
+# Creating requirements.txt
+pipenv requirements > requirements.txt
