@@ -21,3 +21,7 @@ make install
 
 # Creating requirements.txt
 pipenv requirements > requirements.txt
+
+
+# switch between python versions globally 
+sudo update-alternatives --config python
