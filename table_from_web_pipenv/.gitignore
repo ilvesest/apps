@@ -1,0 +1,4 @@
+# compiled program folders
+main.build
+main.dist
+dist
