@@ -1,0 +1,4 @@
+For recursive
+                        copy there is a form with 3 values that '--include-
+                        data-files=/path/to/scan=folder_name=**/*.txt' that
+                        will preserve directory structure.
