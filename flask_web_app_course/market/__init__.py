@@ -13,6 +13,7 @@ app = Flask(__name__) # __name__ refs to the current local py file
 root_abs_path = Path.cwd()
 project_db_path = '/market/market.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{root_abs_path}{project_db_path}'
+app.config['SECRET_KEY'] = '40217598b125400a38f5a01f'
 
 db = SQLAlchemy(app) # database
 
