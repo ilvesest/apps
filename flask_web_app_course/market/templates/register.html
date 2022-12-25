@@ -8,6 +8,7 @@
     <body class="text-center">
         <div class="container"  style="width: 600px">
             <form method="POST" class="form-register" style="color:white">
+                {{ form.hidden_tag() }} <!-- To prevent CSRF attack on db -->
                 <img class="mb-4", src="https://imgs.search.brave.com/YPuYCl5-EmeqfaL-FzqF8l4egROpKnuuhEcQJWq3eUY/rs:fit:180:180:1/g:ce/aHR0cDovL2Jpb3dl/Yi51d2xheC5lZHUv/YmlvMjAzL3MyMDA4/L2Fybm9sZF9tZWFn/L01DajA0MzQ3Mjkw/MDAwWzFdLnBuZw" 
                     style="width:100px;height:100px;">
                 <h1 class="h3 mb-3 font-weight-normal">
