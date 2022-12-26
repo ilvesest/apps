@@ -5,6 +5,7 @@ from market.forms import RegisteredForm, LoginForm
 
 # 3rd party imports
 from flask import render_template, redirect, url_for, flash
+from flask_login import login_user
 
 
 # functions
@@ -23,7 +24,7 @@ def market_page():
 def register_page():
     form = RegisteredForm()
     
-    # submit button validation and add created data to database
+    # when submit is pressed it validates if no errors occured
     if form.validate_on_submit():
         user_to_create = User(username=form.username.data,
                               email=form.email.data,
@@ -48,5 +49,20 @@ def register_page():
 @app.route('/login', methods=['GET', 'POST'])
 def login_page():
     form = LoginForm()
+    if form.validate_on_submit():
+        # if user excists. first() is used to get the object from query
+        attempted_user = User.query.filter_by(username=form.username.data).first()
+        if attempted_user and attempted_user.check_password_correction(
+            attempted_password=form.password.data
+        ):
+            # when entered username and password are correct log in
+            login_user(attempted_user)
+            flash(f'Success! You are logged in as {attempted_user.username}', category='success')
+            
+            return redirect(url_for('market_page'))
+        
+        else:
+            flash('Username and password do not match! Please try again!', category='danger')
+        
     return render_template('login.html', form=form)
-    
+

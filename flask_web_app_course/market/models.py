@@ -1,6 +1,18 @@
-from market import db, bcrypt
+# local imports
+from market import db, bcrypt, login_manager
 
-class User(db.Model):
+# 3rd party imports
+from flask_login import UserMixin
+
+# callback for the web app. If user is logged in and refreshes or browses through
+# the webpage the app keeps them logged in, therefore using different session route 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+# UserMixin base class has implemented some callback methods for the user
+# to browse in the wwebsite and be kept logged in. 
+class User(db.Model, UserMixin):
     
     # 'db.relationship() creates relationla link between Item & User tables
     id = db.Column(db.Integer(), primary_key=True)
@@ -10,14 +22,19 @@ class User(db.Model):
     budget = db.Column(db.Integer(), nullable=False, default=1000)
     items = db.relationship('Item', backref='owned_user', lazy=True)
 
-
+    # User class attribute 'password'
     @property
     def password(self):
         return self.password
 
+    # 
     @password.setter
     def password(self, plain_text_password):
         self.password_hash = bcrypt.generate_password_hash(plain_text_password).decode('utf-8')
+
+    # User class method to check input password hash matches hash in db
+    def check_password_correction(self, attempted_password) -> bool:
+        return bcrypt.check_password_hash(self.password_hash, attempted_password)
 
 
 # create databse class

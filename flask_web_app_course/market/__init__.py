@@ -5,6 +5,7 @@ from pathlib import Path
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
 
 # inits
 app = Flask(__name__) # __name__ refs to the current local py file
@@ -20,6 +21,9 @@ bcrypt = Bcrypt(app)
 
 # init database
 db = SQLAlchemy(app) # database
+
+# init login manager
+login_manager = LoginManager(app)
 
 # use it here to bypass circular import error
 from market import routes
