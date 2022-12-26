@@ -11,6 +11,7 @@ wtforms = "*"
 email-validator = "*"
 flask-bcrypt = "*"
 flask-login = "*"
+flask-fontawesome = "*"
 
 [dev-packages]
 ipykernel = "*"
