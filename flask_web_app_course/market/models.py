@@ -35,7 +35,13 @@ class User(db.Model, UserMixin):
     # User class method to check input password hash matches hash in db
     def check_password_correction(self, attempted_password) -> bool:
         return bcrypt.check_password_hash(self.password_hash, attempted_password)
-
+    
+    @property
+    def brittier_budget(self):
+        if len(str(self.budget)) >= 3:
+            return f'{self.budget:,}'
+        else:
+            return f"{self.budget}"
 
 # create databse class
 class Item(db.Model):
