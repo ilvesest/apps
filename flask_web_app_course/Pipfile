@@ -9,6 +9,7 @@ flask-sqlalchemy = "*"
 flask-wtf = "*"
 wtforms = "*"
 email-validator = "*"
+flask-bcrypt = "*"
 
 [dev-packages]
 ipykernel = "*"
