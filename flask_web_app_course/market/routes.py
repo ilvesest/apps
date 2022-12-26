@@ -4,7 +4,7 @@ from market.models import Item, User
 from market.forms import RegisteredForm
 
 # 3rd party imports
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, flash
 
 
 # functions
@@ -38,7 +38,8 @@ def register_page():
     # if errors occur they are sent to forms.errors
     if form.errors != {}: # if tehre are errors
         for err_msg in form.errors.values():
-            print(f'There was an error with creating a user: {err_msg}')
+            # 
+            flash(f'There was an error with creating a user: {err_msg}', category='danger')
     
     
     return render_template('register.html', form=form)
