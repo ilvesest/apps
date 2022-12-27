@@ -3,33 +3,49 @@
     Market Page
 {% endblock %}
 
-<!-- Adding some content -->
 {% block content %}
-<table class="table table-hover table-dark">
-    <thead>
-        <tr>
-            <!-- Your Columns HERE -->
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Barcode</th>
-            <th scope="col">Price</th>
-            <th scope="col">Options</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Your rows inside the table HERE: -->
-            {% for item in items %}
+
+<div class="row" style="margin-top:20px; margin-left:20px">
+    <div class="col-8">
+        <h2 style="text-align: center">Available Items on the Market</h2>
+        <p style="text-align: center">Click on the items to start buying</p>
+        <br>
+        <table class="table table-hover table-dark">
+            <thead>
                 <tr>
-                    <td>{{ item.id }}</td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.barcode }}</td>
-                    <td>${{ item.price }}</td>
-                    <td>
-                        <button class="btn btn-outline btn-info">More Info</button>
-                        <button class="btn btn-outline btn-success">Purchase this Item</button>
-                    </td>
+                    <!-- Your Columns HERE -->
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Barcode</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Options</th>
                 </tr>
-            {% endfor %}
-    </tbody>
-</table>
+            </thead>
+            <tbody>
+                    {% for item in items %} <!-- Generate row per unique item: -->
+                    {% include 'includes/items_modals.html' %} <!-- Import items_modals.html per item -->
+                        <tr>
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.barcode }}</td>
+                            <td>${{ item.price }}</td>
+                            <td>
+                                <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#Modal-MoreInfo-{{ item.id }}">
+                                    More Info
+                                </button>
+                                <button class="btn btn-outline btn-success" data-toggle="modal" data-target="#Modal-PurchaseConfirm-{{ item.id }}">
+                                    Purchase this Item
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-4">
+        <h2 style="text-align: center">Owned Items</h2>
+        <p style="text-align: center">Click on the item to discard it</p>
+        <br>
+    </div>
+</div>
 {% endblock %}
