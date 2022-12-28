@@ -3,7 +3,6 @@ from market import db, bcrypt, login_manager
 
 # 3rd party imports
 from flask_login import UserMixin
-
 # callback for the web app. If user is logged in and refreshes or browses through
 # the webpage the app keeps them logged in, therefore using different session route 
 @login_manager.user_loader
@@ -42,6 +41,9 @@ class User(db.Model, UserMixin):
             return f'{self.budget:,}'
         else:
             return f"{self.budget}"
+        
+    def can_purchase(self, item_object):
+        return self.budget >= item_object.price
 
 # create databse class
 class Item(db.Model):
@@ -58,3 +60,13 @@ class Item(db.Model):
     # override the naming convention of the table item
     def __repr__(self):
         return f'Item {self.name}'
+    
+    def buy(self, user):
+        # current_user built-in method accesses logged-in user User object.
+        # assigning user id to the Items owner field
+        self.owner = user.id
+        
+        # deduct price of the item from user's budegt
+        user.budget -= self.price
+
+        db.session.commit()

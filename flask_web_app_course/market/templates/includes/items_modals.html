@@ -49,7 +49,22 @@
         </button>
       </div>
       <div class="modal-body">
-        Confirm purchasing {{ item.name }} for ${{ item.price}}.
+        
+        <!-- Create a form for confirm button -->
+        <form method="POST">
+            {{ purchase_form.hidden_tag() }}
+
+            <h4 class="text-center">
+                Confirm purchasing {{ item.name }} for ${{ item.price}}.
+            </h4>
+            <br>
+            <br>
+            <h6 class="text-center">
+                By clicking Confirm, you will purchase this item.
+            </h6>
+            <input id="purchased_item" name="purchased_item" type="hidden" value="{{ item.name }}">
+            {{ purchase_form.submit(class="btn btn-outline-success btn-block") }}
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary"
