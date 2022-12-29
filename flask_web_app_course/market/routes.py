@@ -1,7 +1,7 @@
 # local imports
 from market import app, db
 from market.models import Item, User
-from market.forms import RegisteredForm, LoginForm, PurchaseItemForm
+from market.forms import RegisteredForm, LoginForm, PurchaseItemForm, SellItemForm
 
 # 3rd party imports
 from flask import render_template, redirect, url_for, flash, request
@@ -19,9 +19,11 @@ def home_page():
 @login_required
 def market_page():
     purchase_form = PurchaseItemForm()
+    selling_form = SellItemForm()
     
     # if data is sent from HTML to the server (aka the "POST" method)
     if request.method == "POST":
+        # Purchase Item Logic
         
         # since we added hidden <input> tag to our form in items_modals.html
         # we can catch the value="{{ item.name }}" of the 'purchased_id' item
@@ -36,7 +38,18 @@ def market_page():
                 flash(f"Congratulations! You purchased {purchased_item} for ${p_item_object.price}.", category='success')
             else:
                 flash(f"Unfortunately, you don't have enough funds to purchase {p_item_object.name}.", category='danger')
-            
+        
+        # Sell Item Logic
+        sold_item = request.form.get('sold_item')
+        s_item_object = Item.query.filter_by(name=sold_item).first()
+        
+        if s_item_object:
+            if current_user.can_sell(s_item_object):
+                s_item_object.sell(current_user)
+                flash(f"Congratulations! You sold {sold_item} for ${s_item_object.price}.", category='success')
+            else:
+                flash(f"Something went wrong with selling {s_item_object.name} back to market!.", category='danger')
+        
         # end the 'POST' request with return statement
         return redirect(url_for('market_page'))
             
@@ -44,7 +57,11 @@ def market_page():
         # only display items that have no owners, aka bought items will disappear per user
         items = Item.query.filter_by(owner=None)
         
-        return render_template('market.html', items=items, purchase_form=purchase_form)
+        # query user items
+        owned_items = Item.query.filter_by(owner=current_user.id)
+        
+        return render_template('market.html', items=items, purchase_form=purchase_form, 
+                               owned_items=owned_items, selling_form=selling_form)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
