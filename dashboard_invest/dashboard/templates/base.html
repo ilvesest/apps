@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      {{ fontawesome_html() }}
+      <!-- Required meta tags -->
+        <style>
+            body {
+                background-color: #212121;
+                color: white
+            }
+        </style>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      
+      
+      <!-- Bootstrap CSS  -->
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}"/>
+      <title> 
+        {% block title %} 
+
+        {% endblock %}
+      </title>
+    </head>
+
+   <body>
+        <nav>
+            <div class="topnav">
+                <a href="{{ url_for('home_page') }}" title="Investments">Investments</a>
+                <a href="{{ url_for('examples_page') }}" title="Example Portfolios">Example Portfolios</a>
+                <a href="{{ url_for('home_page') }}" title="Stocks Watchlist">Watchlist</a>
+                <a href="{{ url_for('home_page') }}" title="Precious Metals">Metals</a>
+                <a href="{{ url_for('home_page') }}" title="Business Equity">BizRE</a>
+                <a href="{{ url_for('home_page') }}" title="Stocks">Stocks</a>
+                <a href="{{ url_for('home_page') }}" title="Valuation Metrics">Valuation Metrics</a>
+                <a href="{{ url_for('home_page') }}" title="Crypto Investments">Crypto Investments</a>
+                <a href="{{ url_for('home_page') }}" title="Crypto INFO">Crypto INFO</a>
+            </div>
+        </nav>
+
+        {% block content %}
+                    
+        {% endblock %}
+
+   </body>
+
+
+
+</html>
