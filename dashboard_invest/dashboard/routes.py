@@ -1,24 +1,27 @@
 # local imports
 from dashboard import app
-from dashboard.logic.io import GSHEETS_URL, get_sheet_names
+from dashboard.logic.io import GSHEETS_URL, get_sheet_names, read_gsheet
+from dashboard.data.investments import total_investments_df
 
 # 3rd party imports
 from flask import render_template
+import pandas as pd
 
 # sheet names dynamically
 sheet_names = get_sheet_names(url=GSHEETS_URL)
 
 # sheet name smanually
 nav_names = {
-    "Investments": "Investments",
-    "Investment Allocation Examples": "Example Portfolios",
-    "Stocks Watchlist": "Watchlist",
-    "Metals": "Metals",
-    "BizRE": "BizRE",
-    "Stocks": "Stocks",
-    "Value Investing Ratios": "Valuation Metrics",
-    "Crypto Consolidation": "Crypto Investments",
-    "Crypto INFO (SaleHODL Notes)": "Crypto INFO" 
+    "Investments": {"new name": "Portfolio", "title": "Overall Portfolio"},
+    "Investment Allocation Examples": {"new name":"Model Portfolios", "title": "Example Portfolios"},
+    "Stocks": {"new name": "Stocks", "title": "Stocks"},
+    "Stocks Watchlist": {"new name": "Stocks Watchlist", "title": "Stocks Watchlist"},
+    "Metals": {"new name": "Metals", "title": "Precious Metals"},
+    "BizRE": {"new name": "Business & RE", "title": "Business & Real Estate"},
+    "Crypto Consolidation": {"new name":"Crypto", "title": "Ctypto Investments"},
+    "Crypto INFO (SaleHODL Notes)": {"new name":"Crypto Watchlist", "title": "Crypto Watchlist"},
+    "Value Investing Ratios": {"new name": "Valuation Metrics", "title": "Example Company Valuations"},
+    "X-Test Crypto": {"new name": "Test Sheet", "title": "Testing Sheet"}
 }
 
 
@@ -30,9 +33,9 @@ def inject_sheet_names():
 
 @app.route("/")
 @app.route("/home")
-@app.route("/Investments")
+@app.route("/Portfolio")
 def home_page():
-    return render_template("home.html")
+    return render_template("home.html", table=total_investments_df)
 
 
 @app.route("/Example Portfolios")

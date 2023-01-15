@@ -1,0 +1,45 @@
+/* VARIABLSE */
+:root {
+  --bs-nav-color: white;
+  --bs-nav-hover-color: gold;
+}
+
+/* NAVBAR */
+
+.text-white {
+  --bs-text-opacity: 1;
+  color: white,var(--bs-text-opacity)!important;
+}
+
+.me-2 {
+  margin-right: 0.5rem!important;
+}
+
+.me-lg-auto {
+  margin-right: auto!important;
+  margin-left: auto!important;
+}
+
+.bi {
+  vertical-align: -0.125em;
+  fill: var(--bs-nav-color);
+}
+
+/*
+.nav .nav-link:hover, .nav-link .bi:hover {
+  background-color: grey;
+  fill: blue!important;
+  color:blueviolet!important;
+}*/
+
+.nav .nav-link:hover, .nav-link:hover svg {
+  color: var(--bs-nav-hover-color)!important;
+  fill: var(--bs-nav-hover-color)!important;
+}
+
+/* Logo style */
+.logo {
+  width: 100px;
+  height: 50px;
+  filter:invert(100%);
+}

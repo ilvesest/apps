@@ -1,6 +1,7 @@
 # 3rd party imports
 import requests
 from bs4 import BeautifulSoup as BS
+import pandas as pd
 
 
 # website URL
@@ -26,4 +27,14 @@ def get_sheet_names(url: str, class_name: str="goog-inline-block docs-sheet-tab-
     sheet_tags = soup.find_all(name="div", attrs={"class": class_name})
     
     return [tag.contents[0] for tag in sheet_tags]
+
+
+def read_gsheet(url:str, **read_csv_kwargs):
+    """Read data from google sheets into DF."""
+    
+    # replace 'edit#gid' with 'export?format=csv&gid'
+    url_csv = url.replace("edit#gid", "export?format=csv&gid")
+    return pd.read_csv(url_csv, **read_csv_kwargs)
+    
+    
     

@@ -13,4 +13,5 @@ app = Flask(__name__)
 
 fa = FontAwesome(app)
 
+
 from dashboard import routes
