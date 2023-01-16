@@ -1,7 +1,8 @@
 /* VARIABLSE */
 :root {
   --bs-nav-color: white;
-  --bs-nav-hover-color: gold;
+  --bs-nav-active-color: gold;
+  --bs-nav-hover-color: rgb(0, 255, 8);
 }
 
 /* NAVBAR */
@@ -12,12 +13,12 @@
 }
 
 .me-2 {
-  margin-right: 0.5rem!important;
+  margin-right: 0rem;
 }
 
 .me-lg-auto {
-  margin-right: auto!important;
-  margin-left: auto!important;
+  margin-right: 0%!important;
+  margin-left: 0%!important;
 }
 
 .bi {
@@ -25,12 +26,12 @@
   fill: var(--bs-nav-color);
 }
 
-/*
-.nav .nav-link:hover, .nav-link .bi:hover {
-  background-color: grey;
-  fill: blue!important;
-  color:blueviolet!important;
-}*/
+
+.nav .active svg, .nav .active {
+  color: var(--bs-nav-active-color)!important;
+  fill: var(--bs-nav-active-color)!important;
+}
+
 
 .nav .nav-link:hover, .nav-link:hover svg {
   color: var(--bs-nav-hover-color)!important;

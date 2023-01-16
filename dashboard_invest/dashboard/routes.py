@@ -12,16 +12,66 @@ sheet_names = get_sheet_names(url=GSHEETS_URL)
 
 # sheet name smanually
 nav_names = {
-    "Investments": {"new name": "Portfolio", "title": "Overall Portfolio"},
-    "Investment Allocation Examples": {"new name":"Model Portfolios", "title": "Example Portfolios"},
-    "Stocks": {"new name": "Stocks", "title": "Stocks"},
-    "Stocks Watchlist": {"new name": "Stocks Watchlist", "title": "Stocks Watchlist"},
-    "Metals": {"new name": "Metals", "title": "Precious Metals"},
-    "BizRE": {"new name": "Business & RE", "title": "Business & Real Estate"},
-    "Crypto Consolidation": {"new name":"Crypto", "title": "Ctypto Investments"},
-    "Crypto INFO (SaleHODL Notes)": {"new name":"Crypto Watchlist", "title": "Crypto Watchlist"},
-    "Value Investing Ratios": {"new name": "Valuation Metrics", "title": "Example Company Valuations"},
-    "X-Test Crypto": {"new name": "Test Sheet", "title": "Testing Sheet"}
+    "Investments": {
+        "new name": "Portfolio", 
+        "title": "Overall Portfolio", 
+        "page": "home_page", 
+        "symbol_id": "dollar"
+    },
+    "Investment Allocation Examples": {
+        "new name":"Model Portfolios", 
+        "title": "Example Portfolios", 
+        "page": "portfolios_page", 
+        "symbol_id": "briefcase"
+    },
+    "Stocks": {
+        "new name": "Stocks", 
+        "title": "Stocks",
+        "page": "home_page", 
+        "symbol_id": "apple"
+    },
+    "Stocks Watchlist": {
+        "new name": "Stocks Watchlist", 
+        "title": "Stocks Watchlist",
+        "page": "home_page", 
+        "symbol_id": "eye"
+    },
+    "Metals": {
+        "new name": "Metals", 
+        "title": "Precious Metals",
+        "page": "home_page", 
+        "symbol_id": "gem"
+    },
+    "BizRE": {
+        "new name": "Business & RE", 
+        "title": "Business & Real Estate",
+        "page": "home_page", 
+        "symbol_id": "houses"
+    },
+    "Crypto Consolidation": {
+        "new name":"Crypto", 
+        "title": "Crypto Investments",
+        "page": "home_page", 
+        "symbol_id": "crypto"
+    },
+    "Crypto INFO (SaleHODL Notes)": {
+        "new name":"Crypto Watchlist", 
+        "title": "Crypto Watchlist",
+        "page": "home_page", 
+        "symbol_id": "wallet"
+    },
+    "Value Investing Ratios": {
+        "new name": "Valuation Metrics", 
+        "title": "Example Company Valuations",
+        "page": "home_page", 
+        "symbol_id": "chart"
+    },
+    "X-Test Crypto": {
+        "new name": "Test Sheet", 
+        "title": "Testing Sheet",
+        "page": "home_page", 
+        "symbol_id": "chart"
+    }
 }
 
 
@@ -38,6 +88,8 @@ def home_page():
     return render_template("home.html", table=total_investments_df)
 
 
-@app.route("/Example Portfolios")
-def examples_page():
+@app.route("/Model Portfolios")
+def portfolios_page():
     return render_template("example_portf.html")
+
+
