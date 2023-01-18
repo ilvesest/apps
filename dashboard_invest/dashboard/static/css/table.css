@@ -1,8 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
 
 *, *:before, *:after {
-  margin: 0;
-  padding: 0;
+  margin: 2;
+  padding: 2;
   box-sizing: border-box;
 }
 
@@ -12,22 +12,37 @@ body {
 }
 table {
 	background: #012B39;
-	border-radius: 0.25em;
+	border-radius: 0.4em;
 	border-collapse: collapse;
-	margin: 1em;
+	margin: 0em;
+  margin-bottom: 5em;
+  padding-bottom: 10em;
+  padding: 5em;
 }
 th {
-  border-bottom: 1px solid #364043;
+  border-bottom: 1px solid #E2B842;
   color: #E2B842;
-  font-size: 0.85em;
+  font-size: 1em;
   font-weight: 600;
   padding: 0.5em 1em;
   text-align: left;
 }
+
+tr td:nth-child(3), th:nth-child(3) {
+  text-align: center;
+}
+
+tr td:nth-child(2), th:nth-child(2) {
+  text-align: right;
+}
+
 td {
   color: #fff;
+  font-size: .85em;
   font-weight: 400;
   padding: 0.65em 1em;
+  text-align: left;
+  border-bottom: 1px solid #364043
 }
 .disabled td {
   color: #4F5F64;

@@ -16,7 +16,7 @@ nav_names = {
         "new name": "Portfolio", 
         "title": "Overall Portfolio", 
         "page": "home_page", 
-        "symbol_id": "dollar"
+        "symbol_id": "cash-coin"
     },
     "Investment Allocation Examples": {
         "new name":"Model Portfolios", 

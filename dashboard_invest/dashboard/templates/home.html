@@ -1,25 +1,28 @@
 {% extends "base.html" %}
 
 
-{% block title %} Home {% endblock %}
+{% block title %} Home: Portfolio {% endblock %}
 
 {% block content %}
     <head>
         <link rel="stylesheet" href="static/css/table.css">
-
     </head>
+    
     <body>
-        <div class="split left">
-            <div class="centered">
-            <h2>Total Investements</h2>
-            {{ table.to_html(index=False, classes="table customtable table-hover")|safe }}
-            </div>
-        </div>
-        
-        <div class="split right">
-            <div class="centered">
-            <h2>John Doe</h2>
-            <p>Some text here too.</p>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-6">
+                    <h2>Total Investements</h2>
+                    {{ table.to_html(
+                        border=0,
+                        index=False,
+                        escape=False,
+                        na_rep="",
+                        classes="table align-middle mb-0 table-hover bg-dark text-nowrap")|safe }}
+                </div>
+                <div class="col-6">col-4
+
+                </div>
             </div>
         </div>
     </body>

@@ -36,5 +36,16 @@ def read_gsheet(url:str, **read_csv_kwargs):
     url_csv = url.replace("edit#gid", "export?format=csv&gid")
     return pd.read_csv(url_csv, **read_csv_kwargs)
     
-    
+
+def add_button_df(sereis:pd.Series) -> str:
+    """Replaces value in the DF to given html.
+
+    Args:
+        sereis (pd.Series): pandas Series obj
+
+    Returns:
+        str: Returns the html string
+    """
+    html = '<button type="button" class="btn btn-info btn-sm" style="--bs-btn-font-size: .85rem">Details</button>'
+    return html    
     
