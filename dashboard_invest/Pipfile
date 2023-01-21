@@ -12,6 +12,7 @@ pandas = "*"
 gspread = "*"
 requests = "*"
 bs4 = "*"
+bokeh = "*"
 
 [dev-packages]
 ipykernel = "*"

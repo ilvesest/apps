@@ -1,7 +1,7 @@
 # local imports
 from dashboard import app
 from dashboard.logic.io import GSHEETS_URL, get_sheet_names, read_gsheet
-from dashboard.data.investments import total_investments_df
+from dashboard.data.investments import total_investments_df, plot_js, plot_div, cdn_js, cdn_css
 
 # 3rd party imports
 from flask import render_template
@@ -78,14 +78,18 @@ nav_names = {
 # make sheet_names global variable for all templates
 @app.context_processor
 def inject_sheet_names():
-    return {'sheet_names': nav_names}
+    return {'sheet_names': nav_names,
+            'cdn_js': cdn_js}
 
 
 @app.route("/")
 @app.route("/home")
 @app.route("/Portfolio")
 def home_page():
-    return render_template("home.html", table=total_investments_df)
+    return render_template("home.html", 
+                           table=total_investments_df,
+                           plot_js=plot_js,
+                           plot_div=plot_div)
 
 
 @app.route("/Model Portfolios")

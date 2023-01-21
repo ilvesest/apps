@@ -37,15 +37,18 @@ def read_gsheet(url:str, **read_csv_kwargs):
     return pd.read_csv(url_csv, **read_csv_kwargs)
     
 
-def add_button_df(sereis:pd.Series) -> str:
+def df_add_button(series:pd.Series) -> str:
     """Replaces value in the DF to given html.
 
     Args:
         sereis (pd.Series): pandas Series obj
+        data : data
 
     Returns:
         str: Returns the html string
     """
-    html = '<button type="button" class="btn btn-info btn-sm" style="--bs-btn-font-size: .85rem">Details</button>'
-    return html    
+    return f'<button type="button" class="btn btn-secondary btn-sm" data-bs-content="{series} '\
+        '"data-bs-toggle="popover" data-bs-trigger="focus" '\
+        'style="--bs-btn-font-size: .85rem">Details</button>'
+
     

@@ -1,17 +1,16 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
 
-*, *:before, *:after {
-  margin: 2;
-  padding: 2;
-  box-sizing: border-box;
+:root {
+  --bs-nav-color: white;
+  --bs-nav-active-color: gold;
+  --bs-nav-hover-color: rgb(0, 255, 8);
+  --bs-nav-background-color: #212529;
+  --bs-table-hover-color: #34373b;
+  --bs-btn-hover-color: #68a40f;
 }
 
-body {
-  background: #105469;
-  font-family: 'Open Sans', sans-serif;
-}
 table {
-	background: #012B39;
+	background: var(--bs-nav-background-color);
 	border-radius: 0.4em;
 	border-collapse: collapse;
 	margin: 0em;
@@ -51,5 +50,11 @@ tbody tr {
   transition: background 0.25s ease;
 }
 tbody tr:hover {
-  background: #014055;
+  background: var(--bs-table-hover-color);
+  opacity: 1;
+}
+
+/* BUTTONS */
+table .btn-secondary:hover {
+  background-color: #68a40f;
 }

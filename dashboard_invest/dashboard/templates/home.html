@@ -5,28 +5,34 @@
 
 {% block content %}
     <head>
+        <!-- links 
+        <link rel="stylesheet" href="{{ cdn_css| safe }}" type="text/css">
+        -->
         <link rel="stylesheet" href="static/css/table.css">
+        
+        <!-- scripts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="{{ cdn_js| safe }}"></script>
     </head>
     
     <body>
         <div class="container text-center">
-            <div class="row">
-                <div class="col-6">
-                    <h2>Total Investements</h2>
-                    {{ table.to_html(
-                        border=0,
-                        index=False,
-                        escape=False,
-                        na_rep="",
-                        classes="table align-middle mb-0 table-hover bg-dark text-nowrap")|safe }}
+            <div class="row align-middle" style="margin-top:25px;">
+                <div class="col-md-6 custom-container">
+                    <h4>Total Investements</h4>
+                    {{ table.to_html()|safe }}
                 </div>
-                <div class="col-6">col-4
-
+                <div class="col-md-6 text-center">
+                    <h4>Asset Allocations</h4>
+                    <div class="align-middle">{{ plot_div | safe }}</div> 
                 </div>
             </div>
         </div>
     </body>
 
+    <!-- JS scripts -->
+    {{ plot_js | safe }}
 {% endblock %}
 
 

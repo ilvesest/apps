@@ -1,8 +1,14 @@
-/* VARIABLSE */
+/* VARIABLES */
 :root {
   --bs-nav-color: white;
   --bs-nav-active-color: gold;
   --bs-nav-hover-color: rgb(0, 255, 8);
+}
+
+*, *:before, *:after {
+  margin: 2;
+  padding: 2;
+  box-sizing: border-box;
 }
 
 /* NAVBAR */
@@ -43,4 +49,11 @@
   width: 100px;
   height: 50px;
   filter:invert(100%);
+}
+
+/* BODY */
+body {
+  background: rgb(44, 43, 43);
+  font-family: 'Open Sans', sans-serif;
+  color: var(--bs-nav-color);
 }
