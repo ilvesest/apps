@@ -1,7 +1,7 @@
 # local imports
 from dashboard import app
 from dashboard.logic.io import GSHEETS_URL, get_sheet_names, read_gsheet
-from dashboard.data.investments import total_investments_df, plot_js, plot_div, cdn_js, cdn_css
+from dashboard.data.investments import total_investments_df, plot_js, plot_div, cdn_js
 
 # 3rd party imports
 from flask import render_template
@@ -88,7 +88,7 @@ def inject_sheet_names():
 def home_page():
     return render_template("home.html", 
                            table=total_investments_df,
-                           plot_js=plot_js,
+                           plot_js=plot_js, 
                            plot_div=plot_div)
 
 
