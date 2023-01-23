@@ -37,7 +37,28 @@ def read_gsheet(url:str, **read_csv_kwargs):
     return pd.read_csv(url_csv, **read_csv_kwargs)
     
 
-def df_add_button(series:pd.Series) -> str:
+### DATAFRAME MODIFICATION ###
+def total_assets(df: pd.DataFrame, index:str, col:str) -> pd.DataFrame:
+    """Calculate total value if '#ERROR!'
+    """
+ 
+    # check if total value has ERROR msg
+    if df.loc[index, col] == "#ERROR!":
+        df.loc[index, col] = 0
+    else:
+        return df.loc[index, col]
+     
+    # exclude error fields and monthly income
+    df = df[(df[col] != '#ERROR!') & (df.index != 'Monthly Income')]
+    
+    # str to float and calc total sum
+    df.loc[:, col] = df[col].replace(r"[\$,]", "", regex=True).astype(float)
+    df.loc[index, col] = df[col].sum()
+    
+    # format numbers back to string
+    return "${0:,.2f}".format(df.loc[index, col])
+
+def comment_button(series:pd.Series) -> str:
     """Replaces value in the DF to given html.
 
     Args:
@@ -51,4 +72,23 @@ def df_add_button(series:pd.Series) -> str:
         '"data-bs-toggle="popover" data-bs-trigger="focus" '\
         'style="--bs-btn-font-size: .85rem">Details</button>'
 
+def total_value_to_num(df: pd.DataFrame):
+    """Modify DF data column to numeric
+    """
     
+    # add underscores to col names
+    df.columns = df.columns.map(lambda x: x.replace(" ", "_"))
+    
+    # set 'Asset_Class' as new index
+    df = (df
+        .set_index('Asset_Class') 
+        .drop('Comments', axis='columns')
+        .loc[:'Total (USD)'].iloc[:-1]
+        .query("Total_Value != '#ERROR!'")
+    )
+    
+    df['Total_Value'] = (df['Total_Value']
+        .replace(r"[\$,]", "", regex=True)
+        .astype(float)
+    )
+    return df.reset_index()    

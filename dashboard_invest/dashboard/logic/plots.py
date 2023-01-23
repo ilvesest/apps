@@ -28,7 +28,8 @@ def pie_chart(
     fig_kwargs: dict={},
     wedge_kwargs: dict=dict(line_width=1.5, alpha=0.7),
     legend_kwargs: dict=dict(location='center', click_policy="hide",
-                             label_text_color='white', border_line_width=0),
+                             label_text_color='white', border_line_width=0,
+                             inactive_fill_color='#9fcf2e', inactive_fill_alpha=0.15),
     label_kwargs: dict=dict(text_font_size='10pt', text_align='center')
     ):
     
