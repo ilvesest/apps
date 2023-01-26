@@ -6,8 +6,8 @@
 }
 
 *, *:before, *:after {
-  margin: 2;
-  padding: 2;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -32,6 +32,9 @@
   fill: var(--bs-nav-color);
 }
 
+.nav {
+  --bs-nav-link-padding-x: 0.5rem;
+}
 
 .nav .active svg, .nav .active {
   color: var(--bs-nav-active-color)!important;
@@ -42,6 +45,10 @@
 .nav .nav-link:hover, .nav-link:hover svg {
   color: var(--bs-nav-hover-color)!important;
   fill: var(--bs-nav-hover-color)!important;
+}
+
+.px-3 {
+  padding-left: 0rem!important;
 }
 
 /* Logo style */

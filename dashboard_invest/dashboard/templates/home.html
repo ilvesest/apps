@@ -17,15 +17,15 @@
     </head>
     
     <body>
-        <div class="container text-center">
-            <div class="row align-middle" style="margin-top:25px;">
-                <div class="col-md-6 custom-container">
-                    <h4>Total Investements</h4>
+        <div class="container">
+            <div class="row" style="margin-top:25px;">
+                <div class="col-md-6 d-flex flex-column align-content-center text-center">
+                    <h4 class=" ">Total Investements</h4>
                     {{ table.to_html()|safe }}
                 </div>
-                <div class="col-md-6 text-center">
+                <div class="col-md-6 d-flex flex-column align-content-center text-center align-middle">
                     <h4>Asset Allocations</h4>
-                    <div class="align-middle">{{ plot_div | safe }}</div> 
+                    <div>{{ plot_div | safe }}</div> 
                 </div>
             </div>
         </div>

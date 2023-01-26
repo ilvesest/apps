@@ -19,7 +19,7 @@ nav_names = {
         "symbol_id": "cash-coin"
     },
     "Investment Allocation Examples": {
-        "new name":"Model Portfolios", 
+        "new name":"Model\nPortfolios", 
         "title": "Example Portfolios", 
         "page": "portfolios_page", 
         "symbol_id": "briefcase"
@@ -61,7 +61,7 @@ nav_names = {
         "symbol_id": "wallet"
     },
     "Value Investing Ratios": {
-        "new name": "Valuation Metrics", 
+        "new name": "Metrics", 
         "title": "Example Company Valuations",
         "page": "home_page", 
         "symbol_id": "chart"

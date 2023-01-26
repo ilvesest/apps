@@ -34,6 +34,9 @@ def pie_chart(
     ):
     
     
+    # sort df by "y"
+    df = df.sort_values(by=y, ignore_index=True)
+    
     # calculate sector start and end angles
     df['angle'] = df[y] / df[y].sum() * 2 * np.pi
     df['cumsum_start'] = df['angle'].cumsum(axis='rows').shift(1).fillna(0)
