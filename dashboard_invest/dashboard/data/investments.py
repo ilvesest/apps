@@ -1,6 +1,6 @@
 # local imports
 from dashboard.logic.io import GSHEETS_URL, read_gsheet, comment_button, total_assets, \
-    total_value_to_num
+    total_value_to_num, getDataFrames
 from dashboard.logic.plots import components, pie_chart, cdn_js
 
 # 3rd party imports
@@ -10,16 +10,17 @@ import numpy as np
 # Read in summary DF and drop empty rows
 df = read_gsheet(
     GSHEETS_URL, 
-    header=None, 
-    usecols=[0,1,2], 
-    nrows=11,
-    names=['Asset Class', 'Total Value', 'Comments']
-).dropna(how='all')
+    header=None
+)
+
+# Extract sub DF to dictionary
+df_dict = getDataFrames(df)
 
 ### TRANSFORM DF ###
-
-## Table ##
-df_table = df.copy().set_index('Asset Class')
+## Main DF ##
+df_table = df_dict['main']
+df_table.columns = ['Asset Class', 'Total Value', 'Comments']
+df_table = df_table.set_index('Asset Class')
 
 # if '#ERROR!' in Total (USD) recalculate the sum and assign
 df_table.loc['Total (USD)', 'Total Value'] = total_assets(df_table, 'Total (USD)', 'Total Value')
@@ -47,7 +48,8 @@ df_style = df_style.style \
         **{"color": "red", "opacity": "0.75"}) \
     .hide(axis='index')
 
-total_investments_df = df_style
+# variable for the routes.py
+styler_main = df_style
 
 # modify df for PIE-CHART
 df_plot = df_table.copy()

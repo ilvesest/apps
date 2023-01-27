@@ -1,10 +1,10 @@
 # local imports
 from dashboard import app
 from dashboard.logic.io import GSHEETS_URL, get_sheet_names, read_gsheet
-from dashboard.data.investments import total_investments_df, plot_js, plot_div, cdn_js
+from dashboard.data.investments import df_dict, df_table, styler_main, plot_js, plot_div, cdn_js
 
 # 3rd party imports
-from flask import render_template
+from flask import render_template, flash
 import pandas as pd
 
 # sheet names dynamically
@@ -86,8 +86,15 @@ def inject_sheet_names():
 @app.route("/home")
 @app.route("/Portfolio")
 def home_page():
+
+    # flash warning message if "#ERROR! in data"
+    warning_msg = df_dict['error_warning'][0].values[0] + "!"
+    
+    # if (df_table == '#ERROR!').sum().sum() > 0:
+    flash(warning_msg, category='danger')
+
     return render_template("home.html", 
-                           table=total_investments_df,
+                           table=styler_main,
                            plot_js=plot_js, 
                            plot_div=plot_div)
 
