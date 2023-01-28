@@ -16,6 +16,10 @@ df = read_gsheet(
 # Extract sub DF to dictionary
 df_dict = getDataFrames(df)
 
+# ADS
+df_ads = df_dict['ads'].copy()
+df_ads.columns = ['text', 'hyperlink']
+
 ### TRANSFORM DF ###
 ## Main DF ##
 df_table = df_dict['main']
@@ -63,3 +67,4 @@ pie_chart_plot = pie_chart(
 )
 
 plot_js, plot_div = components(pie_chart_plot)
+
