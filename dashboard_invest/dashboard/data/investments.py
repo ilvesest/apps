@@ -19,6 +19,10 @@ df_dict = getDataFrames(df)
 # ADS
 df_ads = df_dict['ads'].copy()
 df_ads.columns = ['text', 'hyperlink']
+df_ads['icon'] = df_ads.text.str[:1]
+df_ads['text'] = df_ads.text.str[2:]
+headers = ['Course', 'Mentoring', 'PM Global', 'PM USA', 'PM UK', 'Crypto Security', 'Stock Platform', 'Bank Account']
+df_ads['header'] = headers
 
 ### TRANSFORM DF ###
 ## Main DF ##
