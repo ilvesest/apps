@@ -24,7 +24,6 @@ df_ads['text'] = df_ads.text.str[2:]
 headers = ['Course', 'Mentoring', 'PM Global', 'PM USA', 'PM UK', 'Crypto Security', 'Stock Platform', 'Bank Account']
 df_ads['header'] = headers
 
-### TRANSFORM DF ###
 ## Main DF ##
 df_table = df_dict['main']
 df_table.columns = ['Asset Class', 'Total Value', 'Comments']
@@ -69,6 +68,16 @@ pie_chart_plot = pie_chart(
     y='Total_Value',
     background_color='#2C2B2B'
 )
+
+# ANNOUNCEMENTS
+df_a = df_dict['announcements'].copy()
+df_a = df_a.reset_index(drop=True)
+df_a = df_a[0].str.split(pat=':', n=1, expand=True)
+df_a.columns = ['date', 'text']
+df_a.loc[df_a[df_a['date'] == 'Post to Patreon'].index[0], 'date'] = 'Jan 2023'
+df_a['heading'] = ['Property Purchase', 'Rising Rates', 'Stocks Ralley and Crash', 
+                   'No Change', 'Assets Falling', 'Cash is King', 'Stockbiling Cash', 
+                   'Accumulating Cash', 'Into Cash!']
 
 plot_js, plot_div = components(pie_chart_plot)
 

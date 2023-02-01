@@ -1,7 +1,8 @@
 # local imports
 from dashboard import app
 from dashboard.logic.io import GSHEETS_URL, get_sheet_names, read_gsheet
-from dashboard.data.investments import df_dict, df_ads, df_table, styler_main, plot_js, plot_div, cdn_js
+from dashboard.data.investments import df_dict, df_ads, df_table, styler_main, \
+    plot_js, plot_div, cdn_js, df_a
 
 # 3rd party imports
 from flask import render_template, flash
@@ -97,7 +98,8 @@ def home_page():
                            df_ads = df_ads, 
                            table=styler_main,
                            plot_js=plot_js, 
-                           plot_div=plot_div)
+                           plot_div=plot_div,
+                           df_a=df_a)
 
 
 @app.route("/Model Portfolios")

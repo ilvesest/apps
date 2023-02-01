@@ -123,20 +123,21 @@ body {
 }
 .single-timeline-area .timeline-date::before {
   position: absolute;
-  width: 11px;
-  height: 11px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
-  background-color: #f1c40f;
+  border: 1px solid #020710;
+  background-color: var(--bs-nav-active-color);
   content: "";
   top: 50%;
-  right: 26px;
+  right: 24px;
   z-index: 5;
   margin-top: -5.5px;
 }
 .single-timeline-area .timeline-date p {
   margin-bottom: 0;
-  color: #020710;
-  font-size: 13px;
+  color: white;
+  font-size: 16px;
   text-transform: uppercase;
   font-weight: 500;
 }
@@ -161,7 +162,7 @@ body {
   transition-duration: 500ms;
   width: 30px;
   height: 30px;
-  background-color: #f1c40f;
+  background-color: #3d51a3;
   -webkit-box-flex: 0;
   -ms-flex: 0 0 30px;
   flex: 0 0 30px;
