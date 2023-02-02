@@ -59,3 +59,8 @@ tbody tr:hover {
 table .btn-secondary:hover {
   background-color: #68a40f;
 }
+
+/* HISTORICAL TABLE */
+table.historical td {
+  text-align: left;
+}

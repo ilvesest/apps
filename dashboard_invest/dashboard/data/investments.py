@@ -69,6 +69,18 @@ pie_chart_plot = pie_chart(
     background_color='#2C2B2B'
 )
 
+plot_js, plot_div = components(pie_chart_plot)
+
+# ASSET RISKS
+df_risk = df_dict['risk'].copy()
+df_risk = df_risk.iloc[1:-5]
+df_risk.columns = ['asset', 'risk', 'comment']
+df_risk.iloc[-2].comment += ". " + df_risk.iloc[-1, -1]
+df_risk = df_risk.iloc[:-1].reset_index(drop=True)
+df_risk['risk'] = [1, 1, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4]
+df_risk['risk_word'] = df_risk['risk'].replace({1:'VERY LOW', 2: 'LOW', 3: 'MEDIUM', 4: 'HIGH'})
+df_risk['li_group'] = df_risk['risk'].replace({1: 'success', 2: 'warning', 3: 'info', 4: 'danger'})
+
 # ANNOUNCEMENTS
 df_a = df_dict['announcements'].copy()
 df_a = df_a.reset_index(drop=True)
@@ -79,5 +91,22 @@ df_a['heading'] = ['Property Purchase', 'Rising Rates', 'Stocks Ralley and Crash
                    'No Change', 'Assets Falling', 'Cash is King', 'Stockbiling Cash', 
                    'Accumulating Cash', 'Into Cash!']
 
-plot_js, plot_div = components(pie_chart_plot)
+
+# GENERAL ADVICE
+df_advice = df_dict['advice'].copy()
+df_advice = df_advice.reset_index(drop=True)
+
+# GENERAL NOTES
+df_gen = df_dict['general_notes'].copy()
+df_suc = df_dict['success'].copy()
+
+df_suc.iloc[0, 1] = df_suc.iloc[0, 1] + df_suc.iloc[-1,1]
+df_gen = pd.concat([df_gen.iloc[1:], df_suc.iloc[0,:].to_frame().T]).reset_index(drop=True)
+df_gen.columns = ['field', 'info']
+
+# HISTORICAL INVESTMENTS
+df_hist = df_dict['historical'].copy()
+df_hist = df_hist.reset_index(drop=True)
+
+
 
