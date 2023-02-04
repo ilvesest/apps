@@ -71,10 +71,6 @@ body {
   font-size: 13px;
 }
 
-body {
-  margin-top: 20px;
-}
-
 .timeline_area {
   position: relative;
   z-index: 1;
@@ -222,4 +218,17 @@ body {
 .custom-popover-info {
   --bs-popover-border-color: var(--bs-info);
   --bs-popover-header-bg: var(--bs-info);
+}
+
+.list-group-item {
+  padding: 5px 5px 10px 5px;
+  text-align: center;
+}
+
+/* ACCORDION */
+.accordion {
+  --bs-accordion-active-color: var(--bs-warning-text);
+  --bs-accordion-active-bg: var(--bs-warning-bg-subtle);
+  --bs-accordion-btn-focus-border-color: var(--bs-warning-text);
+  --bs-accordion-btn-focus-box-shadow: var(--bs-warning-text);
 }
