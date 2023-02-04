@@ -79,7 +79,7 @@ df_risk.iloc[-2].comment += ". " + df_risk.iloc[-1, -1]
 df_risk = df_risk.iloc[:-1].reset_index(drop=True)
 df_risk['risk'] = [1, 1, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4]
 df_risk['risk_word'] = df_risk['risk'].replace({1:'VERY LOW', 2: 'LOW', 3: 'MEDIUM', 4: 'HIGH'})
-df_risk['li_group'] = df_risk['risk'].replace({1: 'success', 2: 'warning', 3: 'info', 4: 'danger'})
+df_risk['li_group'] = df_risk['risk'].replace({1: 'success', 2: 'info', 3: 'warning', 4: 'danger'})
 
 # ANNOUNCEMENTS
 df_a = df_dict['announcements'].copy()

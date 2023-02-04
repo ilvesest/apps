@@ -15,6 +15,13 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script src="{{ cdn_js| safe }}"></script>
 
+        <!-- Enable tooltips -->
+        <script>
+            $(function () {
+                $('[data-bs-toggle="tooltip"]').tooltip()
+            })
+        </script>
+
         <!-- symbols -->
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
             <symbol id="dollar" viewBox="0 0 16 16">
@@ -66,10 +73,12 @@
             <div class="row d-flex justify-content-center">
                 <h2 class="border-bottom">Assets Risk Estimation</h2>
                 {% for i, row in df_risk.iterrows() %}
-                    <ul class="list-group list-group-horizontal">
-                        <li class="list-group-item list-group-item-{{row['li_group']}}">{{row['asset']}}</li>
-                        <li class="list-group-item">{{row['comment']}}</li>
-                    </ul>
+                    <div class="list-group">
+                        <a href="" class="list-group-item list-group-item-{{row['li_group']}} text-center list-group-item-action" 
+                        data-bs-toggle="popover" data-bs-placement="right" data-bs-title="RISK: {{row['risk_word']}}" 
+                        data-bs-custom-class="custom-popover-{{row['li_group']}}"
+                        data-bs-trigger="hover" data-bs-content="{{ row['comment'] }}" style="width: 10em;">{{row['asset']}}</a>
+                    </div>
                 {% endfor %}
             </div>
         </div>
