@@ -1,13 +1,14 @@
 # 3rd party imports
 import requests
 from bs4 import BeautifulSoup as BS
-import pandas as pd
 
+# pandas 
+import pandas as pd
+pd.options.mode.chained_assignment = None
 
 # website URL
 GSHEETS_URL = "https://docs.google.com/spreadsheets/d/" \
-    "1J4QvPR5mJDc44Z3_WzhWuVKB3QbxWWDzj1gLPA53ZZM/edit#gid=1755810028"
-    
+    "12-GISr1efphjtpuJLCfQzI2akNXxaJ1iabsG24ib71c/edit#gid=1755810028"
 
 # Google Docs related IO
 def get_sheet_names(url: str, class_name: str="goog-inline-block docs-sheet-tab-caption") -> list[str]:

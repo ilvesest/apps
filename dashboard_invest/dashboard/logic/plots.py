@@ -16,10 +16,13 @@ cdn_css = CDN.css_files
 def pie_chart(
     df: pd.DataFrame, 
     x: str, 
-    y: str, 
+    y: str,
+    x_hover: str=None,
+    y_hover: str=None, 
     radius: float=0.8,
     x_range: tuple[float, float]=(-1, 1.0),
     percentage_decimal: int=1,
+    label_distance: float=3,
     fig_height: int=350,
     background_color: str='#212529',
     pallette: dict=Category10,
@@ -45,11 +48,11 @@ def pie_chart(
     # calculate y percentages for hover & labels
     df['percentage_number'] = (df[y] / df[y].sum() * 100).round(percentage_decimal)
     df['percentage_hover'] = df['percentage_number'].astype(str)
-    df['percentage_label'] = df['percentage_number'].apply(lambda x: "" if x < 5 else f"{x}%")
+    df['percentage_label'] = df['percentage_number'].apply(lambda x: "" if x < 5 else f"{x:.{percentage_decimal}f}%")
     
     # project label text coordinates to polar coordinates
-    df['label_x_pos'] = np.cos(df['angle'].cumsum() - df['angle'].div(2)) * 3 * radius/4
-    df['label_y_pos'] = np.sin(df['angle'].cumsum() - df['angle'].div(2)) * 3 * radius/4
+    df['label_x_pos'] = np.cos(df['angle'].cumsum() - df['angle'].div(2)) * label_distance * radius/4
+    df['label_y_pos'] = np.sin(df['angle'].cumsum() - df['angle'].div(2)) * label_distance * radius/4
     
     # remove assets that are 0
     df = df[df[y] > 0]
@@ -75,11 +78,14 @@ def pie_chart(
         label = LabelSet(x='label_x_pos', y='label_y_pos', text='percentage_label',
                          source=source, level='glyph', text_color=background_color, **label_kwargs)
         
+        x_hover = x if x_hover is None else x_hover
+        y_hover = y if y_hover is None else y_hover
+        
         hover_tooltip = hover_tooltip if hover_tooltip != 'default' else \
             f"""
                 <div>
-                    <p style="margin:0;font-weight:bold;color:grey;">@{x}</p>
-                    <p style="padding:0;margin:0;font-weight:bold;">@{y}{{$0,0.00}} (@percentage_hover%)</p>
+                    <p style="margin:0;font-weight:bold;color:grey;">@{x_hover}</p>
+                    <p style="padding:0;margin:0;font-weight:bold;">@{y_hover} (@percentage_hover%)</p>
                 </div>
             """
         

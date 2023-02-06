@@ -70,7 +70,7 @@
                     <br>
                     <ul class="list-group list-group-horizontal">
                         {% for i, row in df_risk.iterrows() %}
-                        <a href="" class="list-group-item list-group-item-{{row['li_group']}} text-center list-group-item-action" 
+                        <a class="list-group-item list-group-item-{{row['li_group']}} text-center list-group-item-action" 
                         data-bs-toggle="popover" data-bs-placement="top" data-bs-title="RISK: {{row['risk_word']}}" 
                         data-bs-custom-class="custom-popover-{{row['li_group']}}"
                         data-bs-trigger="hover" data-bs-content="{{ row['comment'] }}">{{row['asset']}}</a>
