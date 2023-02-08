@@ -5,5 +5,40 @@
 {% endblock %}
 
 {% block content %}
-    Example Portfolios
+    <head>
+        <!-- Table CSS -->
+        <link rel="stylesheet" href="static/css/table.css">
+
+    </head>
+
+    <body>
+
+        <div class="container">
+            {% for v in dfs.values() %}
+            <br>
+            <br>
+            <div class="row align-items-center">
+                <h5 class="border-bottom">
+                    {{ v['title_1'] }} <span style="color:red;">{{ v['title_2'] }}</span>
+                </h5>
+                <div class="col-md-6 d-flex flex-column align-content-center text-left">
+                    <br>
+                    <br>
+                    <br>
+                    {{  (v['df'].to_html(index=False))|safe }}
+                </div>
+                <div class="col-md-6 d-flex flex-column text-left align-middle">
+                    {{ (v['plot_div'])|safe }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </body>
+
+    <!-- Bokeh plots JS files -->
+    {% for v in dfs.values() %}
+        {{ v['plot_js']|safe }}
+    {% endfor %}
+
 {% endblock %}

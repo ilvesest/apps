@@ -3,6 +3,8 @@ from dashboard import app
 from dashboard.logic.io import GSHEETS_URL, get_sheet_names, read_gsheet
 from dashboard.data.investments import df_dict, df_ads, df_table, styler_main, \
     plot_js, plot_div, cdn_js, df_a, df_hist, df_advice, df_gen, df_risk
+from dashboard.data.example_portf import dfs
+
 
 # 3rd party imports
 from flask import render_template, flash
@@ -20,7 +22,7 @@ nav_names = {
         "symbol_id": "cash-coin"
     },
     "Investment Allocation Examples": {
-        "new name":"Model\nPortfolios", 
+        "new name":"Model Portfolios", 
         "title": "Example Portfolios", 
         "page": "portfolios_page", 
         "symbol_id": "briefcase"
@@ -108,6 +110,7 @@ def home_page():
 
 @app.route("/Model Portfolios")
 def portfolios_page():
-    return render_template("example_portf.html")
+    return render_template("example_portf.html",
+                           dfs=dfs)
 
 
