@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Stocks Watchlist
+{% endblock %}
+
+{% block content %}
+
+    <head>
+        <!-- Table CSS -->
+        <link rel="stylesheet" href="static/css/table.css">
+
+    </head>
+
+    <body>
+        <br>
+        <div class="container">
+            <div class="row">
+                <h2 class="border-bottom">Stocks Watchlist</h2>
+                {{ df_watch.to_html(index=False, escape=False)|safe }}
+            </div>
+        </div>
+    </body>
+
+{% endblock %}
