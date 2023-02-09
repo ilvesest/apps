@@ -64,3 +64,15 @@ table .btn-secondary:hover {
 table.historical td {
   text-align: left;
 }
+
+/* STOCKS WATCHLIST TABLE */
+table.stocks_watch th {
+  padding: 0.5em 0.5em;
+  text-align: left;
+}
+
+table.stocks_watch td {
+  padding: 0.5em 0.5em;
+  border-right: 1px solid #364043;
+  text-align: left;
+}

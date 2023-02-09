@@ -1,6 +1,8 @@
 # local imports
 from dashboard.logic.io import GSHEETS_URL, read_gsheet, comment_button
-    
+
+# 3rd party imports
+import pandas as pd    
 
 STOCKS_WATCH_URL = "https://docs.google.com/spreadsheets/d/12-GISr1efphjtpuJLCfQzI2akNXxaJ1iabsG24ib71c/edit#gid=845083323"
 
@@ -27,4 +29,17 @@ df_watch = df_watch.fillna("")
 
 # Color Ratings based on category
 rating_colormap = {'Sig Undervalued':'success', 'Mod Undervalued':'info', 'Fair Value':'light', 'Value Trap?':'danger'}
-df_watch["rating_color"] = df_watch.Rating.map(rating_colormap)
+
+df_style = df_watch.style
+for k,v in rating_colormap.items():
+    df_style.set_properties(
+        subset=pd.IndexSlice[df_watch.query(f"Rating == '{k}'").index, 'Rating'], 
+        **{"color":f"var(--bs-{v}-text)", "background":f"var(--bs-{v}-bg-subtle)", "opacity": "0.75"})
+    
+df_style = df_style \
+    .hide(axis='index') \
+    .set_table_attributes("class='stocks_watch'")
+
+
+    
+    
