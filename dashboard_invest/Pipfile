@@ -13,6 +13,7 @@ gspread = "*"
 requests = "*"
 bs4 = "*"
 bokeh = "*"
+gunicorn = "*"
 
 [dev-packages]
 ipykernel = "*"
