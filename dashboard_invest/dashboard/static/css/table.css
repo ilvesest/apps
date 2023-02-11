@@ -9,7 +9,7 @@
   --bs-btn-hover-color: #68a40f;
 }
 
-table {
+table {z-index: 1; 
 	background: var(--bs-nav-background-color);
 	border-radius: 0.4em;
 	border-collapse: collapse;
@@ -41,7 +41,8 @@ td {
   font-weight: 400;
   padding: 0.65em 1em;
   text-align: left;
-  border-bottom: 1px solid #364043
+  border-bottom: 1px solid #364043;
+  z-index: 1;
 }
 
 .disabled td {
@@ -75,4 +76,29 @@ table.stocks_watch td {
   padding: 0.5em 0.5em;
   border-right: 1px solid #364043;
   text-align: left;
+}
+
+/* make header sticky */
+.table-sticky thead th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  box-shadow: inset 0 -1px 0 var(--bs-nav-active-color);
+  background-color: var(--bs-nav-background-color);
+}
+
+/* make first column header  background: var(--bs-table-hover-color);
+  opacity: 1;icky */
+.table-sticky tbody td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background-color: var(--bs-nav-background-color);
+  /*box-shadow: inset -1px 0px 0 var(--bs-nav-active-color); # vertical border */
+}
+
+.table-sticky tbody tr:hover td {
+  background: var(--bs-table-hover-color);
+  opacity: 1;
 }

@@ -34,11 +34,11 @@ df_style = df_watch.style
 for k,v in rating_colormap.items():
     df_style.set_properties(
         subset=pd.IndexSlice[df_watch.query(f"Rating == '{k}'").index, 'Rating'], 
-        **{"color":f"var(--bs-{v}-text)", "background":f"var(--bs-{v}-bg-subtle)", "opacity": "0.75"})
+        **{"color":f"var(--bs-{v}-text)", "background":f"var(--bs-{v}-bg-subtle)", "opacity": "1"})
     
 df_style = df_style \
     .hide(axis='index') \
-    .set_table_attributes("class='stocks_watch'")
+    .set_table_attributes("class='stocks_watch table-sticky'")
 
 
     
