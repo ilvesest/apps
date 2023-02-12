@@ -239,6 +239,10 @@ body {
   background-color: var(--bs-danger-bg-subtle);
 }
 
+.danger-modal .modal-body{
+  background-color: black;
+}
+
 /* Custom Icon List */
 .icon-list .icon-list-item {
   padding-left: 45px;

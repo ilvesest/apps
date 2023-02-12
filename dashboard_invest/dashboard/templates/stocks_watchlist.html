@@ -14,10 +14,11 @@
 
     <body>
 
-        <!-- Button trigger modal -->
+        <!-- Button trigger modal 
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             Launch static backdrop modal
         </button>
+        -->
 
         <!-- Disclaimer Modal -->
         <div class="modal fade danger-modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -55,6 +56,13 @@
                 {{ df_style.to_html()|safe }}
             </div>
         </div>
+
+        <!-- Automatically Launch Modal on Page Open -->
+        <script>
+            $(document).ready(function(){
+                $("#staticBackdrop").modal('show');
+            });
+        </script>
 
     </body>
 
