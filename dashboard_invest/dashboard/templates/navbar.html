@@ -1,4 +1,8 @@
 <head>
+
+    <!-- Fontaweseome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="cash-coin" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>
@@ -51,33 +55,41 @@
 
 <body>
     <header>
-        <div class="my-nav px-3 py-2 text-bg-dark" role="navigation">
-          <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center">
-                <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-                    <img src="{{url_for('static', filename='img/logo.png')}}" alt="Page Logo" class="bi me-2 logo">
-                </a>
-    
-              <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-                
-                {% for sheet, sheet_dict in sheet_names.items() if sheet != "X-Test Crypto" %}
-                    
-                    <li class="{% if sheet_dict['new name'] == request.path[1:] %}active{% endif %}">
-                        <a href="{{ url_for(sheet_dict['page']) }}" 
-                           class="nav-link text-white" 
-                           title="{{ sheet_dict['title'] }}">
-                            
-                           <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-                            <use xlink:href="#{{ sheet_dict['symbol_id'] }}"></use>
-                           </svg>
-                            {{ sheet_dict['new name'] }}
-                        </a>
-                    </li>
 
-                {% endfor %}
-              </ul>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+              <a class="navbar-brand ms-2" href="#">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Page Logo" class="bi me-2 logo">
+              </a>
+
+              <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <div class="collapse navbar-collapse" id="navbar">
+                
+                <ul class="navbar-nav">
+
+                    {% for sheet, sheet_dict in sheet_names.items() if sheet != "X-Test Crypto" %}
+                    
+                        <li class="{% if sheet_dict['new name'] == request.path[1:] %}active{% endif %}">
+                            <a href="{{ url_for(sheet_dict['page']) }}" 
+                            class="nav-link text-white" 
+                            title="{{ sheet_dict['title'] }}">
+                                
+                                <svg class="bi d-block mx-auto mb-1" width="24" height="24">
+                                    <use xlink:href="#{{ sheet_dict['symbol_id'] }}"></use>
+                                </svg> {{ sheet_dict['new name'] }}
+
+                            </a>
+                        </li>
+
+                    {% endfor %} 
+        
+                </ul>
+              </div>
             </div>
-          </div>
-        </div>
-      </header>
+        </nav>
+
+    </header>
 </body>

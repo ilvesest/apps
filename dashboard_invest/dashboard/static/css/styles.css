@@ -20,16 +20,11 @@
   color: white,var(--bs-text-opacity)!important;
 }
 
-.me-2 {
+.navbar .me-2 {
   margin-right: 0rem;
 }
 
-.me-lg-auto {
-  margin-right: 0%!important;
-  margin-left: 0%!important;
-}
-
-.bi {
+.navbar .bi {
   vertical-align: -0.125em;
   fill: var(--bs-nav-color);
 }
@@ -38,19 +33,21 @@
   --bs-nav-link-padding-x: 0.5rem;
 }
 
-.nav .active svg, .nav .active {
+.navbar .active svg, 
+.navbar .active {
   color: var(--bs-nav-active-color)!important;
   fill: var(--bs-nav-active-color)!important;
 }
 
 
-.nav .nav-link:hover, .nav-link:hover svg {
+.navbar .nav-link:hover, 
+.navbar .nav-link:hover svg {
   color: var(--bs-nav-hover-color)!important;
   fill: var(--bs-nav-hover-color)!important;
 }
 
-.px-3 {
-  padding-left: 0rem!important;
+@media (max-width: 991px){
+  .navbar
 }
 
 /* Logo style */
