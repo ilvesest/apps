@@ -28,18 +28,21 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                    <ul class="list-unstyled">
+                    <div class="icon-list">
                         {% for i,row in df_disc.iterrows() %}
-                            <li style="color:var(--bs-{{ row['font_color'] }}-text);">
-                                <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:" width="20" height="20"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                                {{ row['info'] }}
-                            </li>
+                            <div class="icon-list-item" style="color:var(--bs-{{ row['color'] }}-text);">
+                                <span class="li-icon">
+                                    <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger: " width="20" height="20" style="fill:var(--bs-{{ row['color'] }}-text);">
+                                        <use xlink:href="#{{ row['icon_id'] }}"/>
+                                    </svg>
+                                </span>
+                                <p class="li-text"><b>{{ row['info'] }}</b></p>
+                            </div>
                         {% endfor %}
-                    </ul>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Understood</button>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><b>Understood</b></button>
                     </div>
                 </div>
             </div>

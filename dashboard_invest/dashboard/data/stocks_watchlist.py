@@ -26,8 +26,16 @@ df_disc = df_disclaimer.copy()
 df_disc = df_disc.to_frame().rename(columns={0: 'info'})
 df_disc.loc[:,'info'] = [x + '.' if x[-1] != '.' else x for x in df_disc['info']]
 
-# add info color column
-df_disc['font_color'] = ['secondary', 'secondary', 'secondary', 'secondary', 'success', 'danger']
+# add color column and set it as cat for ordering purposes
+df_disc['color'] = ['warning', 'success', 'warning', 'success', 'success', 'danger']
+df_disc['color'] = pd.Categorical(df_disc['color'],
+                                  categories=['success', 'warning', 'danger'],
+                                  ordered=True)
+
+# add icon_id column
+icon_dict = {'warning': 'exclamation-triangle-fill', 'success': 'check-lg', 'danger':'exclamation-octagon-fill'}
+df_disc['icon_id'] = df_disc['color'].map(icon_dict)
+df_disc = df_disc.sort_values('color')
 
 # STOCKS DF
 # set first row as header & reset row idxs

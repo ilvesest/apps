@@ -239,3 +239,16 @@ body {
   background-color: var(--bs-danger-bg-subtle);
 }
 
+/* Custom Icon List */
+.icon-list .icon-list-item {
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+.icon-list .icon-list-item .li-icon {
+  text-align:right;
+  margin-left:-45px;
+  float:left;
+  width:40px;
+  vertical-align: middle;
+}
