@@ -4,7 +4,7 @@ from dashboard.logic.io import GSHEETS_URL, get_sheet_names, read_gsheet
 from dashboard.data.investments import df_dict, df_ads, df_table, styler_main, \
     plot_js, plot_div, cdn_js, df_a, df_hist, df_advice, df_gen, df_risk
 from dashboard.data.example_portf import dfs
-from dashboard.data.stocks_watchlist import df_style
+from dashboard.data.stocks_watchlist import df_style, df_disc
 
 
 # 3rd party imports
@@ -117,6 +117,7 @@ def portfolios_page():
 @app.route("/Stocks Watchlist")
 def stockswatchlist_page():
     return render_template("stocks_watchlist.html",
-                           df_style=df_style)
+                           df_style=df_style,
+                           df_disc=df_disc)
 
 

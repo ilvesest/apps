@@ -19,6 +19,17 @@ header_idx = df.apply(lambda x: x.str.contains("Neil's Value", case=False)).any(
 df_disclaimer = df.iloc[:header_idx-1, 0]
 df_watch = df.iloc[header_idx:,]
 
+# DISCLAIMER DF
+df_disc = df_disclaimer.copy()
+
+# add period end of the sentence if not so
+df_disc = df_disc.to_frame().rename(columns={0: 'info'})
+df_disc.loc[:,'info'] = [x + '.' if x[-1] != '.' else x for x in df_disc['info']]
+
+# add info color column
+df_disc['font_color'] = ['secondary', 'secondary', 'secondary', 'secondary', 'success', 'danger']
+
+# STOCKS DF
 # set first row as header & reset row idxs
 df_watch.columns = df_watch.iloc[0].values
 df_watch = df_watch.iloc[1:].reset_index(drop=True)

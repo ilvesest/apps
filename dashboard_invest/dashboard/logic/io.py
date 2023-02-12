@@ -197,8 +197,6 @@ def total_value_to_num(df: pd.DataFrame):
         .query("Total_Value != '#ERROR!'")
     )
     
-    df['Total_Value'] = (df['Total_Value']
-        .replace(r"[\$,]", "", regex=True)
-        .astype(float)
-    )
+    df['Total_Value'] = pd.to_numeric(df['Total_Value'].replace(r"[\$,]", "", regex=True),
+                                      errors='coerce')
     return df.reset_index()    

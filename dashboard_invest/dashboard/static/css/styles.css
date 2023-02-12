@@ -232,3 +232,10 @@ body {
   --bs-accordion-btn-focus-border-color: var(--bs-warning-text);
   --bs-accordion-btn-focus-box-shadow: var(--bs-warning-text);
 }
+
+/* DISCLAIMER */
+.danger-modal .modal-header,
+.danger-modal .modal-footer {
+  background-color: var(--bs-danger-bg-subtle);
+}
+

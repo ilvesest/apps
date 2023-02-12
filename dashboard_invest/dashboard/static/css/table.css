@@ -9,7 +9,7 @@
   --bs-btn-hover-color: #68a40f;
 }
 
-table {z-index: 1; 
+table {
 	background: var(--bs-nav-background-color);
 	border-radius: 0.4em;
 	border-collapse: collapse;
@@ -97,7 +97,7 @@ table.stocks_watch td {
 .table-sticky thead th:first-child,
 .table-sticky tbody td:first-child {
   position: sticky;
-  left: 0;
+  left: -1px;
   z-index: 1;
   background-color: var(--bs-nav-background-color);
   /*box-shadow: inset -1px 0px 0 var(--bs-nav-active-color); # vertical border */

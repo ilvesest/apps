@@ -9,10 +9,42 @@
     <head>
         <!-- Table CSS -->
         <link rel="stylesheet" href="static/css/table.css">
-
+        
     </head>
 
     <body>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Launch static backdrop modal
+        </button>
+
+        <!-- Disclaimer Modal -->
+        <div class="modal fade danger-modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header panel-danger">
+                        <h1 class="modal-title fs-5 w-100 text-center" id="staticBackdropLabel"><b>DISCLAIMER</b></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <ul class="list-unstyled">
+                        {% for i,row in df_disc.iterrows() %}
+                            <li style="color:var(--bs-{{ row['font_color'] }}-text);">
+                                <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:" width="20" height="20"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                {{ row['info'] }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Understood</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <br>
         <div class="container">
             <div class="row position-relative">
@@ -20,6 +52,7 @@
                 {{ df_style.to_html()|safe }}
             </div>
         </div>
+
     </body>
 
 {% endblock %}
