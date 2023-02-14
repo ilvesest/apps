@@ -1,0 +1,6 @@
+Find DF-s with coordinates or empty rows;
+
+main: (0, 'Monthly Income')
+ads: (contains My Finance Course, till empty)
+announcements: (Property Purchase)
+advice: (announcmeents last)

@@ -17,7 +17,8 @@ gunicorn = "*"
 
 [dev-packages]
 ipykernel = "*"
+notebook = "*"
 
 [requires]
 python_version = "3.11"
-python_full_version = "3.11.1"
+python_full_version = "3.11.2"
