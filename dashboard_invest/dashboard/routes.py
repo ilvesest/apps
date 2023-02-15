@@ -78,7 +78,6 @@ nav_names = {
     }
 }
 
-
 # make sheet_names global variable for all templates
 @app.context_processor
 def inject_sheet_names():
@@ -92,7 +91,7 @@ def inject_sheet_names():
 def home_page():
 
     # flash warning message if "#ERROR! in data"
-    warning_msg = df_dict['error_warning'][0].values[0] + "!"
+    warning_msg = df_dict['warning_msg'].iloc[0] + "!"
     
     if (df_table == '#ERROR!').sum().sum() > 0:
         flash(warning_msg, category='danger')

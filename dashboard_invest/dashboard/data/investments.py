@@ -1,6 +1,6 @@
 # local imports
 from dashboard.logic.io import GSHEETS_URL, read_gsheet, comment_button, total_assets, \
-    total_value_to_num, getDataFrames
+    total_value_to_num, getDFs
 from dashboard.logic.plots import components, pie_chart, cdn_js
 
 # 3rd party imports
@@ -14,7 +14,20 @@ df = read_gsheet(
 )
 
 # Extract sub DF to dictionary
-df_dict = getDataFrames(df)
+references_dict = {
+    'main' : ("contains", "Monthly Income", 'up'),
+    'ads' : ("contains", 'My Finance Course', 'down'),
+    'announce' : ("contains", "Jul 2022: I'm", 'up'),
+    'advice' : ("contains", '3x Excellent', 'up'),
+    'warning_msg' : ("contains", 'NOTE: Occasionally', 'one'),
+    'risk' : ("equals", "RISK", 'down'),
+    'historical' : ("equals", "My Historical Investments", "down"),
+    'cash_pos' : ("contains", "CASH POSITION", 'one'),
+    'general_notes' : ("equals", "GENERAL NOTES", "down"),
+    'success' : ("equals", "Investment Success:", "down")
+}
+
+df_dict = getDFs(df, references_dict=references_dict)
 
 # ADS
 df_ads = df_dict['ads'].copy()
@@ -25,7 +38,7 @@ headers = ['Course', 'Mentoring', 'PM Global', 'PM USA', 'PM UK', 'Crypto Securi
 df_ads['header'] = headers
 
 ## Main DF ##
-df_table = df_dict['main']
+df_table = df_dict['main'].iloc[:,:3]
 df_table.columns = ['Asset Class', 'Total Value', 'Comments']
 df_table = df_table.set_index('Asset Class')
 
@@ -82,7 +95,7 @@ df_risk['risk_word'] = df_risk['risk'].replace({1:'VERY LOW', 2: 'LOW', 3: 'MEDI
 df_risk['li_group'] = df_risk['risk'].replace({1: 'success', 2: 'info', 3: 'warning', 4: 'danger'})
 
 # ANNOUNCEMENTS
-df_a = df_dict['announcements'].copy()
+df_a = df_dict['announce'].copy()
 df_a = df_a.reset_index(drop=True)
 df_a = df_a[0].str.split(pat=':', n=1, expand=True)
 df_a.columns = ['date', 'text']

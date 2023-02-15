@@ -26,12 +26,12 @@
             <h2 class="pb-1 border-bottom">Affiliated Links</h2>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-4 ">
 
-                {% for i in range(df_ads.shape[0]) %}
+                {% for i,row in df_ads.iterrows() %}
                 
                     <div class="card d-flex align-items-start mx-2 my-2" style="width: 16rem;">
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">{{ df_ads.loc[i, 'icon'] + ' ' + df_ads.loc[i, 'header'] }}</h5>
-                            <p class="card-text">{{df_ads.loc[i, 'text']}}</p>
+                            <h5 class="card-title fw-bold">{{ row['icon'] + ' ' + row['header'] }}</h5>
+                            <p class="card-text">{{ row['text'] }}</p>
                             <a href="{{ df_ads.loc[i, 'hyperlink'] }}" class="card-link">Visit Site</a>
                         </div>
                     </div>

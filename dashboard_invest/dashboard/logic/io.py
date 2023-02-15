@@ -1,6 +1,7 @@
 # 3rd party imports
 import requests
 from bs4 import BeautifulSoup as BS
+import numpy as np
 
 # pandas 
 import pandas as pd
@@ -10,7 +11,7 @@ pd.options.mode.chained_assignment = None
 GSHEETS_URL = "https://docs.google.com/spreadsheets/d/" \
     "12-GISr1efphjtpuJLCfQzI2akNXxaJ1iabsG24ib71c/edit#gid=1755810028"
 
-# Google Docs related IO
+# GOOGLE DOCS IO
 def get_sheet_names(url: str, class_name: str="goog-inline-block docs-sheet-tab-caption") -> list[str]:
     """Find all Google Spreadsheet Sheet names
 
@@ -39,115 +40,127 @@ def read_gsheet(url:str, **read_csv_kwargs):
     return pd.read_csv(url_csv, **read_csv_kwargs)
 
 
-### DATAFRAME MODIFICATION ###
-def findRowColRegex(df: pd.DataFrame, pat: str, case: bool=True, regex:bool=True):
-    """Return subset DF beginning index and col tuple
+### DATAFRAME IO ###
+def findRefRowCol(df: pd.DataFrame, pattern: str, method: str='contains') -> tuple[int, int]:
+    """Find reference row and column numeric index values.
 
     Args:
-        df (pd.DataFrame): DF to be subset.
-        pat (str): Regex pattern to be search for.
-        case (bool, optional): Case sensitive. Defaults to True.
-        regex (bool, optional): If pattern treated like regex or not. Defaults to True.
+        pattern (str): Character sequence or regular expression.
+        method (str, optional): Finding reference via pattern within the text ('contains')
+            or equalling the value exactly ('equals'). Defaults to 'contains'.
 
     Raises:
-        ValueError: If 0 pattern matches are found.
-        ValueError: If more than pattern matches are found.
+        ValueError: Raises error if other than ['contains', 'equals'] is specified for the method.
 
     Returns:
-        tuple(row, col): Tuple of (row, col) values for the pattern match.
+        tuple[int, int]: Tuple of ['row_i', 'col_i']
     """
-    # make sure only one such pat exists in the df
-    df_mask = df.apply(lambda x: x.str.contains(pat, case=case, regex=regex) if x.dtype == 'object' else None)
     
-    count = df_mask.sum().sum()
     
-    if count < 1: 
-        raise ValueError(f'Given {pat} did not give any results.')
-    if count > 1:
-        raise ValueError(f'Given {pat} gave more than 1 results.')
-     
-    # col and row values where pat
-    row = df_mask.any(axis='columns').argmax()
-    col = df_mask.any(axis='index').argmax()
+    # validate that method is correctly entered
+    if method not in ['contains', 'equals']:
+        raise ValueError(f"{method} can take only values: 'contains' or 'equals'!")
     
-    return row, col
-
-def getDataFrames(df: pd.DataFrame):
-    """Divide big DF into sub DFs based on patterns and empty rows.
+    idx_series = None
+    if method == 'contains':
+        idx_series = df.apply(lambda x: x.str.contains(pattern)).idxmax()
+    if method == 'equals':
+        idx_series = (df == pattern).idxmax()
+    
+    return idx_series.max(), idx_series.idxmax() 
+    
+def sliceDF(df: pd.DataFrame, 
+            row_idx1: int=None, 
+            row_idx2:int=None, 
+            col_idx1: int=None, 
+            col_idx2: int=None,
+            col_0: bool=True, 
+            direction='down') -> pd.DataFrame:
+    """Slice DF till the first occuring empty row in given direction.
 
     Args:
-        df (pd.DataFrame): DF.
+        col_0 (bool, optional): If col_idx1 is actually first column. Defaults to True.
+        direction (str, optional): Slice upwards or downwards from given row index. Defaults to 'down'.
+
+    Raises:
+        ValueError: If no row indices are specified.
 
     Returns:
-        dict{'df_name': df}: Dictionary of DFs with their respective names as keys.
+        pd.DataFrame
     """
     
-    df = df.reset_index(drop=True)
-    dataframes_dict = {}
+    # assert that at least one of the row indices is specified
+    if row_idx1 is None and row_idx2 is None:
+        raise ValueError(f"Both row indices can't equal {None}!") 
     
-    # MAIN DF
-    main_df_idx2 = (df == 'Monthly Income').any(axis='columns').argmax()
-    dataframes_dict['main'] = df.iloc[:main_df_idx2+1,:3].dropna(how='all', axis='rows')
+    # if column index is not the first column then None
+    col_idx1 = col_idx1 if col_0 is True else None
     
-    # ADS DF
-    r1, c1 = findRowColRegex(df, "My Finance Course")
-    
-    
-    ads_df = df.iloc[r1:,c1:].reset_index(drop=True)
-    ads_df = (ads_df
-        .loc[:(ads_df[c1].isna()).argmax()-1, :]
-        .dropna(how='all', axis='columns')
-    )
-    dataframes_dict['ads'] = ads_df
-    
-    # OTHER DFS
-    df_names = [
-    'announcements',
-    'advice',
-    'error_warning',
-    'risk',
-    'skip',
-    'skip',
-    'skip',
-    'historical',
-    'cash_pos',
-    'general_notes',
-    'success',
-    ]
-    
-    # Find rows after main df where all values are NaN-s.
-    nan_rows = df.iloc[main_df_idx2+1:,].isna().all(axis='columns')
-    
-    # Indices where all NaN-s in the row
-    dfs_idxs = []
-    
-    for i,bool in nan_rows.items():
+    # find missing row index
+    if direction == 'down':
+        nan_mask = (df.iloc[row_idx1:,col_idx1:col_idx2] == 'nan').all(axis='columns')
+        row_idx2 = None if nan_mask.sum() == 0 else nan_mask.idxmax()
         
-        if i == nan_rows.index[-1]:
-            dfs_idxs.append(None)
-            break
-        if bool:
-            dfs_idxs.append(i)
     
-    # raw dataframes
-    dfs = []        
-    for i,idx in enumerate(dfs_idxs):
-        if i == len(dfs_idxs) - 1:
-            break
-        dfs.append(df.iloc[idx:dfs_idxs[i+1]])
-    
-    # strip dataframes from NaN-s and add to dictionary
-    for df_, name in zip(dfs, df_names):
-        
-        if name == 'skip': continue
-        
-        dataframes_dict[name] = (df_
-            .dropna(how='all', axis='columns')
-            .dropna(how='all', axis='rows')
-        )
-    
-    return dataframes_dict
+    if direction == 'up':
+        nan_mask = (df.iloc[:row_idx2,col_idx1:col_idx2] == 'nan').all(axis='columns')
+        row_idx1 = None if nan_mask.sum() == 0 else nan_mask[::-1].idxmax() + 1
+        row_idx2 += 1
+         
+    return df.iloc[row_idx1:row_idx2,col_idx1:col_idx2]
 
+def getDFs(df: pd.DataFrame, references_dict: dict[str, tuple[str,str,str]]) -> dict[str, pd.DataFrame]:
+    """Get subset DFs from a bigger DF based on reference strings.
+
+    Args:
+        df (pd.DataFrame): Raw initial DF.
+        references_dict (dict): Dictionary of df_name: tuple('method', 'string' , 'direction').
+            method has 2 options ['contains' and 'equals'], 'direction' has 3 options 
+            ['one', 'down', 'up'] where one means only one line needs to be parsed, 'up' and 'down'
+            respectively correspond to the parsing direction from the reference point.
+            
+            Returns:
+        dict: Dictionary of {'df_name': df}
+    """
+    
+    
+    # set all cols str type, NaN -> 'nan'
+    df = df.reset_index(drop=True).astype(str)
+    
+    # find reference indices
+    dfs = {}
+    for k,v in references_dict.items():
+        
+        row_i, col_i = findRefRowCol(df, pattern=v[1], method=v[0])
+        col_i = 0 if k=='risk' else col_i
+        
+        if v[2] == 'one':
+            dfs[k] = df.iloc[row_i,col_i:]
+        if v[2] == 'down':
+            dfs[k] = sliceDF(df, row_idx1=row_i, col_idx1=col_i, direction=v[2])
+        if v[2] == 'up':
+            dfs[k] = sliceDF(df, row_idx2=row_i, col_idx1=col_i, direction=v[2])
+
+    # strip all NaN cols and rows
+    dfs_clean = {}
+    for k,df_ in dfs.items():
+        
+        if isinstance(df_, pd.Series):
+            dfs_clean[k] = (df_
+            .replace({'nan': np.nan})
+            .dropna(how='any', axis='rows')
+            )
+        else:
+            dfs_clean[k] = (df_
+                .replace({'nan': np.nan})
+                .dropna(how='all', axis='columns')
+                .dropna(how='all', axis='rows')
+            )
+    
+    return dfs_clean
+
+
+### DF MODIFICATION ###
 def total_assets(df: pd.DataFrame, index:str, col:str) -> pd.DataFrame:
     """Calculate total value if '#ERROR!'
     """
