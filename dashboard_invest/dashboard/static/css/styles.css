@@ -20,6 +20,7 @@
   color: white,var(--bs-text-opacity)!important;
 }
 
+/*
 .navbar .me-2 {
   margin-right: 0rem;
 }
@@ -31,6 +32,23 @@
 
 .nav {
   --bs-nav-link-padding-x: 0.5rem;
+}
+*/
+
+@media (min-width: 992px) {
+  .bi {
+    font-size: x-large;
+    
+  }
+  .nav-icon {
+    text-align: center;
+
+  }
+  .nav-text {
+    inline-size: 10px;
+    white-space: nowrap;
+  }
+
 }
 
 .navbar .active svg, 
@@ -44,10 +62,6 @@
 .navbar .nav-link:hover svg {
   color: var(--bs-nav-hover-color)!important;
   fill: var(--bs-nav-hover-color)!important;
-}
-
-@media (max-width: 991px){
-  .navbar
 }
 
 /* Logo style */

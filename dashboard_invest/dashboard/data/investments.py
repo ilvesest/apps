@@ -102,7 +102,8 @@ df_a.columns = ['date', 'text']
 no_date_idx = df_a['date'].str.contains(r"property purchase 23rd", case=False).argmax()
 df_a.loc[no_date_idx, 'text'] = df_a.loc[no_date_idx, 'date']
 df_a.loc[no_date_idx, 'date'] = 'Jan 2023'
-df_a['heading'] = ['Property Purchase', 'Rising Rates', 'Stocks Ralley and Crash', 
+df_a['heading'] = ['Protect the Cash',
+                   'Property Purchase', 'Rising Rates', 'Stocks Ralley and Crash', 
                    'No Change', 'Assets Falling', 'Cash is King', 'Stockbiling Cash', 
                    'Accumulating Cash', 'Into Cash!']
 

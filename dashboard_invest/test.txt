@@ -1,6 +1,32 @@
-Find DF-s with coordinates or empty rows;
+<li class="{% if sheet_dict['new name'] == request.path[1:] %}active{% endif %}">
+    <a href="{{ url_for(sheet_dict['page']) }}" 
+    class="nav-link text-white" 
+    title="{{ sheet_dict['title'] }}">
+        
+        <svg class="bi d-block mx-auto mb-1" width="24" height="24">
+            <use xlink:href="#{{ sheet_dict['symbol_id'] }}"></use>
+        </svg> {{ sheet_dict['new name'] }}
 
-main: (0, 'Monthly Income')
-ads: (contains My Finance Course, till empty)
-announcements: (Property Purchase)
-advice: (announcmeents last)
+    </a>
+</li>
+
+
+
+<div class="collapse navbar-collapse" id="navbar">
+                    <ul class="navbar-nav">
+
+                        {% for sheet, sheet_dict in sheet_names.items() if sheet != "X-Test Crypto" %}
+                        
+                            <li class="{% if sheet_dict['new name'] == request.path[1:] %}active{% endif %}">
+                                <a href="{{ url_for(sheet_dict['page']) }}" 
+                                class="nav-link text-white" title="{{ sheet_dict['title'] }}">
+                                <i class="bi bi-cash-coin"></i> {{ sheet_dict['new name'] }} 
+                                </a>
+
+                            </li>
+
+                        {% endfor %} 
+            
+                    </ul>
+
+              </div>

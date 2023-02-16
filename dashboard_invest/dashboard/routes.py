@@ -28,6 +28,12 @@ nav_names = {
         "page": "portfolios_page", 
         "symbol_id": "briefcase"
     },
+    "2023 Forecasts & Risks":{
+        "new name": "2023 Forecasts & Risks", 
+        "title": "2023 Forecasts & Risks",
+        "page": "home_page", 
+        "symbol_id": "apple"
+    },
     "Stocks": {
         "new name": "Stocks", 
         "title": "Stocks",
