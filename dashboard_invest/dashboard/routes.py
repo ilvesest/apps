@@ -20,67 +20,67 @@ nav_names = {
         "new name": "Portfolio", 
         "title": "Overall Portfolio", 
         "page": "home_page", 
-        "symbol_id": "cash-coin"
+        "symbol_id": "bi bi-cash-coin"
     },
     "Investment Allocation Examples": {
         "new name":"Model Portfolios", 
         "title": "Example Portfolios", 
         "page": "portfolios_page", 
-        "symbol_id": "briefcase"
+        "symbol_id": "bi bi-briefcase"
     },
     "2023 Forecasts & Risks":{
-        "new name": "2023 Forecasts & Risks", 
+        "new name": "2023 Forecasts", 
         "title": "2023 Forecasts & Risks",
         "page": "home_page", 
-        "symbol_id": "apple"
+        "symbol_id": "bi bi-cloud-sun"
     },
     "Stocks": {
         "new name": "Stocks", 
         "title": "Stocks",
         "page": "home_page", 
-        "symbol_id": "apple"
+        "symbol_id": "bi bi-apple"
     },
     "Stocks Watchlist": {
         "new name": "Stocks Watchlist", 
         "title": "Stocks Watchlist",
         "page": "stockswatchlist_page", 
-        "symbol_id": "eye"
+        "symbol_id": "bi bi-eye"
     },
     "Metals": {
         "new name": "Metals", 
         "title": "Precious Metals",
         "page": "home_page", 
-        "symbol_id": "gem"
+        "symbol_id": "bi bi-gem"
     },
     "BizRE": {
-        "new name": "Business & RE", 
+        "new name": "Business & Real Estate", 
         "title": "Business & Real Estate",
         "page": "home_page", 
-        "symbol_id": "houses"
+        "symbol_id": "bi bi-houses"
     },
     "Crypto Consolidation": {
         "new name":"Crypto", 
         "title": "Crypto Investments",
         "page": "home_page", 
-        "symbol_id": "crypto"
+        "symbol_id": "bi bi-wallet2"
     },
     "Crypto INFO (SaleHODL Notes)": {
         "new name":"Crypto Watchlist", 
         "title": "Crypto Watchlist",
         "page": "home_page", 
-        "symbol_id": "wallet"
+        "symbol_id": "bi bi-currency-bitcoin"
     },
     "Value Investing Ratios": {
         "new name": "Metrics", 
         "title": "Example Company Valuations",
         "page": "home_page", 
-        "symbol_id": "chart"
+        "symbol_id": "bi bi-graph-up"
     },
     "X-Test Crypto": {
         "new name": "Test Sheet", 
         "title": "Testing Sheet",
         "page": "home_page", 
-        "symbol_id": "chart"
+        "symbol_id": "fa-solid fa-flask-vial"
     }
 }
 

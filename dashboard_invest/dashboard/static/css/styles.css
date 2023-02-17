@@ -35,20 +35,38 @@
 }
 */
 
-@media (min-width: 992px) {
-  .bi {
+/* NAVBAR @ sm >=*/
+@media (max-width: 992px) {
+  .nav-icon-col {
+    width:fit-content;
+
+  }
+  
+  .nav-icon {
     font-size: x-large;
     
   }
-  .nav-icon {
-    text-align: center;
-
-  }
-  .nav-text {
-    inline-size: 10px;
+  .nav-li {
+    text-align: left;
     white-space: nowrap;
+    line-height: 50px;
+
+  }
+}
+
+/* NAVBAR @ lg >=*/
+@media (min-width: 992px) {
+  .nav-icon {
+    font-size: x-large;
+  }
+  .nav-li {
+    text-align: center;
   }
 
+  .nav-text {
+    word-wrap: break-word;
+    max-width: 140px;
+  }
 }
 
 .navbar .active svg, 
