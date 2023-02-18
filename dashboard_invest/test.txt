@@ -1,26 +1,17 @@
-Original ads:
+<!-- ASSET RISK -->
+<div class="container">
+    <div class="row d-flex flex-column justify-content-center">
+        <div class="col-lg-12 col-md-6 col-sm-3">
+            <h2 class="border-bottom">Asset Risk</h2>
 
-<!-- ADS CARDS -->
-        <div class="container px-4 py-5" id="icon-grid">
-            <h2 class="pb-1 border-bottom">Affiliated Links</h2>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-4 ">
-
-                {% for i,row in df_ads.iterrows() %}
-                
-                    <div class="card d-flex align-items-start mx-2 my-2" style="width: 16rem;">
-                        <div class="card-body">
-                            <h5 class="card-title fw-bold">{{ row['icon'] + ' ' + row['header'] }}</h5>
-                            <p class="card-text">{{ row['text'] }}</p>
-                            <a href="{{ df_ads.loc[i, 'hyperlink'] }}" class="card-link">Visit Site</a>
-                        </div>
-                    </div>
-
+            <ul class="list-group list-group-horizontal">
+                {% for i, row in df_risk.iterrows() %}
+                <a class="list-group-item list-group-item-{{row['li_group']}} text-center list-group-item-action" 
+                data-bs-toggle="popover" data-bs-placement="top" data-bs-title="RISK: {{row['risk_word']}}" 
+                data-bs-custom-class="custom-popover-{{row['li_group']}}"
+                data-bs-trigger="hover" data-bs-content="{{ row['comment'] }}">{{row['asset']}}</a>
                 {% endfor %}
-    
-            </div>
+            </ul>
         </div>
-
-
-Legend: 
-    margin: 10
-    padding: 10
+    </div>
+</div>

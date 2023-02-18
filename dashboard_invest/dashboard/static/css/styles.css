@@ -85,6 +85,12 @@ body {
   font-size: 13px;
 }
 
+/* ASSET RISK */
+@media (max-width: 991px) {
+  #risk-list-group {
+    width: 50%;
+  }
+}
 
 /* TIMELINE */
 .timeline_area {
