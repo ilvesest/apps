@@ -1,32 +1,26 @@
-<li class="{% if sheet_dict['new name'] == request.path[1:] %}active{% endif %}">
-    <a href="{{ url_for(sheet_dict['page']) }}" 
-    class="nav-link text-white" 
-    title="{{ sheet_dict['title'] }}">
-        
-        <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-            <use xlink:href="#{{ sheet_dict['symbol_id'] }}"></use>
-        </svg> {{ sheet_dict['new name'] }}
+Original ads:
 
-    </a>
-</li>
+<!-- ADS CARDS -->
+        <div class="container px-4 py-5" id="icon-grid">
+            <h2 class="pb-1 border-bottom">Affiliated Links</h2>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-4 ">
+
+                {% for i,row in df_ads.iterrows() %}
+                
+                    <div class="card d-flex align-items-start mx-2 my-2" style="width: 16rem;">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">{{ row['icon'] + ' ' + row['header'] }}</h5>
+                            <p class="card-text">{{ row['text'] }}</p>
+                            <a href="{{ df_ads.loc[i, 'hyperlink'] }}" class="card-link">Visit Site</a>
+                        </div>
+                    </div>
+
+                {% endfor %}
+    
+            </div>
+        </div>
 
 
-
-<div class="collapse navbar-collapse" id="navbar">
-                    <ul class="navbar-nav">
-
-                        {% for sheet, sheet_dict in sheet_names.items() if sheet != "X-Test Crypto" %}
-                        
-                            <li class="{% if sheet_dict['new name'] == request.path[1:] %}active{% endif %}">
-                                <a href="{{ url_for(sheet_dict['page']) }}" 
-                                class="nav-link text-white" title="{{ sheet_dict['title'] }}">
-                                <i class="bi bi-cash-coin"></i> {{ sheet_dict['new name'] }} 
-                                </a>
-
-                            </li>
-
-                        {% endfor %} 
-            
-                    </ul>
-
-              </div>
+Legend: 
+    margin: 10
+    padding: 10

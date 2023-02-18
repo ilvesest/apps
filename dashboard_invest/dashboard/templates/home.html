@@ -22,9 +22,9 @@
     <body>
 
         <!-- ADS CARDS -->
-        <div class="container px-4 py-5" id="icon-grid">
-            <h2 class="pb-1 border-bottom">Affiliated Links</h2>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-4 ">
+        <div class="container px-2 py-4" id="icon-grid">
+            <h2 class="pb-1 border-bottom text-center">Affiliated Links</h2>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center">
 
                 {% for i,row in df_ads.iterrows() %}
                 
@@ -42,16 +42,14 @@
         </div>
 
         <!-- MAIN TABLE & PIE-CHART-->
-        <div class="container">
-            <div class="row" style="margin-top:-30px;">
-                <div class="col-md-6 d-flex flex-column align-content-center text-left">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-lg-6 d-flex flex-column align-content-center text-center">
                     <h2 class="border-bottom">Total Investements</h2>
-                    <br>
                     {{ table.to_html()|safe }}
                 </div>
-                <div class="col-md-6 d-flex flex-column align-content-center text-left align-middle">
+                <div class="col-lg-6 d-flex flex-column align-content-center text-center">
                     <h2 class="border-bottom">Asset Allocations</h2>
-                    <br>
                     <div>{{ plot_div | safe }}</div> 
                 </div>
             </div>

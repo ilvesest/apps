@@ -26,6 +26,7 @@ def pie_chart(
     fig_height: int=350,
     background_color: str='#212529',
     pallette: dict=Category10,
+    sizing_mode='scale_both',
     hover_tooltip: str='default',
     legend_place: str='right',
     fig_kwargs: dict={},
@@ -61,7 +62,12 @@ def pie_chart(
     df = df.reset_index(drop=True)
     
     # init the figure/canvas for the plot
-    p = figure(height=fig_height, toolbar_location=None, x_range=x_range, **fig_kwargs)
+    p = figure(height=fig_height, 
+               toolbar_location=None, 
+               x_range=x_range,
+               y_range=(-1.0, 1.0),
+               sizing_mode=sizing_mode,
+               **fig_kwargs)
     
     legend_items = []
     for idx, color in enumerate(pallette[df.shape[0]]):
@@ -84,8 +90,8 @@ def pie_chart(
         hover_tooltip = hover_tooltip if hover_tooltip != 'default' else \
             f"""
                 <div>
-                    <p style="margin:0;font-weight:bold;color:grey;">@{x_hover}</p>
-                    <p style="padding:0;margin:0;font-weight:bold;">@{y_hover} (@percentage_hover%)</p>
+                    <p style="margin:0;font-weight:bold;color:grey;text-align:left;">@{x_hover}</p>
+                    <p style="padding:0;margin:0;font-weight:bold;text-align:left;">$@{y_hover}{{0,0.00}} (@percentage_hover%)</p>
                 </div>
             """
         
@@ -105,6 +111,7 @@ def pie_chart(
     p.axis.axis_label = None
     p.axis.visible = False
     p.grid.grid_line_color = None
+    
     
     p.min_border=0
     p.outline_line_alpha=0

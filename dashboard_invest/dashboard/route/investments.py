@@ -79,7 +79,12 @@ pie_chart_plot = pie_chart(
     df=df_plot,
     x='Asset_Class',
     y='Total_Value',
-    background_color='#2C2B2B'
+    background_color='#2C2B2B',
+    legend_place='below',
+    fig_height=700,
+    label_distance=3,
+    radius=0.62,
+    sizing_mode='scale_width'
 )
 
 plot_js, plot_div = components(pie_chart_plot)

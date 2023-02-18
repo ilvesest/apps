@@ -20,21 +20,6 @@
   color: white,var(--bs-text-opacity)!important;
 }
 
-/*
-.navbar .me-2 {
-  margin-right: 0rem;
-}
-
-.navbar .bi {
-  vertical-align: -0.125em;
-  fill: var(--bs-nav-color);
-}
-
-.nav {
-  --bs-nav-link-padding-x: 0.5rem;
-}
-*/
-
 /* NAVBAR @ sm >=*/
 @media (max-width: 992px) {
   .nav-icon-col {
@@ -82,7 +67,7 @@
   fill: var(--bs-nav-hover-color)!important;
 }
 
-/* Logo style */
+/* LOGO style */
 .logo {
   width: 100px;
   height: 50px;
@@ -100,6 +85,8 @@ body {
   font-size: 13px;
 }
 
+
+/* TIMELINE */
 .timeline_area {
   position: relative;
   z-index: 1;
