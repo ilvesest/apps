@@ -6,6 +6,7 @@ from dashboard.logic.plots import components, pie_chart, cdn_js
 # 3rd party imports
 import pandas as pd
 import numpy as np
+import re
 
 # Read in summary DF and drop empty rows
 df = read_gsheet(
@@ -104,13 +105,9 @@ df_a = df_dict['announce'].copy()
 df_a = df_a.reset_index(drop=True)
 df_a = df_a[0].str.split(pat=':', n=1, expand=True)
 df_a.columns = ['date', 'text']
-no_date_idx = df_a['date'].str.contains(r"property purchase 23rd", case=False).argmax()
+no_date_idx = df_a['date'].str.contains(r"property for £980k", case=False).argmax()
 df_a.loc[no_date_idx, 'text'] = df_a.loc[no_date_idx, 'date']
-df_a.loc[no_date_idx, 'date'] = 'Jan 2023'
-df_a['heading'] = ['Protect the Cash',
-                   'Property Purchase', 'Rising Rates', 'Stocks Ralley and Crash', 
-                   'No Change', 'Assets Falling', 'Cash is King', 'Stockbiling Cash', 
-                   'Accumulating Cash', 'Into Cash!']
+df_a.loc[no_date_idx, 'date'] = re.search(r"[A-Z]{1}[a-z]{2}\s202\d{1}", df_a.loc[no_date_idx, 'text'])[0]
 
 
 # GENERAL ADVICE
