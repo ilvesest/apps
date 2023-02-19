@@ -17,67 +17,78 @@ sheet_names = get_sheet_names(url=GSHEETS_URL)
 # sheet name smanually
 nav_names = {
     "Investments": {
-        "new name": "Portfolio", 
+        "new name": "Portfolio",
+        "routes": ["Portfolio", "", "home"],
         "title": "Overall Portfolio", 
         "page": "home_page", 
         "symbol_id": "bi bi-cash-coin"
     },
     "Investment Allocation Examples": {
-        "new name":"Model Portfolios", 
+        "new name":"Model Portfolios",
+        "routes": ["Model Portfolios"],
         "title": "Example Portfolios", 
         "page": "portfolios_page", 
         "symbol_id": "bi bi-briefcase"
     },
     "2023 Forecasts & Risks":{
-        "new name": "2023 Forecasts", 
+        "new name": "2023 Forecasts",
+        "routes": ["2023 Forecasts"],
         "title": "2023 Forecasts & Risks",
         "page": "home_page", 
         "symbol_id": "bi bi-cloud-sun"
     },
     "Stocks": {
-        "new name": "Stocks", 
+        "new name": "Stocks",
+        "routes": ["Stocks"], 
         "title": "Stocks",
         "page": "home_page", 
         "symbol_id": "bi bi-apple"
     },
     "Stocks Watchlist": {
-        "new name": "Stocks Watchlist", 
+        "new name": "Stocks Watchlist",
+        "routes": ["Stocks Watchlist"],
         "title": "Stocks Watchlist",
         "page": "stockswatchlist_page", 
         "symbol_id": "bi bi-eye"
     },
     "Metals": {
-        "new name": "Metals", 
+        "new name": "Metals",
+        "routes": ["Metals"],
         "title": "Precious Metals",
         "page": "home_page", 
         "symbol_id": "bi bi-gem"
     },
     "BizRE": {
-        "new name": "Business & Real Estate", 
+        "new name": "Business & Real Estate",
+        "routes": ["Business & Real Estate"],
         "title": "Business & Real Estate",
         "page": "home_page", 
         "symbol_id": "bi bi-houses"
     },
     "Crypto Consolidation": {
-        "new name":"Crypto", 
+        "new name":"Crypto",
+        "routes": ["Crypto"], 
         "title": "Crypto Investments",
         "page": "home_page", 
         "symbol_id": "bi bi-wallet2"
     },
     "Crypto INFO (SaleHODL Notes)": {
-        "new name":"Crypto Watchlist", 
+        "new name":"Crypto Watchlist",
+        "routes": ["Crypto Watchlist"], 
         "title": "Crypto Watchlist",
         "page": "home_page", 
         "symbol_id": "bi bi-currency-bitcoin"
     },
     "Value Investing Ratios": {
-        "new name": "Metrics", 
+        "new name": "Metrics",
+        "routes": ["Metrics"], 
         "title": "Example Company Valuations",
         "page": "home_page", 
         "symbol_id": "bi bi-graph-up"
     },
     "X-Test Crypto": {
-        "new name": "Test Sheet", 
+        "new name": "Test Sheet",
+        "routes": ["Test Sheet"], 
         "title": "Testing Sheet",
         "page": "home_page", 
         "symbol_id": "fa-solid fa-flask-vial"

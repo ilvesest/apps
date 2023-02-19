@@ -25,7 +25,7 @@
 
                             {% for sheet, sheet_dict in sheet_names.items() if sheet not in ["X-Test Crypto"] %}
                             
-                                <li class="nav-li {% if sheet_dict['new name'] == request.path[1:] %}active{% endif %}">
+                                <li class="nav-li {% if request.path[1:] in sheet_dict['routes'] %}active{% endif %}">
                                     <div class="container px-0 gx-0"> 
                                         <a href="{{ url_for(sheet_dict['page']) }}" class="nav-link text-white p-1" title="{{ sheet_dict['title'] }}">   
                                             <div class="row">
