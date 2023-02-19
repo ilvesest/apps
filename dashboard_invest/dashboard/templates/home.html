@@ -46,7 +46,7 @@
             <div class="row">
                 <div class="col-lg-6 d-flex flex-column text-center">
                     <h2 class="border-bottom">Total Investements</h2>
-                    <div class="d-flex justify-content-center pt-3 mb-0"> {{table.to_html()|safe }}</div>
+                    <div class="d-flex justify-content-center pt-3 mb-0 pb-2 pb-lg-0"> {{table.to_html()|safe }}</div>
                 </div>
                 <div class="col-lg-6 d-flex flex-column text-center">
                     <h2 class="border-bottom">Asset Allocations</h2>
@@ -117,45 +117,47 @@
         <section class="general-info pb-5">
             <div class="container pt-4">
                 <div class="row d-flex justify-content-center">
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-lg-8">
+                        <h2 class="border-bottom text-center">General Notes</h2>
+                        <div class="row d-flex justify-content-center pb-4">
+                
+                            <div class="accordion pt-2 w-75" id="gen-notes-accordion">
+                                {% for i, row in df_gen.iterrows()%}
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading{{i}}">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" 
+                                            data-bs-target="#collapse{{i}}" aria-expanded="false" aria-controls="collapse{{i}}">
+                                            {{ row['field'] }}
+                                            </button>
+                                        </h2>
+                                        <div id="collapse{{i}}" class="accordion-collapse collapse" aria-labelledby="heading{{i}}" data-bs-parent="#gen-notes-accordion">
+                                            <div class="accordion-body">
+                                                {{ row['info'] }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
                         <h2 class="border-bottom text-center">General Advice</h2>
-                        
                         <ul>
                             {% for row in df_advice[0] %}
-                            <li class="pb-2">{{ row }}</li>
+                            <li class="pb-3">{{ row }}</li>
                             {% endfor%}
                         </ul>
                     </div>
-                    <div class="col-12 col-md-6">
-                        <h2 class="border-bottom text-center">General Notes</h2>
-                        
-                        <div class="accordion" id="accordionExample">
-                            {% for i, row in df_gen.iterrows()%}
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="heading{{i}}">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" 
-                                        data-bs-target="#collapse{{i}}" aria-expanded="false" aria-controls="collapse{{i}}">
-                                        {{ row['field'] }}
-                                        </button>
-                                    </h2>
-                                    <div id="collapse{{i}}" class="accordion-collapse collapse" aria-labelledby="heading{{i}}" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            {{ row['info'] }}
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
                 </div>
-                <div class="row justify-content-center pt-4">
-                    <div class="col-8">
+                <div class="row justify-content-center pt-2">
+                    <div class="col-12">
                         <h2 class="border-bottom text-center">My Historical Investments</h2>
-                        <div class="d-flex justify-content-center">
+                        <div class="hist-table d-flex justify-content-center pt-2">
                             {{ df_hist.iloc[1:].to_html(index=False, 
                             justify='center', 
                             header=False, 
-                            classes='historical') | safe }}
+                            classes='historical',
+                            border=0) | safe }}
                         </div>
                     </div>
                 </div>

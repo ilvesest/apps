@@ -7,7 +7,11 @@
   --bs-nav-background-color: #212529;
   --bs-table-hover-color: #34373b;
   --bs-btn-hover-color: #68a40f;
+  --table-border-color: #364043;
+  --table-golden-color: #E2B842;
 }
+
+
 
 table {
 	background: var(--bs-nav-background-color);
@@ -19,8 +23,8 @@ table {
   padding: 5em;
 }
 th {
-  border-bottom: 1px solid #E2B842;
-  color: #E2B842;
+  border-bottom: 1px solid var(--table-golden-color);
+  color: var(--table-golden-color);
   font-size: 1em;
   font-weight: 600;
   padding: 0.5em 1em;
@@ -41,7 +45,7 @@ td {
   font-weight: 400;
   padding: 0.65em 1em;
   text-align: left;
-  border-bottom: 1px solid #364043;
+  border-bottom: 1px solid var(--table-border-color);
   z-index: 1;
 }
 
@@ -62,8 +66,17 @@ table .btn-secondary:hover {
 }
 
 /* HISTORICAL TABLE */
-table.historical td {
+.hist-table tbody td {
   text-align: left;
+  border: none;
+}
+.hist-table tbody td:first-child {
+  border-right: 1px solid var(--table-border-color);
+  color: var(--table-golden-color);
+  font-weight: bold;
+}
+.hist-table tbody tr:not(:last-child) {
+  border-bottom: 1px solid var(--table-border-color);
 }
 
 /* STOCKS WATCHLIST TABLE */
@@ -74,7 +87,7 @@ table.stocks_watch th {
 
 table.stocks_watch td {
   padding: 0.5em 0.5em;
-  border-right: 1px solid #364043;
+  border-right: 1px solid var(--table-border-color);
   text-align: left;
 }
 
