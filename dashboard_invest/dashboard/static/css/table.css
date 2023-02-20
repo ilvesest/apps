@@ -9,19 +9,27 @@
   --bs-btn-hover-color: #68a40f;
   --table-border-color: #364043;
   --table-golden-color: #E2B842;
+  --table-border-radius: 0.6em;
 }
 
-
-
+/* GENERAL TABLE PROPS */
 table {
 	background: var(--bs-nav-background-color);
-	border-radius: 0.4em;
+	border-radius: var(--table-border-radius);
 	border-collapse: collapse;
 	margin: 0em;
   margin-bottom: 0em;
   padding-bottom: 10em;
   padding: 5em;
 }
+
+.no-bottom-border tbody tr:not(:last-child) {
+  border-bottom: 1px solid var(--table-border-color);
+}
+.no-right-border tbody td:not(:last-child) {
+  border-right: 1px solid var(--table-border-color);
+}
+
 th {
   border-bottom: 1px solid var(--table-golden-color);
   color: var(--table-golden-color);
@@ -31,70 +39,77 @@ th {
   text-align: left;
 }
 
-tr td:nth-child(3), th:nth-child(3) {
-  text-align: center;
-}
-
-tr td:nth-child(2), th:nth-child(2) {
-  text-align: right;
-}
-
 td {
   color: #fff;
   font-size: .85em;
   font-weight: 400;
   padding: 0.65em 1em;
   text-align: left;
-  border-bottom: 1px solid var(--table-border-color);
   z-index: 1;
 }
 
-.disabled td {
-  color: #4F5F64;
-}
 tbody tr {
   transition: background 0.25s ease;
 }
+
 tbody tr:hover {
   background: var(--bs-table-hover-color);
   opacity: 1;
 }
+tbody tr:last-child:hover td:last-child {
+  border-bottom-right-radius: var(--table-border-radius);
+}
+tbody tr:last-child:hover td:first-child {
+  border-bottom-left-radius: var(--table-border-radius);
+}
 
-/* BUTTONS */
 table .btn-secondary:hover {
   background-color: #68a40f;
 }
 
-/* HISTORICAL TABLE */
+/* PORTFOLIO: INVEST TABLE */
+.invest-table tr td:nth-child(3), th:nth-child(3) {
+  text-align: center;
+}
+.invest-table tr td:nth-child(2), th:nth-child(2) {
+  text-align: right;
+}
+
+/* PORTFOLIO: HISTORICAL TABLE */
+.hist-table tbody {
+  border-radius: var(--table-border-radius);
+}
 .hist-table tbody td {
   text-align: left;
   border: none;
 }
 .hist-table tbody td:first-child {
-  border-right: 1px solid var(--table-border-color);
   color: var(--table-golden-color);
   font-weight: bold;
 }
-.hist-table tbody tr:not(:last-child) {
-  border-bottom: 1px solid var(--table-border-color);
+.hist-table tr:hover {
+  border-radius: 6px, 0, 0, 6px
+}
+.hist-table tr:hover:first-child td:first-child {
+  border-top-left-radius: var(--table-border-radius);
+}
+.hist-table tr:hover:first-child td:last-child {
+  border-top-right-radius: var(--table-border-radius);
 }
 
-/* STOCKS WATCHLIST TABLE */
-table.stocks_watch th {
-  padding: 0.5em 0.5em;
-  text-align: left;
-}
+/* STOCKS WATCHLIST: WATCHLIST TABLE */
 
-table.stocks_watch td {
+.stocks_watch th {
   padding: 0.5em 0.5em;
-  border-right: 1px solid var(--table-border-color);
-  text-align: left;
+  text-align: center;
+}
+.stocks_watch td {
+  padding: 0.5em 0.5em;
+  text-align: center;
 }
 
 /* sticky first col and header: https://css-tricks.com/a-table-with-both-a-sticky-header-and-a-sticky-first-column/ */
 /* make header sticky */
-
-
 /* make header sticky */
 .table-sticky thead th {
   position: -webkit-sticky;
@@ -104,7 +119,6 @@ table.stocks_watch td {
   box-shadow: inset 0 -1px 0 var(--bs-nav-active-color);
   background-color: var(--bs-nav-background-color);
 }
-
 /* make first column header  background: var(--bs-table-hover-color);
   opacity: 1;icky */
 .table-sticky thead th:first-child,
@@ -115,13 +129,27 @@ table.stocks_watch td {
   background-color: var(--bs-nav-background-color);
   /*box-shadow: inset -1px 0px 0 var(--bs-nav-active-color); # vertical border */
 }
-
 /* stack header #0 over other headers */
 .table-sticky thead th:first-child {
   z-index: 3;
 }
-
 .table-sticky tbody tr:hover td {
   background: var(--bs-table-hover-color);
   opacity: 1;
+}
+.table-sticky th:first-child{
+  border-top-left-radius: var(--table-border-radius);
+}
+.table-sticky th:last-child {
+  border-top-right-radius: var(--table-border-radius);
+}
+.table-sticky tr:last-child td:first-child {
+  border-bottom-left-radius: var(--table-border-radius);
+}
+
+@media(max-width:992px){
+  .stocks_watch {
+    height: 100vh;
+    overflow-x: scroll;
+  }
 }

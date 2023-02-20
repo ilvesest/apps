@@ -8,26 +8,20 @@
     <head>
         <!-- Table CSS -->
         <link rel="stylesheet" href="static/css/table.css">
-
     </head>
 
     <body>
 
-        <div class="container">
-            {% for v in dfs.values() %}
-            <br>
-            <br>
+        <div class="container pt-4">
+            {% for k, v in dfs.items() %}
             <div class="row align-items-center">
-                <h5 class="border-bottom">
-                    {{ v['title_1'] }} <span style="color:red;">{{ v['title_2'] }}</span>
+                <h5 class="border-bottom text-center">
+                    {{ v['title_1'] }} <span style="color:var(--bs-{{ 'success' if k=='normal' else 'danger' }});">{{ v['title_2'] }}</span>
                 </h5>
-                <div class="col-md-6 d-flex flex-column align-content-center text-left">
-                    <br>
-                    <br>
-                    <br>
-                    {{  (v['df'].to_html(index=False))|safe }}
+                <div class="col-md-6 d-flex flex-column align-content-center text-left no-bottom-border py-2">
+                    {{  (v['df'].to_html(index=False, border=0))|safe }}
                 </div>
-                <div class="col-md-6 d-flex flex-column text-left align-middle">
+                <div class="col-md-6 d-flex flex-column text-left align-middle pb-4">
                     {{ (v['plot_div'])|safe }}
                 </div>
             </div>

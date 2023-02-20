@@ -46,7 +46,7 @@
             <div class="row">
                 <div class="col-lg-6 d-flex flex-column text-center">
                     <h2 class="border-bottom">Total Investements</h2>
-                    <div class="d-flex justify-content-center pt-3 mb-0 pb-2 pb-lg-0"> {{table.to_html()|safe }}</div>
+                    <div class="invest-table no-bottom-border d-flex justify-content-center pt-3 mb-0 pb-2 pb-lg-0"> {{table.to_html()|safe }}</div>
                 </div>
                 <div class="col-lg-6 d-flex flex-column text-center">
                     <h2 class="border-bottom">Asset Allocations</h2>
@@ -152,7 +152,7 @@
                 <div class="row justify-content-center pt-2">
                     <div class="col-12">
                         <h2 class="border-bottom text-center">My Historical Investments</h2>
-                        <div class="hist-table d-flex justify-content-center pt-2">
+                        <div class="hist-table no-bottom-border d-flex justify-content-center pt-2">
                             {{ df_hist.iloc[1:].to_html(index=False, 
                             justify='center', 
                             header=False, 

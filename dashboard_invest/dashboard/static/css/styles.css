@@ -5,6 +5,9 @@
   --bs-nav-hover-color: rgb(0, 255, 8);
   --bs-lowrisk-color: rgb(75, 122, 69);
   --bs-lowrisk-secondary-color: rgb(99, 157, 99);
+  --website-bg-color: #2C2B2B;
+  --website-btn-bg-color: #68a40f;
+
 }
 
 *, *:before, *:after {
@@ -265,6 +268,11 @@ body {
 
 .danger-modal .modal-body{
   background-color: black;
+}
+
+.modal-footer .btn-primary:hover {
+  background-color: var(--website-btn-bg-color);
+  border-color: var(--website-btn-bg-color);
 }
 
 /* Custom Icon List */

@@ -55,9 +55,7 @@ for k,v in rating_colormap.items():
         subset=pd.IndexSlice[df_watch.query(f"Rating == '{k}'").index, 'Rating'], 
         **{"color":f"var(--bs-{v}-text)", "background":f"var(--bs-{v}-bg-subtle)", "opacity": "1"})
     
-df_style = df_style \
-    .hide(axis='index') \
-    .set_table_attributes("class='stocks_watch table-sticky'")
+df_style = df_style.hide(axis='index').set_table_attributes('class="stockwatch"')
 
 
     

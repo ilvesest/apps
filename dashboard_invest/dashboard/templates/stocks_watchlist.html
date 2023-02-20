@@ -51,9 +51,11 @@
 
         <br>
         <div class="container">
-            <div class="row position-relative">
-                <h2 class="border-bottom">Stocks Watchlist</h2>
-                {{ df_style.to_html()|safe }}
+            <div class="row position-relative pb-4">
+                <h2 class="border-bottom text-center">Stocks Watchlist</h2>
+                <div class="stocks_watch table-sticky no-bottom-border no-right-border ps-0 mx-2">
+                    {{ df_style.to_html(table_uuid="stockswatch")|safe }}
+                </div>
             </div>
         </div>
 

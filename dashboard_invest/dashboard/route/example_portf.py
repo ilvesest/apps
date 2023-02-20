@@ -57,14 +57,14 @@ hover_tt = f"""
 for dict_ in dfs.values():
     p = pie_chart(
         df=dict_['df_plot'],
-        x='asset',
+        x='asset_hover',
         y='percent_n',
         x_hover='asset_hover',
         percentage_decimal=0,
         label_distance=3.15,
         hover_tooltip=hover_tt,
-        legend_place='above',
-        fig_height=500,
+        legend_place='below',
+        fig_height=600,
         radius=0.5,
         background_color='#2C2B2B',
         label_kwargs=dict(text_font_size='12pt', text_align='center', text_font_style='bold')
