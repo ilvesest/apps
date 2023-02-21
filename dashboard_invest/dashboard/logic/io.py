@@ -1,3 +1,6 @@
+# native imports
+import re
+
 # 3rd party imports
 import requests
 from bs4 import BeautifulSoup as BS
@@ -31,6 +34,61 @@ def get_sheet_names(url: str, class_name: str="goog-inline-block docs-sheet-tab-
     
     return [tag.contents[0] for tag in sheet_tags]
 
+def get_sheet_ids(url: str, last_sheet_name: str) -> list[str]:
+    """Return Gsheets ID's based on initial page url and last sheet name.
+
+    Args:
+        url (str): URL of the initial page.
+        last_sheet_name (str): Name of the last sheet.
+
+    Returns:
+        list[str]: List of sheet ID-s as string.
+    """
+
+    # Send a GET request to the Google Sheets URL
+    r = requests.get(url)
+
+    # Create a BeautifulSoup object from the HTML content
+    soup = BS(r.content, 'html.parser')
+    
+    # find <body> -> <script> -> sheet_names_pattern -> id_pattern
+    pattern = re.compile(rf"topsnapshot.+{last_sheet_name}\\\"\]")
+    sheet_ids = None
+    for tag in soup.body.find_all('script'):
+        
+        if tag.string is not None:
+            string = re.search(pattern, tag.text)
+            if string is not None:
+                sheet_ids = re.findall(r"\d{9,}", string[0])
+                break
+    
+    # assert if first ID match matches the first sheet id from the url
+    assert sheet_ids[0] == re.search(r"\d+?$", url)[0], "Gsheet ID's do not match with sheet names!"        
+    
+    return sheet_ids
+
+def get_sheet_urls(url: str) -> dict:
+    """Return dictionary of based on home url.
+
+    Args:
+        url (str): Home page URL.
+
+    Returns:
+        dict: Dict of {sheet_name:sheet_url}.
+    """
+    # match the base url w/o ending sheet ID
+    base_url = re.match(r".*edit#gid=", url)[0]
+    
+    sheet_names = get_sheet_names(url)
+    sheet_ids = get_sheet_ids(url, last_sheet_name=sheet_names[-1])
+    
+    # check that # of sheets equals # of found sheet IDs 
+    assert len(sheet_names) == len(sheet_ids), "Number of sheets doesn't match with number of ID-s."
+    
+    # create a dictionary of sheet name : sheet_url
+    sheet_urls = [base_url + sheet_id for sheet_id in sheet_ids]
+    
+    return {sheet_name: sheet_url for sheet_name,sheet_url in zip(sheet_names, sheet_urls)}
 
 def read_gsheet(url:str, **read_csv_kwargs):
     """Read data from google sheets into DF."""

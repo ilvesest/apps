@@ -1,6 +1,6 @@
 # local imports
 from dashboard import app
-from dashboard.logic.io import GSHEETS_URL, get_sheet_names, read_gsheet
+from dashboard.logic.io import GSHEETS_URL, get_sheet_names, get_sheet_urls
 from dashboard.route.investments import df_dict, df_ads, df_table, styler_main, \
     plot_js, plot_div, cdn_js, df_a, df_hist, df_advice, df_gen, df_risk
 from dashboard.route.example_portf import dfs
@@ -11,10 +11,10 @@ from dashboard.route.stocks_watchlist import df_style, df_disc
 from flask import render_template, flash
 import pandas as pd
 
-# sheet names dynamically
-sheet_names = get_sheet_names(url=GSHEETS_URL)
+sheet_names = get_sheet_names(url=GSHEETS_URL) # [list] sheet names dynamically
+sheet_urls = get_sheet_urls(url=GSHEETS_URL) # [dict] sheet name:url dynamically
 
-# sheet name smanually
+# sheet data manually
 nav_names = {
     "Investments": {
         "new name": "Portfolio",
@@ -95,12 +95,17 @@ nav_names = {
     }
 }
 
+# add sheet urls to nav-names dictionary
+for name, url in sheet_urls.items():
+    nav_names[name]['url'] = url
+
+
+
 # make sheet_names global variable for all templates
 @app.context_processor
 def inject_sheet_names():
     return {'sheet_names': nav_names,
             'cdn_js': cdn_js}
-
 
 @app.route("/")
 @app.route("/home")
@@ -129,6 +134,10 @@ def home_page():
 def portfolios_page():
     return render_template("example_portf.html",
                            dfs=dfs)
+
+@app.route("/2023 Forecasts")
+def forecasts_page():
+    return render_template("forecasts.html")
     
 @app.route("/Stocks Watchlist")
 def stockswatchlist_page():
