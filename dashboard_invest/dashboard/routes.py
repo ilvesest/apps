@@ -6,6 +6,7 @@ from dashboard.route.investments import df_dict, df_ads, df_table, styler_main, 
     plot_js, plot_div, cdn_js, df_a, df_hist, df_advice, df_gen, df_risk
 from dashboard.route.example_portf import dfs
 from dashboard.route.stocks_watchlist import df_style, df_disc
+from dashboard.route.forecasts import df_fore, df_fore_risks
 
 
 # 3rd party imports
@@ -49,7 +50,9 @@ def portfolios_page():
 
 @app.route("/2023 Forecasts")
 def forecasts_page():
-    return render_template("forecasts.html")
+    return render_template("forecasts.html",
+                           df_fore=df_fore,
+                           df_fore_risks=df_fore_risks)
     
 @app.route("/Stocks Watchlist")
 def stockswatchlist_page():

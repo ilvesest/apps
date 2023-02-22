@@ -29,7 +29,7 @@ nav_names = {
         "new name": "2023 Forecasts",
         "routes": ["2023 Forecasts"],
         "title": "2023 Forecasts & Risks",
-        "page": "home_page", 
+        "page": "forecasts_page", 
         "symbol_id": "bi bi-cloud-sun"
     },
     "Stocks": {

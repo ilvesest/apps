@@ -6,5 +6,26 @@
 
 {% block content %}
 
+    <head>
+        <link rel="stylesheet" href="static/css/table.css">
+    </head>
+
+    <body>
+        <section id="forecats">
+            <div class="container">
+                <div class="row">
+                    <h2 class="border-bottom text-center">2023 Forecasts</h2>
+                    <div class="no-bottom-border no-right-border">
+                        {{ df_fore_risks.to_html(index=False, index_names=False, border=0, escape=False)|safe }}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="risks">
+
+        </section>
+
+    </body>
 
 {% endblock%}

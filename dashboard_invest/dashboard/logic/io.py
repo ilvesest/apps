@@ -267,4 +267,31 @@ def total_value_to_num(df: pd.DataFrame):
     
     df['Total_Value'] = pd.to_numeric(df['Total_Value'].replace(r"[\$,]", "", regex=True),
                                       errors='coerce')
-    return df.reset_index()    
+    return df.reset_index()
+
+# Adds colors dynamically based on risk assessment
+def riskPallette(series: pd.Series, scale: dict) -> pd.Series:
+    """Apply color based on risk level (# between 0-100).
+
+    Args:
+        scale (dict): Dictionary of the form {0:color, ... , 9:color}
+
+    Returns:
+        pd.Series: color
+    """
+    if series >= 90: 
+        return scale["9"]
+    if series < 10: 
+        return scale["0"]
+    else: 
+        return scale[str(series)[0]]
+    
+# DF STYLING
+def set_bg_color(val, cmap: dict) -> str:
+    """Map colors to DF values based on mapping dictionary.
+
+    Args:
+        val ( any type): Any value type.
+        cmap (dict): Dict of the form {val:'color'}
+    """
+    return f'background-color: {cmap[val]}'
