@@ -2,12 +2,12 @@
 import re
 
 # local imports
+from dashboard.logic.constants import nav_names
 from dashboard.logic.io import read_gsheet
 from dashboard.logic.plots import components, pie_chart
 
-
-EXAMPL_PORTF_URL = "https://docs.google.com/spreadsheets/d/" \
-    "1J4QvPR5mJDc44Z3_WzhWuVKB3QbxWWDzj1gLPA53ZZM/edit#gid=2145734043"
+# Example Portfolios sheet url
+EXAMPL_PORTF_URL = nav_names['Investment Allocation Examples']['url']
     
 # read raw csv
 df = read_gsheet(

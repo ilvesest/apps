@@ -1,10 +1,11 @@
 # local imports
-from dashboard.logic.io import GSHEETS_URL, read_gsheet, comment_button
+from dashboard.logic.constants import nav_names
+from dashboard.logic.io import read_gsheet, comment_button
 
 # 3rd party imports
 import pandas as pd    
 
-STOCKS_WATCH_URL = "https://docs.google.com/spreadsheets/d/12-GISr1efphjtpuJLCfQzI2akNXxaJ1iabsG24ib71c/edit#gid=845083323"
+STOCKS_WATCH_URL = nav_names['Stocks Watchlist']['url']
 
 # Read in summary DF and drop empty rows
 df = read_gsheet(

@@ -1,6 +1,7 @@
 # local imports
-from dashboard.logic.io import GSHEETS_URL, read_gsheet, comment_button, total_assets, \
+from dashboard.logic.io import read_gsheet, comment_button, total_assets, \
     total_value_to_num, getDFs
+from dashboard.logic.constants import GSHEETS_URL
 from dashboard.logic.plots import components, pie_chart, cdn_js
 
 # 3rd party imports
@@ -33,9 +34,9 @@ df_dict = getDFs(df, references_dict=references_dict)
 # ADS
 df_ads = df_dict['ads'].copy()
 df_ads.columns = ['text', 'hyperlink']
-df_ads['icon'] = df_ads.text.str[:1]
-df_ads['text'] = df_ads.text.str[2:]
-headers = ['Course', 'Mentoring', 'PM Global', 'PM USA', 'PM UK', 'Crypto Security', 'Stock Platform', 'Bank Account']
+df_ads['icon'] = df_ads.text.str.extract(r"\s*(\S)")
+df_ads['text'] = df_ads.text.str.extract(r"(\b.+)")
+headers = ['My Finance Course', 'My UK Property Course', 'Mentoring', 'PM Global', 'PM USA', 'PM UK', 'Crypto Security', 'Stock Platform', 'Bank Account']
 df_ads['header'] = headers
 
 ## Main DF ##
