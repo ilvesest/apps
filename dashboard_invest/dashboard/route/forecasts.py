@@ -1,6 +1,6 @@
 # local imports
 from dashboard.logic.constants import nav_names
-from dashboard.logic.io import read_gsheet, getDFs, riskPallette, set_bg_color
+from dashboard.logic.io import read_gsheet, getDFs, riskPallette, set_bg_color, get_risk_pallete
 from bokeh.palettes import inferno
 
 # 3rd part libraries
@@ -24,7 +24,6 @@ df_fore.columns = df_fore.iloc[0]
 df_fore = df_fore.iloc[1:].reset_index(drop=True)
 
 # RISKS
-risks_scale = {str(i):color for i,color in enumerate(inferno(10)[::-1])}
 df_risks = df_dict_fore['risks'].copy()
 df_risks.columns = df_risks.iloc[0]
 df_risks = df_risks.iloc[1:].reset_index(drop=True)
@@ -35,13 +34,15 @@ df_risks['numeric_risk'] = (df_risks
     .astype('float64')
 )
 df_risks = df_risks.sort_values('numeric_risk', ascending=False, ignore_index=True)
-df_risks['color'] = df_risks.numeric_risk.apply(riskPallette, scale=risks_scale)
+df_risks['color'] = df_risks.numeric_risk.apply(riskPallette, scale=get_risk_pallete(inferno))
+df_fore_risks = df_risks
+
 
 # styling
-cmap = {i:c for i,c in zip(df_risks['Risk Level in 2023'], df_risks['color'])}
-df_risks = df_risks.iloc[:,:2]
-df_fore_risks = (df_risks.style
-    .applymap(set_bg_color, cmap=cmap, subset=['Risk Level in 2023'])
-    .set_properties(subset=pd.IndexSlice[4,'Risk Level in 2023'], **{"border-bottom-right-radius": "var(--table-border-radius);"})
-    .hide(axis='index')
-)
+# cmap = {i:c for i,c in zip(df_risks['Risk Level in 2023'], df_risks['color'])}
+# df_risks = df_risks.iloc[:,:2]
+# df_fore_risks = (df_risks.style
+#     .applymap(set_bg_color, cmap=cmap, subset=['Risk Level in 2023'])
+#     .set_properties(subset=pd.IndexSlice[4,'Risk Level in 2023'], **{"border-bottom-right-radius": "var(--table-border-radius);"})
+#     .hide(axis='index')
+# )

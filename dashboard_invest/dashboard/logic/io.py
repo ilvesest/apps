@@ -269,7 +269,7 @@ def total_value_to_num(df: pd.DataFrame):
                                       errors='coerce')
     return df.reset_index()
 
-# Adds colors dynamically based on risk assessment
+# Adds colors column dynamically based on risk assessment
 def riskPallette(series: pd.Series, scale: dict) -> pd.Series:
     """Apply color based on risk level (# between 0-100).
 
@@ -286,7 +286,7 @@ def riskPallette(series: pd.Series, scale: dict) -> pd.Series:
     else: 
         return scale[str(series)[0]]
     
-# DF STYLING
+### DF STYLING ###
 def set_bg_color(val, cmap: dict) -> str:
     """Map colors to DF values based on mapping dictionary.
 
@@ -295,3 +295,13 @@ def set_bg_color(val, cmap: dict) -> str:
         cmap (dict): Dict of the form {val:'color'}
     """
     return f'background-color: {cmap[val]}'
+
+### HELPERS ###
+def get_risk_pallete(pallette: dict) -> dict['int':'color']:
+    """Generate risk pallete in scale 0 to 100 in steps of 10.
+    Args:
+        pallette (dict): Dictionary {n: ['colors'....]}
+    Returns:
+        Dict: Dictionary {"0": 'color'}
+    """
+    return {str(i):color for i,color in enumerate(pallette(10)[::-1])}

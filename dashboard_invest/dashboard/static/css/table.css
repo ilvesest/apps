@@ -153,3 +153,12 @@ table .btn-secondary:hover {
     overflow-x: scroll;
   }
 }
+
+/* FORECASTS TABLE */
+.forecasts-table thead th {
+  text-align: center;
+}
+
+.forecasts-table thead th:first-child {
+  text-align: left;
+}
