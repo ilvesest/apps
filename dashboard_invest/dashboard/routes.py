@@ -54,6 +54,10 @@ def forecasts_page():
                            df_fore=df_fore,
                            df_fore_risks=df_fore_risks)
     
+@app.route("/Stocks")
+def stocks_page():
+    return render_template("stocks.html")
+    
 @app.route("/Stocks Watchlist")
 def stockswatchlist_page():
     return render_template("stocks_watchlist.html",

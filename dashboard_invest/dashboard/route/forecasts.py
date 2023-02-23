@@ -35,6 +35,12 @@ df_risks['numeric_risk'] = (df_risks
 )
 df_risks = df_risks.sort_values('numeric_risk', ascending=False, ignore_index=True)
 df_risks['color'] = df_risks.numeric_risk.apply(riskPallette, scale=get_risk_pallete(inferno))
+df_risks['css_ref'] = (
+  df_risks['Risks']
+  .str.extract(r"([A-Za-z0-9\s]+)")
+  .squeeze()
+  .str.replace('\s', '-', regex=True)
+)
 df_fore_risks = df_risks
 
 

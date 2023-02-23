@@ -36,7 +36,7 @@ nav_names = {
         "new name": "Stocks",
         "routes": ["Stocks"], 
         "title": "Stocks",
-        "page": "home_page", 
+        "page": "stocks_page", 
         "symbol_id": "bi bi-apple"
     },
     "Stocks Watchlist": {
