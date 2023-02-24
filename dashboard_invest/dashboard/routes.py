@@ -7,6 +7,7 @@ from dashboard.route.investments import df_dict, df_ads, df_table, styler_main, 
 from dashboard.route.example_portf import dfs
 from dashboard.route.stocks_watchlist import df_style, df_disc
 from dashboard.route.forecasts import df_fore, df_fore_risks
+from dashboard.route.stocks import df_stocks, df_stocks_info, stocks_ana_title, df_stocks_ana
 
 
 # 3rd party imports
@@ -56,7 +57,11 @@ def forecasts_page():
     
 @app.route("/Stocks")
 def stocks_page():
-    return render_template("stocks.html")
+    return render_template("stocks.html",
+                           df_stocks=df_stocks, 
+                           df_stocks_info=df_stocks_info,
+                           stocks_ana_title=stocks_ana_title, 
+                           df_stocks_ana=df_stocks_ana)
     
 @app.route("/Stocks Watchlist")
 def stockswatchlist_page():

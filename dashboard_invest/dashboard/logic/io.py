@@ -95,6 +95,7 @@ def read_gsheet(url:str, **read_csv_kwargs):
     return pd.read_csv(url_csv, **read_csv_kwargs)
 
 
+
 ### DATAFRAME IO ###
 def findRefRowCol(df: pd.DataFrame, pattern: str, method: str='contains') -> tuple[int, int]:
     """Find reference row and column numeric index values.
@@ -169,7 +170,7 @@ def getDFs(df: pd.DataFrame, references_dict: dict[str, tuple[str,str,str]]) -> 
 
     Args:
         df (pd.DataFrame): Raw initial DF.
-        references_dict (dict): Dictionary of df_name: tuple('method', 'string' , 'direction').
+        references_dict (dict): Dictionary of df_name: tuple('method', 'string' , 'direction', int('col_idx1)).
             method has 2 options ['contains' and 'equals'], 'direction' has 3 options 
             ['one', 'down', 'up'] where one means only one line needs to be parsed, 'up' and 'down'
             respectively correspond to the parsing direction from the reference point.
@@ -186,8 +187,11 @@ def getDFs(df: pd.DataFrame, references_dict: dict[str, tuple[str,str,str]]) -> 
     dfs = {}
     for k,v in references_dict.items():
         
+        # find ref position
         row_i, col_i = findRefRowCol(df, pattern=v[1], method=v[0])
-        col_i = 0 if k=='risk' else col_i
+        
+        # shift ref position if specified
+        col_i = v[3] if len(v) == 4 else col_i
         
         if v[2] == 'one':
             dfs[k] = df.iloc[row_i,col_i:]
@@ -213,6 +217,41 @@ def getDFs(df: pd.DataFrame, references_dict: dict[str, tuple[str,str,str]]) -> 
             )
     
     return dfs_clean
+
+def getNonSelectedDF(
+    df_raw: pd.DataFrame, 
+    df_dict: dict['df_name': pd.DataFrame], 
+    start_idx: int=0, 
+    stop_idx: int=None) -> pd.DataFrame:
+    """Get data into DF that wasn't captured based on negative df_dict. 
+
+    Args:
+        df_raw (pd.DataFrame): Original DF where data wasn't cpatured.
+        df_dict (_type_): Dict of the form {subdf_name: 'method', 'string' , 'direction', int('col_idx1))}.
+        start_idx (int, optional): Starting row index (not positional).
+        stop_idx (int, optional): Ending row index (not positional).
+
+    Returns:
+        pd.DataFrame: DF with rest of the info captured and NaN rows/cols stripped.
+    """
+    
+    
+    # find indicies already capture by "getDFs" function
+    indices = np.array([])
+    for df_ in df_dict.values():
+        indices = np.concatenate((indices, df_.index.values))
+    indices = [int(i) for i in indices]
+    
+    # subset DF
+    df_sub = (df_raw
+        .loc[~df_stocks_raw.index.isin(indices),:]
+        .loc[start_idx:stop_idx,]
+        .dropna(axis='columns', how='all')
+        .dropna(axis='rows', how='all')
+    )
+    
+    return df_sub
+
 
 
 ### DF MODIFICATION ###
@@ -268,6 +307,8 @@ def total_value_to_num(df: pd.DataFrame):
     df['Total_Value'] = pd.to_numeric(df['Total_Value'].replace(r"[\$,]", "", regex=True),
                                       errors='coerce')
     return df.reset_index()
+
+
 
 # Adds colors column dynamically based on risk assessment
 def riskPallette(series: pd.Series, scale: dict) -> pd.Series:

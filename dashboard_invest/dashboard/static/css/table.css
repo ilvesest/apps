@@ -162,3 +162,18 @@ table .btn-secondary:hover {
 .forecasts-table thead th:first-child {
   text-align: left;
 }
+
+/* STOCKS */
+@media(max-width:992px){
+  .stocks {
+    overflow-x: scroll;
+  }
+}
+
+/* STOCKS ANALYSIS TABLE */
+#stocks-ana-table table thead th,
+#stocks-ana-table table tbody td {
+  text-align: center;
+}
+
+

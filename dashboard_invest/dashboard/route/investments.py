@@ -22,7 +22,7 @@ references_dict = {
     'announce' : ("contains", "Jul 2022: I'm", 'up'),
     'advice' : ("contains", '3x Excellent', 'up'),
     'warning_msg' : ("contains", 'NOTE: Occasionally', 'one'),
-    'risk' : ("equals", "RISK", 'down'),
+    'risk' : ("equals", "RISK", 'down', 0),
     'historical' : ("equals", "My Historical Investments", "down"),
     'cash_pos' : ("contains", "CASH POSITION", 'one'),
     'general_notes' : ("equals", "GENERAL NOTES", "down"),
