@@ -25,22 +25,41 @@
                                 border=0)|safe }}
                         </div>
                         {% if df_stocks.empty %}
-                        <div class="alert alert-info py-2 d-flex align-items-center mt-2" role="alert">
-                                <i class="bi bi-info-circle me-1" style="font-size:24px;"></i>{{ df_stocks_info.iloc[0, 0]|safe }}
+                        <div class="alert alert-info d-flex align-items-center mt-2" role="alert">
+                                <i class="bi bi-info-circle me-2" style="font-size:24px;"></i>{{ df_stocks_info.iloc[0, 0]|safe }}
                             </div>
                         {% endif %}
                     </div>
                 </div>
             </div>
         </section>
+
         <section id="stocks-ana-table">
-            <div class="container pt-4">
+            <div class="container pt-2">
                 <div class="row justify-content-center">
                     <div class="col-12 pt-4">
                         <h2 class="border-bottom text-center">{{ stocks_ana_title }}</h2>
                         <div class="stocks table-sticky no-bottom-border no-right-border d-flex flex-column justify-content-center py-2">
                             {{ df_stocks_ana.to_html(
                                 index=False, 
+                                index_names=False, 
+                                justify='center', 
+                                border=0,
+                                escape=False)|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="stocks-sectors-table">
+            <div class="container pt-2">
+                <div class="row justify-content-center">
+                    <div class="col-12 pt-4">
+                        <h2 class="border-bottom text-center">{{ stock_sectors_title }}</h2>
+                        <div class="stocks table-sticky no-bottom-border no-right-border d-flex justify-content-center py-2">
+                            {{ df_sectors.to_html(
+                                index=False,
                                 index_names=False, 
                                 justify='center', 
                                 border=0,

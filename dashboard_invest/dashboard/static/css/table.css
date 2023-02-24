@@ -176,4 +176,13 @@ table .btn-secondary:hover {
   text-align: center;
 }
 
+/* STOCKS SECTORS TABLE */
+#stocks-sectors-table table thead th,
+#stocks-sectors-table table tbody td {
+  text-align: center;
+}
+#stocks-sectors-table tbody td:first-child {
+  color: var(--table-golden-color);
+  font-weight: bold;
+}
 
