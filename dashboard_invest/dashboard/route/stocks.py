@@ -1,6 +1,7 @@
 # local imports
 from dashboard.logic.constants import nav_names
 from dashboard.logic.io import read_gsheet, getDFs, findRefRowCol, comment_button
+from dashboard.logic.plots import donut_chart, components
 
 # 3rd party imports
 import pandas as pd
@@ -111,3 +112,33 @@ df_sectors = (pd.concat([df_sectors, df_sec2['Proportion']], axis='columns')
 # add Details button to comments
 df_sectors.Comment[df_sectors.Comment != ''] = \
     df_sectors.Comment[df_sectors.Comment != ''].apply(comment_button)
+    
+    
+# sectors plot
+df_sectors_plot = df_sectors.copy()
+df_sectors_plot['Proportion'] = pd.to_numeric(df_sectors['Proportion'] \
+    .replace(r"%", "", regex=True), errors='coerce')
+
+stocks_h_tooltip = f"""
+                <div>
+                    <p style="margin:0;font-weight:bold;color:grey;">@Sector</p>
+                    <p style="padding:0;margin:0;font-weight:bold;text-align:center;">@percentage_hover{{0}}%</p>
+                </div>
+            """
+
+stocks_sectors_plot = donut_chart(
+    df=df_sectors_plot.iloc[1:,],
+    x='Sector',
+    y='Proportion',
+    sizing_mode='scale_both',
+    background_color='#2C2B2B',
+    percentage_decimal=0,
+    fig_height=90,
+    label_distance=3.1,
+    label_kwargs=dict(text_font_size='12pt', text_align='center', text_font_style='bold'),
+    hover_tooltip=stocks_h_tooltip,
+    legend_place='center',
+    fig_kwargs={'width':100}
+)
+
+stocks_plot_js, stocks_plot_div = components(stocks_sectors_plot)

@@ -53,11 +53,12 @@
         </section>
 
         <section id="stocks-sectors-table">
-            <div class="container pt-2">
+            <div class="container pt-4">
                 <div class="row justify-content-center">
-                    <div class="col-12 pt-4">
+                    <div class="col-lg-7">
                         <h2 class="border-bottom text-center">{{ stock_sectors_title }}</h2>
-                        <div class="stocks table-sticky no-bottom-border no-right-border d-flex justify-content-center py-2">
+                        <div class="stocks table-sticky no-bottom-border no-right-border d-flex 
+                        justify-content-center py-2">
                             {{ df_sectors.to_html(
                                 index=False,
                                 index_names=False, 
@@ -66,11 +67,19 @@
                                 escape=False)|safe }}
                         </div>
                     </div>
+                    <div class="col-lg-5 pb-4" id="stocks-sector-plot-parent">
+                        <h2 class="border-bottom text-center">Sector Allocations</h2>
+                        <div class="d-flex justify-content-centerpy-2" id="stocks-sector-plot">
+                            {{ (stocks_plot_div)|safe }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        
     </body>
+
+    <!-- JS scripts -->
+    {{ stocks_plot_js | safe }}
 
 {% endblock%}

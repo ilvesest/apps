@@ -288,5 +288,11 @@ body {
   width:40px;
   vertical-align: middle;
 }
-
-/* CUSTOM FORECATS RISKS POPOVERS */
+@media only screen and (min-width: 576px) {
+  #stocks-sector-plot {
+      max-width: 409px;
+      max-height: 368px;
+      margin-left: auto;
+      margin-right: auto;
+  }
+}
