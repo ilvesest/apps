@@ -97,8 +97,13 @@ table .btn-secondary:hover {
   border-top-right-radius: var(--table-border-radius);
 }
 
-/* STOCKS WATCHLIST: WATCHLIST TABLE */
+/* IDEAL PORTFOLIOS */
+#ideal-portfolio-tables tbody td:last-child,
+#ideal-portfolio-tables thead th:last-child {
+  text-align: center;
+}
 
+/* STOCKS WATCHLIST: WATCHLIST TABLE */
 .stocks_watch th {
   padding: 0.5em 0.5em;
   text-align: center;

@@ -88,6 +88,22 @@ body {
   font-size: 13px;
 }
 
+/* ASSET ALLOCATION PLOT */
+#asset-allocation-plot {
+  max-width: 456px;
+  max-height: 547px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* IDEAL PORTFOLIOS PLOTS */
+#ideal-portfolio-plots {
+  max-width: 456px;
+  max-height: 547px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* ASSET RISK */
 @media (max-width: 991px) {
   #risk-list-group {

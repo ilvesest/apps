@@ -64,8 +64,8 @@ for dict_ in dfs.values():
         label_distance=3.15,
         hover_tooltip=hover_tt,
         legend_place='below',
-        fig_height=600,
-        radius=0.5,
+        fig_height=720,
+        radius=0.7,
         background_color='#2C2B2B',
         label_kwargs=dict(text_font_size='12pt', text_align='center', text_font_style='bold')
     )

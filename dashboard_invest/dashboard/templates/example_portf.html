@@ -18,10 +18,11 @@
                 <h5 class="border-bottom text-center">
                     {{ v['title_1'] }} <span style="color:var(--bs-{{ 'success' if k=='normal' else 'danger' }});">{{ v['title_2'] }}</span>
                 </h5>
-                <div class="col-md-6 d-flex flex-column align-content-center text-left no-bottom-border py-2">
+                <div class="col-md-6 d-flex flex-column align-content-center text-left no-bottom-border py-2"
+                id="ideal-portfolio-tables">
                     {{  (v['df'].to_html(index=False, border=0))|safe }}
                 </div>
-                <div class="col-md-6 d-flex flex-column text-left align-middle pb-4">
+                <div class="col-md-6 d-flex flex-column text-left align-middle pb-4" id="ideal-portfolio-plots">
                     {{ (v['plot_div'])|safe }}
                 </div>
             </div>

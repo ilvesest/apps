@@ -48,7 +48,7 @@
                     <h2 class="border-bottom">Total Investements</h2>
                     <div class="invest-table no-bottom-border d-flex justify-content-center pt-3 mb-0 pb-2 pb-lg-0"> {{table.to_html()|safe }}</div>
                 </div>
-                <div class="col-lg-6 d-flex flex-column text-center">
+                <div class="col-lg-6 d-flex flex-column text-center" id="asset-allocation-plot">
                     <h2 class="border-bottom">Asset Allocations</h2>
                     <div>{{ plot_div | safe }}</div> 
                 </div>

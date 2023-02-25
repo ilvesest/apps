@@ -26,7 +26,7 @@ def pie_chart(
     fig_height: int=350,
     background_color: str='#212529',
     pallette: dict=Category10,
-    sizing_mode='scale_both',
+    sizing_mode='scale_width',
     hover_tooltip: str='default',
     legend_place: str='right',
     fig_kwargs: dict={},

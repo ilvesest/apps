@@ -85,6 +85,7 @@ pie_chart_plot = pie_chart(
     legend_place='below',
     fig_height=720,
     label_distance=3,
+    label_kwargs=dict(text_font_size='9pt', text_align='center', text_font_style='bold'),
     radius=0.62,
     sizing_mode='scale_width'
 )

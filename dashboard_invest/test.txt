@@ -1,44 +1,15 @@
-<!-- GENERAL ADVICE & NOTES -->
 <div class="container pt-4">
-    <div class="row d-flex justify-content-center">
-        <div class="col-6 text-left">
-            <h2 class="border-bottom">General Advice</h2>
-            <ul>
-                {% for row in df_advice[0] %}
-                <li>{{ row }}</li>
-                {% endfor%}
-            </ul>
-            <br>
-            <h2 class="border-bottom">My Historical Investments</h2>
-            {{ df_hist.iloc[1:].to_html(index=False, 
-                justify='center', 
-                header=False, 
-                classes='historical') | safe }}
+    {% for k, v in dfs.items() %}
+    <div class="row align-items-center">
+        <h5 class="border-bottom text-center">
+            {{ v['title_1'] }} <span style="color:var(--bs-{{ 'success' if k=='normal' else 'danger' }});">{{ v['title_2'] }}</span>
+        </h5>
+        <div class="col-md-6 d-flex flex-column align-content-center text-left no-bottom-border py-2">
+            {{  (v['df'].to_html(index=False, border=0))|safe }}
         </div>
-        <div class="col-1">
-
-        </div>
-        <div class="col-5 text-left">
-            <h2 class="border-bottom">General Notes</h2>
-            <div class="accordion" id="accordionExample">
-                
-                {% for i, row in df_gen.iterrows()%}
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading{{i}}">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" 
-                            data-bs-target="#collapse{{i}}" aria-expanded="false" aria-controls="collapse{{i}}">
-                            {{ row['field'] }}
-                            </button>
-                        </h2>
-                        <div id="collapse{{i}}" class="accordion-collapse collapse" aria-labelledby="heading{{i}}" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                {{ row['info'] }}
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-
-            </div>
+        <div class="col-md-6 d-flex flex-column text-left align-middle pb-4">
+            {{ (v['plot_div'])|safe }}
         </div>
     </div>
+    {% endfor %}
 </div>
