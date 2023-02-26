@@ -279,7 +279,7 @@ body {
 /* DISCLAIMER */
 .danger-modal .modal-header,
 .danger-modal .modal-footer {
-  background-color: var(--bs-danger-bg-subtle);
+  background-color: black;
 }
 
 .danger-modal .modal-body{
@@ -304,11 +304,20 @@ body {
   width:40px;
   vertical-align: middle;
 }
+
+/* STOCKS SECTOR PLOT */
 @media only screen and (min-width: 576px) {
   #stocks-sector-plot {
       max-width: 409px;
       max-height: 368px;
       margin-left: auto;
       margin-right: auto;
+  }
+}
+
+/* FORECASTS RISK SCALE */
+@media (max-width: 991px) {
+  #forecast-risk-list-group {
+    width: 50%;
   }
 }

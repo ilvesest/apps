@@ -89,20 +89,20 @@ if df_sec2.index.isna()[-1]:
 df_sec2 = df_sec2.iloc[:-1,] # remove last row
 tech_label_2 = df_sec2.index[df_sec2.index.str.contains(r"tech", case=False, regex=True)][0]
 df_sec2 = df_sec2.rename(index={tech_label_2: tech_label_1})
-df_sec2.columns = ['Proportion', 'Comment']
+df_sec2.columns = ['Percentage', 'Comment']
 
 # join and modify tables
 df_sectors = pd.concat([df_sec1, df_sec2], axis='columns')
 
 df_sectors = (df_sectors
-    .drop('Proportion', axis='columns')
+    .drop('Percentage', axis='columns')
     .apply(lambda x: x.str.strip())
     .apply(lambda x: x+'.' if x[-1] not in ['.', '!', '?', '%', '>'] else x, axis="rows")
     .fillna("")
     .apply(lambda x: " ".join(x.astype(str)).strip(), axis=1)
 )
 
-df_sectors = (pd.concat([df_sectors, df_sec2['Proportion']], axis='columns')
+df_sectors = (pd.concat([df_sectors, df_sec2['Percentage']], axis='columns')
     .rename(columns={0: 'Comment'})
     .reset_index()
     .rename(columns={0: 'Sector'})
@@ -116,7 +116,7 @@ df_sectors.Comment[df_sectors.Comment != ''] = \
     
 # sectors plot
 df_sectors_plot = df_sectors.copy()
-df_sectors_plot['Proportion'] = pd.to_numeric(df_sectors['Proportion'] \
+df_sectors_plot['Percentage'] = pd.to_numeric(df_sectors['Percentage'] \
     .replace(r"%", "", regex=True), errors='coerce')
 
 stocks_h_tooltip = f"""
@@ -129,7 +129,7 @@ stocks_h_tooltip = f"""
 stocks_sectors_plot = donut_chart(
     df=df_sectors_plot.iloc[1:,],
     x='Sector',
-    y='Proportion',
+    y='Percentage',
     sizing_mode='scale_both',
     background_color='#2C2B2B',
     percentage_decimal=0,
