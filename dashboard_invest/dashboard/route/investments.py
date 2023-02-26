@@ -35,9 +35,22 @@ df_dict = getDFs(df, references_dict=references_dict)
 df_ads = df_dict['ads'].copy()
 df_ads.columns = ['text', 'hyperlink']
 df_ads['icon'] = df_ads.text.str.extract(r"\s*(\S)")
-df_ads['text'] = df_ads.text.str.extract(r"(\b.+)")
-headers = ['My Finance Course', 'My UK Property Course', 'Mentoring', 'PM Global', 'PM USA', 'PM UK', 'Crypto Security', 'Stock Platform', 'Bank Account']
+df_ads['text'] = df_ads.text.str.extract(r"(\b.+[^\s])")
+
+headers = ['My Finance Course', 'My UK Property Courses', 'Mentoring', 'Metals Globally', 
+           'Metals USA', 'Metals UK', 'Crypto Security', 'Stock Platform', 'Bank Account']
+icons_html_dict = {'My Finance Course' : 'bi bi-graph-up-arrow', 
+                    'My UK Property Courses' : 'bi bi-house', 
+                    'Mentoring' : 'fa-regular fa-handshake', 
+                    'Metals Globally': 'bi bi-globe-asia-australia', 
+                    'Metals USA': 'bi bi-currency-dollar', 
+                    'Metals UK': 'bi bi-currency-pound', 
+                    'Crypto Security': 'bi bi-currency-bitcoin', 
+                    'Stock Platform': 'fa-solid fa-chart-column', 
+                    'Bank Account': 'bi bi-bank'}
+
 df_ads['header'] = headers
+df_ads['new_icon_html'] = df_ads['header'].map(icons_html_dict)
 
 ## Main DF ##
 df_table = df_dict['main'].iloc[:,:3]

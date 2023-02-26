@@ -30,7 +30,8 @@
                 
                     <div class="card d-flex align-items-start mx-2 my-2" style="width: 16rem;">
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">{{ row['icon'] + ' ' + row['header'] }}</h5>
+                            <h5 class="card-title fw-bold"><i class="{{ row['new_icon_html'] }} pe-2" 
+                                style="color:rgb(118, 214, 118)"></i>{{ row['header'] }}</h5>
                             <p class="card-text">{{ row['text'] }}</p>
                             <a href="{{ df_ads.loc[i, 'hyperlink'] }}" class="card-link">Visit Site</a>
                         </div>
