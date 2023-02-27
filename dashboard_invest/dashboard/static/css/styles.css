@@ -2,9 +2,9 @@
 :root {
   --bs-nav-color: white;
   --bs-nav-active-color: gold;
-  --bs-nav-hover-color: rgb(0, 255, 8);
-  --bs-lowrisk-color: rgb(75, 122, 69);
-  --bs-lowrisk-secondary-color: rgb(99, 157, 99);
+  --bs-nav-hover-color: rgb(29, 172, 36);
+  --bs-lowrisk-color: rgb(104, 160, 99);
+  --bs-lowrisk-secondary-color: rgb(19, 73, 19);
   --website-bg-color: #2C2B2B;
   --website-btn-bg-color: #68a40f;
 
@@ -80,7 +80,7 @@
 /* BODY */
 body {
   background: rgb(44, 43, 43);
-  font-family: 'Open Sans', sans-serif;
+  font-family:Verdana, Geneva, Tahoma;
   color: var(--bs-nav-color);
 }
 
@@ -110,6 +110,8 @@ body {
     width: 50%;
   }
 }
+
+#risk-list-group 
 
 /* TIMELINE */
 .timeline_area {
@@ -258,10 +260,10 @@ body {
   --bs-popover-header-bg: var(--bs-warning);
 }
 
-.custom-popover-info {
+/* .custom-popover-info {
   --bs-popover-border-color: var(--bs-info);
   --bs-popover-header-bg: var(--bs-info);
-}
+} */
 
 .list-group-item {
   padding: 5px 5px 10px 5px;
@@ -275,6 +277,7 @@ body {
   --bs-accordion-btn-focus-border-color: var(--bs-warning-text);
   --bs-accordion-btn-focus-box-shadow: var(--bs-warning-text);
 }
+
 
 /* DISCLAIMER */
 .danger-modal .modal-header,

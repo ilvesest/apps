@@ -97,7 +97,7 @@ pie_chart_plot = pie_chart(
     background_color='#2C2B2B',
     legend_place='below',
     fig_height=720,
-    label_distance=3,
+    label_distance=3.2,
     label_kwargs=dict(text_font_size='9pt', text_align='center', text_font_style='bold'),
     radius=0.62,
     sizing_mode='scale_width'

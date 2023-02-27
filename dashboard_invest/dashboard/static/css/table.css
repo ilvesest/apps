@@ -3,7 +3,6 @@
 :root {
   --bs-nav-color: white;
   --bs-nav-active-color: gold;
-  --bs-nav-hover-color: rgb(0, 255, 8);
   --bs-nav-background-color: #212529;
   --bs-table-hover-color: #34373b;
   --bs-btn-hover-color: #68a40f;
@@ -186,8 +185,5 @@ table .btn-secondary:hover {
 #stocks-sectors-table table tbody td {
   text-align: center;
 }
-#stocks-sectors-table tbody td:first-child {
-  color: var(--table-golden-color);
-  font-weight: bold;
-}
+
 

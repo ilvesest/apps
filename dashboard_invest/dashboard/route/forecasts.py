@@ -19,6 +19,8 @@ references_dict = {
 df_dict_fore = getDFs(df_fore_raw, references_dict)
 
 # FORECASTS
+pallette = inferno
+
 df_fore = df_dict_fore['forecasts'].copy()
 df_fore.columns = df_fore.iloc[0]
 df_fore = df_fore.iloc[1:].reset_index(drop=True)
@@ -34,7 +36,7 @@ df_risks['numeric_risk'] = (df_risks
     .astype('float64')
 )
 df_risks = df_risks.sort_values('numeric_risk', ascending=False, ignore_index=True)
-df_risks['color'] = df_risks.numeric_risk.apply(riskPallette, scale=get_risk_pallete(inferno))
+df_risks['color'] = df_risks.numeric_risk.apply(riskPallette, scale=get_risk_pallete(pallette))
 df_risks['css_ref'] = (
   df_risks['Risks']
   .str.extract(r"([A-Za-z0-9\s]+)")

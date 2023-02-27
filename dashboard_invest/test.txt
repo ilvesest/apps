@@ -13,3 +13,5 @@
     </div>
     {% endfor %}
 </div>
+
+'Open Sans', sans-serif;
