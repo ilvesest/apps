@@ -3,13 +3,13 @@ from dashboard import app
 
 from dashboard.logic.constants import nav_names
 from dashboard.route.investments import df_dict, df_ads, df_table, styler_main, \
-    plot_js, plot_div, cdn_js, df_a, df_hist, df_advice, df_gen, df_risk
+    plot_js, plot_div, df_a, df_hist, df_advice, df_gen, df_risk
 from dashboard.route.example_portf import dfs
 from dashboard.route.stocks_watchlist import df_style, df_disc
 from dashboard.route.forecasts import df_fore, df_fore_risks
 from dashboard.route.stocks import df_stocks, df_stocks_info, stocks_ana_title, \
     df_stocks_ana, stock_sectors_title, df_sectors, stocks_plot_js, stocks_plot_div
-
+from dashboard.logic.plots import cdn_js
 
 # 3rd party imports
 from flask import render_template, flash

@@ -23,17 +23,19 @@
 
         <!-- ADS CARDS -->
         <div class="container px-2 py-4" id="icon-grid">
-            <h2 class="pb-1 border-bottom text-center">Affiliated Links</h2>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center">
+            <h2 class="pb-1 border-bottom text-center">Affiliate Links</h2>
+            <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-3 justify-content-center">
 
                 {% for i,row in df_ads.iterrows() %}
                 
-                    <div class="card d-flex align-items-start mx-2 my-2" style="width: 16rem;">
+                    <div class="card d-flex align-items-start mx-2 my-2" style="width: 18rem;">
                         <div class="card-body">
-                            <h5 class="card-title fw-bold"><i class="{{ row['new_icon_html'] }} pe-2 fs-3" 
-                                style="color:rgb(118, 214, 118)"></i>{{ row['header'] }}</h5>
-                            <p class="card-text">{{ row['text'] }}</p>
-                            <a href="{{ df_ads.loc[i, 'hyperlink'] }}" class="card-link">Visit Site</a>
+                            <h5 class="card-title fw-bold" style="color:rgb(118, 214, 118)">
+                                <i class="{{ row['new_icon_html'] }} pe-2 fs-4"></i>
+                                {{ row['header'] }}
+                            </h5>
+                            <p class="card-text" >{{ row['text'] }}</p>
+                            <a href="{{ df_ads.loc[i, 'hyperlink'] }}" class="card-link" title="{{ df_ads.loc[i, 'hyperlink'] }}">Visit Site</a>
                         </div>
                     </div>
 
@@ -67,9 +69,12 @@
                         {% for i, row in df_risk.iterrows() %}
                         <a class="list-group-item list-group-item-{{row['li_group']}} text-center list-group-item-action 
                         lg-item d-flex align-items-center justify-content-center" 
-                        data-bs-toggle="popover" data-bs-placement="top" data-bs-title="RISK: {{row['risk_word']}}" 
+                        data-bs-toggle="popover" 
+                        data-bs-placement="top" 
+                        data-bs-title="RISK: {{row['risk_word']}}" 
                         data-bs-custom-class="custom-popover-{{row['li_group']}}"
-                        data-bs-trigger="hover" data-bs-content="{{ row['comment'] }}">{{row['asset']}}</a>
+                        data-bs-trigger="hover click"
+                        data-bs-content="{{ row['comment'] }}">{{row['asset']}}</a>
                         
                         {% endfor %}
                     </ul>

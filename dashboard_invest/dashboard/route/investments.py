@@ -2,7 +2,7 @@
 from dashboard.logic.io import read_gsheet, comment_button, total_assets, \
     total_value_to_num, getDFs
 from dashboard.logic.constants import GSHEETS_URL
-from dashboard.logic.plots import components, pie_chart, cdn_js
+from dashboard.logic.plots import components, pie_chart
 
 # 3rd party imports
 import pandas as pd
@@ -66,7 +66,7 @@ df_table.loc['Total (USD)', 'Total Value'] = total_assets(df_table, 'Total (USD)
 
 # convert comment to a button
 df_table.Comments[df_table.Comments.notna()] = df_table.Comments[df_table.Comments.notna()].apply(comment_button)
-df_table = df_table.fillna("").reset_index()
+df_table = df_table.reset_index().fillna("")
 
 df_style = df_table.copy()
 
