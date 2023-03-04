@@ -89,7 +89,7 @@ def pie_chart(
         
         hover_tooltip = hover_tooltip if hover_tooltip != 'default' else \
             f"""
-                <div>
+                <div style="border-radius: 0.6em;">
                     <p style="margin:0;font-weight:bold;color:grey;text-align:left;">@{x_hover}</p>
                     <p style="padding:0;margin:0;font-weight:bold;text-align:left;">$@{y_hover}{{0,0.00}} (@percentage_hover%)</p>
                 </div>
