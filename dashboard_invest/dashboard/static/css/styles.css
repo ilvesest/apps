@@ -80,7 +80,7 @@
 /* BODY */
 body {
   background: rgb(44, 43, 43);
-  font-family:Verdana, Geneva, Tahoma;
+  font-family: 'Axiforma', sans-serif;
   color: var(--bs-nav-color);
 }
 
