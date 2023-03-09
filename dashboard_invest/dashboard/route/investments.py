@@ -1,7 +1,7 @@
 # local imports
 from dashboard.logic.io import read_gsheet, comment_button, total_assets, \
     total_value_to_num, getDFs
-from dashboard.logic.constants import GSHEETS_URL
+from dashboard.logic.constants import GSHEETS_URL, styling_vars
 from dashboard.logic.plots import components, pie_chart
 
 # 3rd party imports
@@ -94,7 +94,7 @@ pie_chart_plot = pie_chart(
     df=df_plot,
     x='Asset_Class',
     y='Total_Value',
-    background_color='#2C2B2B',
+    background_color=styling_vars['bg-color'],
     legend_place='below',
     fig_height=720,
     label_distance=3.2,

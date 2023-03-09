@@ -93,3 +93,8 @@ nav_names = {
 # add sheet urls to nav-names dictionary
 for name, url in sheet_urls.items():
     nav_names[name]['url'] = url
+    
+# styling constants
+styling_vars = {
+    'bg-color': '#2C2B2B'
+}
