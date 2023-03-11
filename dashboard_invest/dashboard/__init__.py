@@ -16,7 +16,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 # flask-caching isntance
-cache = Cache(app)
+#cache = Cache(app)
 
 fa = FontAwesome(app)
 
