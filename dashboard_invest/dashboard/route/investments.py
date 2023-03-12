@@ -14,12 +14,6 @@ data_dict = nav_names[sheet_name]
 gsheet_dict = {'io': data_dict['url'], 'header': None}
 excel_dict = {'sheet_name': sheet_name, 'header': None}
 
-# # Read in summary DF and drop empty rows
-# df = read_gsheet(
-#     GSHEETS_URL, 
-#     header=None
-# )
-
 @ioCacheAndLog(route=data_dict['route_name'], gsheet_dict=gsheet_dict, excel_dict=excel_dict)
 def investmentsScript(df:pd.DataFrame) -> dict:
 
@@ -82,7 +76,8 @@ def investmentsScript(df:pd.DataFrame) -> dict:
     result_dict['df_table'] = df_table
     
     df_style = df_table.copy()
-
+    df_style = df_style.replace('#NAME?', '#ERROR!')
+    
     # style df for table
     df_style = df_style.style \
         .set_properties(
@@ -162,6 +157,5 @@ def investmentsScript(df:pd.DataFrame) -> dict:
     result_dict['df_hist'] = df_hist
 
     return result_dict
-
  
 

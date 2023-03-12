@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/home/tonu/Documents/apps/dashboard_invest/dashboard/logic/io.py", line 448, in wrapper
+    result = func(df)
+             ^^^^^^^^
+  File "/home/tonu/Documents/apps/dashboard_invest/dashboard/route/investments.py", line 67, in investmentsScript
+    df_table.loc['Total (USD)', 'Total Value'] = total_assets(df_table, 'Total (USD)', 'Total Value')
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tonu/Documents/apps/dashboard_invest/dashboard/logic/io.py", line 321, in total_assets
+    df = df[(~df[col].isin() '#ERROR!') & (df.index != 'Monthly Income')]
+             ^^^^^^^^
+  File "/home/tonu/.local/share/virtualenvs/dashboard_invest-5AWLHTjn/lib/python3.11/site-packages/pandas/core/generic.py", line 1522, in __invert__
+    new_data = self._mgr.apply(operator.invert)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tonu/.local/share/virtualenvs/dashboard_invest-5AWLHTjn/lib/python3.11/site-packages/pandas/core/internals/managers.py", line 350, in apply
+    applied = b.apply(f, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/tonu/.local/share/virtualenvs/dashboard_invest-5AWLHTjn/lib/python3.11/site-packages/pandas/core/internals/blocks.py", line 351, in apply
+    result = func(self.values, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: bad operand type for unary ~: 'str'

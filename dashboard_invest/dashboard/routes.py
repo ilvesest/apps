@@ -26,24 +26,24 @@ def inject_sheet_names():
 @app.route("/Portfolio")
 def home_page():
     
-    result_dict = investmentsScript()
+    investment_dict = investmentsScript()
     
     # flash warning message if "#ERROR! in data"
-    warning_msg = result_dict['warning_msg'].iloc[0] + "!"
+    warning_msg = investment_dict['warning_msg'].iloc[0] + "!"
     
-    if (result_dict["df_table"] == '#ERROR!').sum().sum() > 0:
+    if (investment_dict["df_table"].isin(['#ERROR!', '#NAME?'])).sum().sum() > 0:
         flash(warning_msg, category='danger')
     
     return render_template("home.html",
-                           df_ads = result_dict["df_ads"], 
-                           table=result_dict["styler_main"],
-                           plot_js=result_dict["plot_js"], 
-                           plot_div=result_dict["plot_div"],
-                           df_a=result_dict["df_a"],
-                           df_hist=result_dict["df_hist"],
-                           df_advice=result_dict["df_advice"],
-                           df_gen=result_dict["df_gen"],
-                           df_risk=result_dict["df_risk"])
+                           df_ads = investment_dict["df_ads"], 
+                           table=investment_dict["styler_main"],
+                           plot_js=investment_dict["plot_js"], 
+                           plot_div=investment_dict["plot_div"],
+                           df_a=investment_dict["df_a"],
+                           df_hist=investment_dict["df_hist"],
+                           df_advice=investment_dict["df_advice"],
+                           df_gen=investment_dict["df_gen"],
+                           df_risk=investment_dict["df_risk"])
 
 
 @app.route("/Model Portfolios")

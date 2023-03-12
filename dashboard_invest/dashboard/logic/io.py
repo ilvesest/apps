@@ -312,13 +312,13 @@ def total_assets(df: pd.DataFrame, index:str, col:str) -> pd.DataFrame:
     """
  
     # check if total value has ERROR msg
-    if df.loc[index, col] == "#ERROR!":
+    if df.loc[index, col] in ["#ERROR!", "#NAME?"]:
         df.loc[index, col] = 0
     else:
         return df.loc[index, col]
      
     # exclude error fields and monthly income
-    df = df[(df[col] != '#ERROR!') & (df.index != 'Monthly Income')]
+    df = df[(~df[col].isin(['#ERROR!', '#NAME?'])) & (df.index != 'Monthly Income')]
     
     # str to float and calc total sum
     df.loc[:, col] = df[col].replace(r"[\$,]", "", regex=True).astype(float)
@@ -462,6 +462,7 @@ def ioCacheAndLog(
                 downloadSheet(spreadsheet_url=io, 
                               file_path=cache_path,
                               file_name=route)
+                
                 return result
             
             # read data from cache
