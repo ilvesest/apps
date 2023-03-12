@@ -3,8 +3,7 @@ from dashboard.logic.io import get_sheet_names, get_sheet_urls
 
 
 # website URL
-GSHEETS_URL = "https://docs.google.com/spreadsheets/d/" \
-    "12-GISr1efphjtpuJLCfQzI2akNXxaJ1iabsG24ib71c/edit#gid=1755810028"
+GSHEETS_URL = "https://docs.google.com/spreadsheets/d/15-kxhuk4h1BdFuiSIueamEifJpjsG6Loi621KQ8hGuY/edit#gid=1755810028"
 
 sheet_names = get_sheet_names(url=GSHEETS_URL) # [list] sheet names dynamically
 sheet_urls = get_sheet_urls(url=GSHEETS_URL) # [dict] sheet name:url dynamically

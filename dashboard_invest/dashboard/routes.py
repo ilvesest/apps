@@ -1,14 +1,12 @@
 # local imports
 from dashboard import app
-
+from dashboard.logic.plots import cdn_js
 from dashboard.logic.constants import nav_names
 from dashboard.route.investments import investmentsScript
-from dashboard.route.example_portf import dfs
-from dashboard.route.stocks_watchlist import df_style, df_disc
-from dashboard.route.forecasts import df_fore, df_fore_risks
-from dashboard.route.stocks import df_stocks, df_stocks_info, stocks_ana_title, \
-    df_stocks_ana, stock_sectors_title, df_sectors, stocks_plot_js, stocks_plot_div
-from dashboard.logic.plots import cdn_js
+from dashboard.route.example_portf import exampleportfScript
+from dashboard.route.stocks_watchlist import stockswatchlistScript
+from dashboard.route.forecasts import forecastsScript
+from dashboard.route.stocks import stocksScript
 
 # 3rd party imports
 from flask import render_template, flash
@@ -34,45 +32,28 @@ def home_page():
     if (investment_dict["df_table"].isin(['#ERROR!', '#NAME?'])).sum().sum() > 0:
         flash(warning_msg, category='danger')
     
-    return render_template("home.html",
-                           df_ads = investment_dict["df_ads"], 
-                           table=investment_dict["styler_main"],
-                           plot_js=investment_dict["plot_js"], 
-                           plot_div=investment_dict["plot_div"],
-                           df_a=investment_dict["df_a"],
-                           df_hist=investment_dict["df_hist"],
-                           df_advice=investment_dict["df_advice"],
-                           df_gen=investment_dict["df_gen"],
-                           df_risk=investment_dict["df_risk"])
+    return render_template("home.html", **investment_dict)
 
 
 @app.route("/Model Portfolios")
 def portfolios_page():
+    dfs = exampleportfScript()
     return render_template("example_portf.html",
                            dfs=dfs)
 
 @app.route("/2023 Forecasts")
 def forecasts_page():
-    return render_template("forecasts.html",
-                           df_fore=df_fore,
-                           df_fore_risks=df_fore_risks)
+    forecasts_dict = forecastsScript()
+    return render_template("forecasts.html", **forecasts_dict)
     
 @app.route("/Stocks")
 def stocks_page():
-    return render_template("stocks.html",
-                           df_stocks=df_stocks, 
-                           df_stocks_info=df_stocks_info,
-                           stocks_ana_title=stocks_ana_title, 
-                           df_stocks_ana=df_stocks_ana,
-                           stock_sectors_title=stock_sectors_title, 
-                           df_sectors=df_sectors,
-                           stocks_plot_js=stocks_plot_js,
-                           stocks_plot_div=stocks_plot_div)
+    stocks_dict = stocksScript()
+    return render_template("stocks.html", **stocks_dict)
     
 @app.route("/Stocks Watchlist")
 def stockswatchlist_page():
-    return render_template("stocks_watchlist.html",
-                           df_style=df_style,
-                           df_disc=df_disc)
+    stockswatchlist_dict = stockswatchlistScript()
+    return render_template("stocks_watchlist.html", **stockswatchlist_dict)
 
 

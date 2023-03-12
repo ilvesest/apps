@@ -1,6 +1,6 @@
 # local imports
 from dashboard.logic.io import ioCacheAndLog, read_gsheet, comment_button, total_assets, \
-    total_value_to_num, getDFs
+    total_value_to_num, getDFs, formatToDollars
 from dashboard.logic.constants import nav_names, GSHEETS_URL, styling_vars
 from dashboard.logic.plots import components, pie_chart
 
@@ -42,8 +42,13 @@ def investmentsScript(df:pd.DataFrame) -> dict:
     df_ads['icon'] = df_ads.text.str.extract(r"\s*(\S)")
     df_ads['text'] = df_ads.text.str.extract(r"(\b.+[^\s])")
 
-    headers = ['My Finance Course', 'My UK Property Courses', 'Mentoring', 'Metals Globally', 
-            'Metals USA', 'Metals UK', 'Crypto Security', 'Stock Platform', 'Bank Account']
+    # manually generated headers
+    # headers = ['My Finance Course', 'My UK Property Courses', 'Mentoring', 'Metals Globally', 
+    #         'Metals USA', 'Metals UK', 'Crypto Security', 'Stock Platform', 'Bank Account']
+    
+    # dynamically generated headers
+    headers = [" ".join(string.split()[:4]) for string in df_ads['text']]
+    
     icons_html_dict = {'My Finance Course' : 'bi bi-graph-up-arrow', 
                         'My UK Property Courses' : 'bi bi-house', 
                         'Mentoring' : 'fa-regular fa-handshake', 
@@ -73,6 +78,10 @@ def investmentsScript(df:pd.DataFrame) -> dict:
     # convert comment to a button
     df_table.Comments[df_table.Comments.notna()] = df_table.Comments[df_table.Comments.notna()].apply(comment_button)
     df_table = df_table.reset_index().fillna("")
+    
+    # if data is pulled from excel
+    df_table['Total Value'] = df_table['Total Value'].apply(formatToDollars)
+    
     result_dict['df_table'] = df_table
     
     df_style = df_table.copy()

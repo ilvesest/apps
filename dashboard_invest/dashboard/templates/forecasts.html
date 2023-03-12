@@ -10,7 +10,7 @@
     <head>
         <link rel="stylesheet" href="static/css/table.css">
         <!-- Difine custom css classes -->
-        {% for i, row in df_fore_risks.iterrows() %}
+        {% for i, row in df_risks.iterrows() %}
             <style>
             
                 .{{row['css_ref']}}-popover {
@@ -46,14 +46,14 @@
 
         <section id="risks">
             <!-- ASSET RISK -->
-            <div class="container pt-2">
+            <div class="container pt-4 pb-5">
                 <div class="row d-flex justify-content-center text-center">
                     <div class="col col-lg-12">
                         <h2 class="border-bottom">Forecast Risk Scale</h2>
 
                         <ul class="list-group list-group-horizontal-lg py-2 mx-auto" id="forecast-risk-list-group">
                             
-                            {% for i, row in df_fore_risks.iterrows() %}
+                            {% for i, row in df_risks.iterrows() %}
 
                             <a class="list-group-item text-center list-group-item-action 
                             lg-item d-flex align-items-center justify-content-center" 

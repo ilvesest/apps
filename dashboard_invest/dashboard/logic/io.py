@@ -360,7 +360,11 @@ def total_value_to_num(df: pd.DataFrame):
                                       errors='coerce')
     return df.reset_index()
 
-
+def formatToDollars(series):
+    return f"${float(series):,.2f}" if isinstance(series, str) \
+        and series not in ["", np.nan] \
+            and all(c.isdigit() or c in ['.', '-'] \
+                for c in series) else series
 
 # Adds colors column dynamically based on risk assessment
 def riskPallette(series: pd.Series, scale: dict) -> pd.Series:
@@ -443,8 +447,8 @@ def ioCacheAndLog(
             # try reading data from google sheets
             try:
                 io = gsheet_dict['io']
-                del gsheet_dict['io']
-                df = read_gsheet(io, **gsheet_dict)
+                gsheet_kwargs = {key:val for key,val in gsheet_dict.items() if key != 'io'}
+                df = read_gsheet(io, **gsheet_kwargs)
                 result = func(df)
                 
                 # download spreadsheet to cache
