@@ -1,5 +1,6 @@
 # native imports
-import re
+import re, datetime, os, traceback
+from functools import wraps
 
 # 3rd party imports
 import requests
@@ -94,7 +95,58 @@ def read_gsheet(url:str, **read_csv_kwargs):
     url_csv = url.replace("edit#gid", "export?format=csv&gid")
     return pd.read_csv(url_csv, **read_csv_kwargs)
 
+def downloadWorkbook(spreadsheet_url: str, 
+                     file_path: str,
+                     file_name: str='workbook') -> None:
+    """Download Google Spreadsheet as an .xlsx file.
+    """
+    
+    # Define the file name and extension
+    file_ext = ".xlsx"
 
+    # Generate a timestamp string in the format YYYY-MM-DD_HH-MM-SS
+    timestamp = getTimestamp()
+
+    # Concatenate the timestamp string with the file name and extension
+    timestamped_file_name = f"{file_path}/{timestamp}_{file_name}{file_ext}"
+
+    # SAVE GOOGLE SPREADSHEET AS .XLSX FILE
+    export_url = spreadsheet_url.replace("edit#gid", "export?format=xlsx")
+
+    response = requests.get(export_url)
+
+    with open(timestamped_file_name, "wb") as output_file:
+        output_file.write(response.content)
+        
+def downloadSheet(spreadsheet_url: str, 
+                  file_path: str,
+                  file_name: str) -> None:
+    """Download Google Spreadsheet as an .xlsx file.
+    """
+    
+    # Define the file name and extension
+    file_ext = ".xlsx"
+
+    # Generate a timestamp string in the format YYYY-MM-DD_HH-MM-SS
+    timestamp = getTimestamp()
+
+    # Concatenate the timestamp string with the file name and extension
+    timestamped_file_name = f"{file_path}/{timestamp}_{file_name}{file_ext}"
+
+    # SAVE GOOGLE SPREADSHEET AS .XLSX FILE
+    download_url = spreadsheet_url.replace('/edit#','/export?format=xlsx&')
+
+    response = requests.get(download_url)
+
+    with open(timestamped_file_name, "wb") as output_file:
+        output_file.write(response.content)
+
+
+# .XLSX IO
+def read_excel(xlsx_path: str, **read_excel_kwargs):
+    return pd.read_excel(
+        xlsx_path,
+        **read_excel_kwargs)
 
 ### DATAFRAME IO ###
 def findRefRowCol(df: pd.DataFrame, pattern: str, method: str='contains') -> tuple[int, int]:
@@ -346,3 +398,84 @@ def get_risk_pallete(pallette: dict) -> dict['int':'color']:
         Dict: Dictionary {"0": 'color'}
     """
     return {str(i):color for i,color in enumerate(pallette(10)[::-1])}
+
+def getTimestamp(format: str="%Y-%m-%d_%H:%M:%S") -> str:
+    """Generate a timestamp string in the format YYYY-MM-DD_HH:MM:SS""" 
+    return datetime.datetime.now().strftime(format)
+
+def getOldestFilename(files: list[str], ts_format:str="%Y-%m-%d_%H:%M:%S") -> str:
+    """Returns the filename with oldest timestamp"""
+    ts_pattern = r"\d[\d\-_:]+\d"
+    return min(files, key=lambda x: datetime.datetime.strptime(re.search(ts_pattern, x)[0][:19], ts_format))
+
+def getNewestFilename(files: list[str], ts_format:str="%Y-%m-%d_%H:%M:%S") -> str:
+    """Returns the filename with newest timestamp"""
+    ts_pattern = r"\d[\d\-_:]+\d"
+    return max(files, key=lambda x: datetime.datetime.strptime(re.search(ts_pattern, x)[0][:19], ts_format))
+
+def logError(route:str, exception:Exception) -> None:
+    """Save occurred error traceback to file with timestamp."""
+    
+    log_path = f"dashboard/logs/routes/{route}"
+    if not os.path.exists(log_path):
+        os.mkdir(log_path)
+    
+    files = os.listdir(log_path)
+    if len(files) >= 10:
+        oldest_file = getOldestFilename(files=files)
+        os.remove(os.path.join(log_path, oldest_file))
+        
+    error_name = exception.__class__.__name__
+    
+    with open(f'{log_path}/{getTimestamp()}_{error_name}', 'a') as f: 
+        traceback.print_exc(file=f)
+
+
+# DECORATORS
+def ioCacheAndLog(
+    route: str,
+    gsheet_dict:dict=None, 
+    excel_dict:dict=None):
+    
+    def my_decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            # try reading data from google sheets
+            try:
+                io = gsheet_dict['io']
+                del gsheet_dict['io']
+                df = read_gsheet(io, **gsheet_dict)
+                result = func(df)
+                
+                # download spreadsheet to cache
+                cache_path = os.path.join('dashboard', 'cache', route)
+                if not os.path.exists(cache_path):
+                    os.mkdir(cache_path)
+                    
+                # don't save more than 3 files to cache
+                files = os.listdir(cache_path)
+                if len(files) >= 3:
+                    oldest_file = getOldestFilename(files=files)
+                    os.remove(os.path.join(cache_path, oldest_file))
+                
+                # download google sheet as .xlsx file
+                downloadSheet(spreadsheet_url=io, 
+                              file_path=cache_path,
+                              file_name=route)
+                return result
+            
+            # read data from cache
+            except Exception as e:
+                # capture and save occurred error log
+                logError(route=route, exception=e)
+                
+                # read data from the newest cached file
+                io_cache_path = os.path.join('dashboard', 'cache', route)
+                newest_file_name = getNewestFilename(os.listdir(io_cache_path))
+                df  = read_excel(os.path.join(io_cache_path, newest_file_name), **excel_dict)
+                
+                result = func(df)
+                return result
+        return wrapper
+    
+    return my_decorator

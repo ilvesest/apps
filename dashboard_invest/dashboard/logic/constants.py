@@ -12,6 +12,7 @@ sheet_urls = get_sheet_urls(url=GSHEETS_URL) # [dict] sheet name:url dynamically
 # sheet data manually
 nav_names = {
     "Investments": {
+        "route_name":"investments",
         "new name": "Portfolio",
         "routes": ["Portfolio", "", "home"],
         "title": "Overall Portfolio", 
@@ -19,6 +20,7 @@ nav_names = {
         "symbol_id": "bi bi-cash-coin"
     },
     "Investment Allocation Examples": {
+        "route_name":"example_portf",
         "new name":"Model Portfolios",
         "routes": ["Model Portfolios"],
         "title": "Example Portfolios", 
@@ -26,6 +28,7 @@ nav_names = {
         "symbol_id": "bi bi-briefcase"
     },
     "2023 Forecasts & Risks":{
+        "route_name":"forecasts",
         "new name": "2023 Forecasts",
         "routes": ["2023 Forecasts"],
         "title": "2023 Forecasts & Risks",
@@ -33,6 +36,7 @@ nav_names = {
         "symbol_id": "bi bi-cloud-sun"
     },
     "Stocks": {
+        "route_name":"stocks",
         "new name": "Stocks",
         "routes": ["Stocks"], 
         "title": "Stocks",
@@ -40,6 +44,7 @@ nav_names = {
         "symbol_id": "bi bi-apple"
     },
     "Stocks Watchlist": {
+        "route_name":"stocks_watchlist",
         "new name": "Stocks Watchlist",
         "routes": ["Stocks Watchlist"],
         "title": "Stocks Watchlist",
@@ -47,6 +52,7 @@ nav_names = {
         "symbol_id": "bi bi-eye"
     },
     "Metals": {
+        "route_name":"",
         "new name": "Metals",
         "routes": ["Metals"],
         "title": "Precious Metals",
@@ -54,6 +60,7 @@ nav_names = {
         "symbol_id": "bi bi-gem"
     },
     "BizRE": {
+        "route_name":"",
         "new name": "Business & Real Estate",
         "routes": ["Business & Real Estate"],
         "title": "Business & Real Estate",
@@ -61,6 +68,7 @@ nav_names = {
         "symbol_id": "bi bi-houses"
     },
     "Crypto Consolidation": {
+        "route_name":"",
         "new name":"Crypto",
         "routes": ["Crypto"], 
         "title": "Crypto Investments",
@@ -68,6 +76,7 @@ nav_names = {
         "symbol_id": "bi bi-wallet2"
     },
     "Crypto INFO (SaleHODL Notes)": {
+        "route_name":"",
         "new name":"Crypto Watchlist",
         "routes": ["Crypto Watchlist"], 
         "title": "Crypto Watchlist",
@@ -75,6 +84,7 @@ nav_names = {
         "symbol_id": "bi bi-currency-bitcoin"
     },
     "Value Investing Ratios": {
+        "route_name":"",
         "new name": "Metrics",
         "routes": ["Metrics"], 
         "title": "Example Company Valuations",
@@ -82,6 +92,7 @@ nav_names = {
         "symbol_id": "bi bi-graph-up"
     },
     "X-Test Crypto": {
+        "route_name":"",
         "new name": "Test Sheet",
         "routes": ["Test Sheet"], 
         "title": "Testing Sheet",

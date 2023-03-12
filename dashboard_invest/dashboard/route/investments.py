@@ -1,21 +1,30 @@
 # local imports
-from dashboard.logic.io import read_gsheet, comment_button, total_assets, \
+from dashboard.logic.io import ioCacheAndLog, read_gsheet, comment_button, total_assets, \
     total_value_to_num, getDFs
-from dashboard.logic.constants import GSHEETS_URL, styling_vars
+from dashboard.logic.constants import nav_names, GSHEETS_URL, styling_vars
 from dashboard.logic.plots import components, pie_chart
 
 # 3rd party imports
 import pandas as pd
 import re
 
-# Read in summary DF and drop empty rows
-df = read_gsheet(
-    GSHEETS_URL, 
-    header=None
-)
+# VARIABLES
+sheet_name = 'Investments'
+data_dict = nav_names[sheet_name]
+gsheet_dict = {'io': data_dict['url'], 'header': None}
+excel_dict = {'sheet_name': sheet_name, 'header': None}
 
-def investments_script(df:pd.DataFrame) -> dict:
+# # Read in summary DF and drop empty rows
+# df = read_gsheet(
+#     GSHEETS_URL, 
+#     header=None
+# )
 
+@ioCacheAndLog(route=data_dict['route_name'], gsheet_dict=gsheet_dict, excel_dict=excel_dict)
+def investmentsScript(df:pd.DataFrame) -> dict:
+
+    result_dict = {}
+    
     # Extract sub DF to dictionary
     references_dict = {
         'main' : ("contains", "Monthly Income", 'up'),
@@ -31,7 +40,8 @@ def investments_script(df:pd.DataFrame) -> dict:
     }
 
     df_dict = getDFs(df, references_dict=references_dict)
-
+    result_dict['warning_msg'] = df_dict['warning_msg']
+    
     # ADS
     df_ads = df_dict['ads'].copy()
     df_ads.columns = ['text', 'hyperlink']
@@ -52,6 +62,7 @@ def investments_script(df:pd.DataFrame) -> dict:
 
     df_ads['header'] = headers
     df_ads['new_icon_html'] = df_ads['header'].map(icons_html_dict)
+    result_dict['df_ads'] = df_ads
 
     ## Main DF ##
     df_table = df_dict['main'].iloc[:,:3]
@@ -68,7 +79,8 @@ def investments_script(df:pd.DataFrame) -> dict:
     # convert comment to a button
     df_table.Comments[df_table.Comments.notna()] = df_table.Comments[df_table.Comments.notna()].apply(comment_button)
     df_table = df_table.reset_index().fillna("")
-
+    result_dict['df_table'] = df_table
+    
     df_style = df_table.copy()
 
     # style df for table
@@ -86,6 +98,7 @@ def investments_script(df:pd.DataFrame) -> dict:
 
     # variable for the routes.py
     styler_main = df_style
+    result_dict['styler_main'] = styler_main
 
     # modify df for PIE-CHART
     df_plot = df_table.copy()
@@ -105,7 +118,9 @@ def investments_script(df:pd.DataFrame) -> dict:
     )
 
     plot_js, plot_div = components(pie_chart_plot)
-
+    result_dict['plot_js'] = plot_js
+    result_dict['plot_div'] = plot_div
+    
     # ASSET RISKS
     df_risk = df_dict['risk'].copy()
     df_risk = df_risk.iloc[1:-5]
@@ -115,7 +130,8 @@ def investments_script(df:pd.DataFrame) -> dict:
     df_risk['risk'] = [1, 1, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4]
     df_risk['risk_word'] = df_risk['risk'].replace({1:'VERY LOW', 2: 'LOW', 3: 'MEDIUM', 4: 'HIGH'})
     df_risk['li_group'] = df_risk['risk'].replace({1: 'success', 2: 'info', 3: 'warning', 4: 'danger'})
-
+    result_dict['df_risk'] = df_risk
+    
     # ANNOUNCEMENTS
     df_a = df_dict['announce'].copy()
     df_a = df_a.reset_index(drop=True)
@@ -124,12 +140,13 @@ def investments_script(df:pd.DataFrame) -> dict:
     no_date_idx = df_a['date'].str.contains(r"property for £980k", case=False).argmax()
     df_a.loc[no_date_idx, 'text'] = df_a.loc[no_date_idx, 'date']
     df_a.loc[no_date_idx, 'date'] = re.search(r"[A-Z]{1}[a-z]{2}\s202\d{1}", df_a.loc[no_date_idx, 'text'])[0]
-
+    result_dict['df_a'] = df_a
 
     # GENERAL ADVICE
     df_advice = df_dict['advice'].copy()
     df_advice = df_advice.reset_index(drop=True)
-
+    result_dict['df_advice'] = df_advice
+    
     # GENERAL NOTES
     df_gen = df_dict['general_notes'].copy()
     df_suc = df_dict['success'].copy()
@@ -137,15 +154,14 @@ def investments_script(df:pd.DataFrame) -> dict:
     df_suc.iloc[0, 1] = df_suc.iloc[0, 1] + df_suc.iloc[-1,1]
     df_gen = pd.concat([df_gen.iloc[1:], df_suc.iloc[0,:].to_frame().T]).reset_index(drop=True)
     df_gen.columns = ['field', 'info']
-
+    result_dict['df_gen'] = df_gen
+    
     # HISTORICAL INVESTMENTS
     df_hist = df_dict['historical'].copy()
     df_hist = df_hist.reset_index(drop=True)
+    result_dict['df_hist'] = df_hist
 
+    return result_dict
 
-def run_script()
-
-try:
-    df = 
-    investments_dict = investments_script()    
+ 
 
