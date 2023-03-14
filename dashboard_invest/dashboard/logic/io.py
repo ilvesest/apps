@@ -1,11 +1,13 @@
 # native imports
 import re, datetime, os, traceback
 from functools import wraps
+from typing import Callable
 
 # 3rd party imports
 import requests
 from bs4 import BeautifulSoup as BS
 import numpy as np
+import openpyxl
 
 # pandas 
 import pandas as pd
@@ -392,6 +394,74 @@ def set_bg_color(val, cmap: dict) -> str:
         cmap (dict): Dict of the form {val:'color'}
     """
     return f'background-color: {cmap[val]}'
+
+def styleDf(df: pd.DataFrame, route: str):
+    """Style DF using colors in .xlsx file.
+
+    Args:
+        df (pd.DataFrame): Must contain original row indices.
+        route (str): Name of the route in cache folder, e.g. 'stocks_watchlist'
+
+    """
+    ## ORIGINAL DF ## 
+    i1, i2 = df.columns.name if not None else df.index[0]-1, df.index[-1] + 1
+    
+    ## EXCEL TABLE ##
+    path_to_file = f'dashboard/cache/{route}/'
+    newest_file = getNewestFilename(os.listdir(path_to_file))
+    full_path = path_to_file + newest_file
+    
+    # load workbook
+    wb = openpyxl.load_workbook(filename=full_path, data_only=True)
+    ws = wb.active
+
+    # define the range of cells to read, use original df references
+    rows = ws.iter_rows(max_row=i2)
+
+    # create an empty list to hold the cell values
+    row_values = []
+
+    # iterate over the rows and columns to capture each cell properties
+    for row in rows:
+        cell_values = []
+        for cell in row:
+            # get the cell value, color, and fill
+            cell_value = "" if cell.data_type in ['f'] or cell.value is None else cell.value
+            cell_color = cell.fill.start_color.index if cell.fill.start_color else np.nan
+            cell_fill = cell.fill.fill_type if cell.fill else np.nan
+
+            # append the cell value, color, and fill to the list
+            cell_values.append({'value': cell_value, 
+                                'color': f"#{cell_color[2:]}" if isinstance(cell_color, str) else np.nan, 
+                                'fill': cell_fill})
+
+        row_values.append(cell_values)
+    
+    # create a pandas dataframe from the list of cell values
+    df_style_dict = pd.DataFrame(row_values)
+    
+    new_idx = np.insert(df.index.values, 0, i1)
+    df_style_dict = df_style_dict.loc[new_idx,] # get original rows
+    
+    df_style_dict_cols = df_style_dict.iloc[0,].apply(lambda x: x['value']) # get all cols
+    df_style_dict = df_style_dict.iloc[1:,]
+    df_style_dict.columns = df_style_dict_cols
+    df_style_dict = df_style_dict.loc[:, df.columns] # get original rows & cols
+    
+    # check if respective DFs match
+    assert df.shape == df_style_dict.shape, "Provided DF and Excel Table have different shape."
+    assert df.index.equals(df_style_dict.index), "Provided DF and Excel Table have different row indices."
+    assert df.columns.equals(df_style_dict.columns), "Provided DF and Excel Table have different column labels."
+    
+    # style original DF based on Excel
+    styled_df = df.fillna("").style
+    for i, row in df_style_dict.iterrows():
+        for c, value in row.items():
+            styled_dct = {'color': '#FFFFFF'} if value["color"] in ['#000000', None, np.nan] \
+                else {'color': f'{value["color"]}'}
+            styled_df.set_properties(subset=pd.IndexSlice[i, c], **styled_dct)
+    
+    return styled_df
 
 ### HELPERS ###
 def get_risk_pallete(pallette: dict) -> dict['int':'color']:
