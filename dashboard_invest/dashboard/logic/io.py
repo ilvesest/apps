@@ -14,6 +14,7 @@ import pandas as pd
 pd.options.mode.chained_assignment = None
 
 
+
 # GOOGLE DOCS IO
 def get_sheet_names(url: str, class_name: str="goog-inline-block docs-sheet-tab-caption") -> list[str]:
     """Find all Google Spreadsheet Sheet names
@@ -120,23 +121,20 @@ def downloadWorkbook(spreadsheet_url: str,
     with open(timestamped_file_name, "wb") as output_file:
         output_file.write(response.content)
         
-def downloadSheet(spreadsheet_url: str, 
+def downloadSheet(url: str, 
                   file_path: str,
-                  file_name: str) -> None:
+                  route: str,
+                  file_ext: str=".xlsx") -> None:
     """Download Google Spreadsheet as an .xlsx file.
     """
-    
-    # Define the file name and extension
-    file_ext = ".xlsx"
 
     # Generate a timestamp string in the format YYYY-MM-DD_HH-MM-SS
     timestamp = getTimestamp()
-
-    # Concatenate the timestamp string with the file name and extension
-    timestamped_file_name = f"{file_path}/{timestamp}_{file_name}{file_ext}"
-
+    full_file_name = f"{timestamp}_{route}{file_ext}"
+    timestamped_file_name = os.path.join(file_path, full_file_name)
+    
     # SAVE GOOGLE SPREADSHEET AS .XLSX FILE
-    download_url = spreadsheet_url.replace('/edit#','/export?format=xlsx&')
+    download_url = url.replace('/edit#','/export?format=xlsx&')
 
     response = requests.get(download_url)
 
@@ -235,7 +233,7 @@ def getDFs(df: pd.DataFrame, references_dict: dict[str, tuple[str,str,str]]) -> 
     
     
     # set all cols str type, NaN -> 'nan'
-    df = df.reset_index(drop=True).astype(str)
+    df = df.astype(str)
     
     # find reference indices
     dfs = {}
@@ -490,12 +488,12 @@ def getNewestFilename(files: list[str], ts_format:str="%Y-%m-%d_%H:%M:%S") -> st
 def logError(route:str, exception:Exception) -> None:
     """Save occurred error traceback to file with timestamp."""
     
-    log_path = f"dashboard/logs/routes/{route}"
+    log_path = os.path.join("dashboard", "logs", route)
     if not os.path.exists(log_path):
         os.mkdir(log_path)
     
     files = os.listdir(log_path)
-    if len(files) >= 10:
+    while len(files) > 9:
         oldest_file = getOldestFilename(files=files)
         os.remove(os.path.join(log_path, oldest_file))
         
