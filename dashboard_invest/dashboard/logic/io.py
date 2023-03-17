@@ -339,7 +339,7 @@ def comment_button(series:pd.Series) -> str:
     """
     return f'<button type="button" class="btn btn-secondary btn-sm" data-bs-content="{series} '\
         '"data-bs-toggle="popover" data-bs-trigger="focus" '\
-        'style="--bs-btn-font-size: .85rem">Details</button>'
+        'style="--bs-btn-font-size: .85rem;">Details</button>'
 
 def total_value_to_num(df: pd.DataFrame):
     """Modify DF data column to numeric
@@ -488,7 +488,7 @@ def getNewestFilename(files: list[str], ts_format:str="%Y-%m-%d_%H:%M:%S") -> st
 def logError(route:str, exception:Exception) -> None:
     """Save occurred error traceback to file with timestamp."""
     
-    log_path = os.path.join("dashboard", "logs", route)
+    log_path = os.path.join("dashboard", "logs", "routes", route)
     if not os.path.exists(log_path):
         os.mkdir(log_path)
     
