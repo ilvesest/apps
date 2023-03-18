@@ -1,9 +1,18 @@
+# native imports
+from types import NoneType 
+
 # local imports
 from dashboard.logic.io import get_sheet_names, get_sheet_urls
+
+# 3rd party imports
+import numpy as np
 
 
 # website URL
 GSHEETS_URL = "https://docs.google.com/spreadsheets/d/15-kxhuk4h1BdFuiSIueamEifJpjsG6Loi621KQ8hGuY/edit#gid=1755810028"
+
+# none type exlusion list
+NONE_LIKE_LIST = ["", " ", np.nan, 'nan', 'NA', None, 'none', 'None', NoneType]
 
 sheet_names = get_sheet_names(url=GSHEETS_URL) # [list] sheet names dynamically
 sheet_urls = get_sheet_urls(url=GSHEETS_URL) # [dict] sheet name:url dynamically
