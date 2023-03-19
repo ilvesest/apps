@@ -2,50 +2,55 @@
 import re
 
 # local imports
-from dashboard.logic.constants import nav_names
-from dashboard.logic.io import ioCacheAndLog
+from dashboard.logic.constants import getMetaDataDict
+from dashboard.logic.io import ioCacheAndLog, DDF
 from dashboard.logic.plots import components, pie_chart
 
 
-# VARIABLES
-sheet_name = 'Investment Allocation Examples'
-data_dict = nav_names[sheet_name]
-gsheet_dict = {'io': data_dict['url'], 'header': None, 'names': ['asset', 'percent']}
-excel_dict = {'sheet_name': sheet_name, 'header': None, 'names': ['asset', 'percent']}
+metadata = getMetaDataDict(route_name='example_portf')
 
-@ioCacheAndLog(route=data_dict['route_name'], gsheet_dict=gsheet_dict, excel_dict=excel_dict)
-def exampleportfScript(df) -> dict:
+@ioCacheAndLog(url=metadata['url'], route=metadata['route_name'])
+def example_portf_script(ddf:DDF) -> dict:
+    
+    ddf = ddf.setHeader(col_names=['Asset Class', 'percent']) # set header
     
     # chop raw cs df into dict of 'name' : {'title':, 'df':, 'extra':}
-    mask_df = df.apply(lambda x: x.str.startswith("IDEAL PORTFOLIO"))
-
+    mask_df = (ddf.v
+        .astype('str')
+        .apply(lambda x: x.str.startswith("IDEAL PORTFOLIO"))
+    )
+     
     # reference indices for separate DFs 
-    ref_idxs = mask_df[mask_df.asset == True].index
-
+    ref_idxs = mask_df[mask_df['Asset Class'] == True].index
+    
     df_names = ['2023', 'crash_risk', 'high_inflation', 'normal']
+    
     df_dict = {}
     for i, (name, i1) in enumerate(zip(df_names, ref_idxs)):
-        i2 = None if i == len(ref_idxs)-1 else ref_idxs[i+1]
-        df_ = df.iloc[i1:i2,:]
-        
         info_dict = {}
-        info_dict['title_1'] = re.match(r"^([^\(]+)\b", df_.asset.iloc[0])[0]
-        info_dict['title_2'] = re.search(r"(?![^\(]+).+", df_.asset.iloc[0])[0]
-        info_dict['df'] = df_.dropna()
-        info_dict['extra'] = df_.loc[info_dict['df'].index[-1]+1:,:].dropna(how='all').asset
-        df_dict[name] = info_dict
+        i2 = None if i == len(ref_idxs)-1 else ref_idxs[i+1] - 1 
+        df_ = ddf.v.loc[i1:i2,:]
+
+        info_dict['title_1'] = re.match(r"^([^\(]+)\b", df_['Asset Class'].iloc[0])[0]
+        info_dict['title_2'] = re.search(r"(?![^\(]+).+", df_['Asset Class'].iloc[0])[0]
+        df_clean = df_.dropna()
+        df_clean['Percentage'] = df_clean['percent'].apply(lambda x: f"{int(x*100)}%")
+        info_dict['df'] = df_clean
+        info_dict['extra'] = df_.loc[df_clean.index[-1]+1:,:].dropna(how='all')['Asset Class']
         
+        df_dict[name] = info_dict
+    
     df_dict['2023']['extra'].iloc[0] += ' ' + df_dict['2023']['extra'].iloc[1]
 
     # prepare the DFs
     dfs = df_dict.copy()
-    for v in dfs.values():
-        v['df_plot'] = v['df'].iloc[:-1,] # strip total
-        v['df_plot']['percent_n'] = v['df_plot']['percent'].str[:-1].astype(int) # remove '%'
-        v['df_plot']['asset_hover'] = v['df_plot']['asset'].apply(lambda x: re.match(r"^([^\(:]+)", x)[0] if len(x)>35 else x)
-        v['df'].columns = ['Asset Class', 'Percentage']
-    dfs = dfs
-
+    
+    for dct in dfs.values():
+        dct['df_plot'] = dct['df'].iloc[:-1,] # strip total
+        dct['df_plot']['percent_n'] = (dct['df_plot']['percent'] * 100).astype(int) 
+        dct['df_plot']['asset_hover'] = dct['df_plot']['Asset Class'].apply(lambda x: re.match(r"^([^\(:]+)", x)[0] if len(x)>35 else x)
+        dct['df'] = dct['df'][['Asset Class', 'Percentage']]
+    
     # PLOT
     hover_tt = f"""
                     <div>
@@ -54,9 +59,9 @@ def exampleportfScript(df) -> dict:
                     </div>
                 """
 
-    for dict_ in dfs.values():
+    for dct in dfs.values():
         p = pie_chart(
-            df=dict_['df_plot'],
+            df=dct['df_plot'],
             x='asset_hover',
             y='percent_n',
             x_hover='asset_hover',
@@ -69,6 +74,6 @@ def exampleportfScript(df) -> dict:
             background_color='#2C2B2B',
             label_kwargs=dict(text_font_size='12pt', text_align='center', text_font_style='bold')
         )
-        dict_['plot_js'], dict_['plot_div'] = components(p)
+        dct['plot_js'], dct['plot_div'] = components(p)
         
     return dfs

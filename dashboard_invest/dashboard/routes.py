@@ -3,7 +3,7 @@ from dashboard import app
 from dashboard.logic.plots import cdn_js
 from dashboard.logic.constants import nav_names
 from dashboard.route.investments import investments_script
-# from dashboard.route.example_portf import exampleportfScript
+from dashboard.route.example_portf import example_portf_script
 # from dashboard.route.stocks_watchlist import stockswatchlistScript
 # from dashboard.route.forecasts import forecastsScript
 # from dashboard.route.stocks import stocksScript
@@ -38,7 +38,7 @@ def home_page():
 @app.route("/Model Portfolios")
 def portfolios_page():
     pass
-    dfs = exampleportfScript()
+    dfs = example_portf_script()
     return render_template("example_portf.html",
                            dfs=dfs)
 
