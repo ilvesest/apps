@@ -7,6 +7,6 @@ class Config(object):
     
     # Flask-Caching configs
     CACHE_TYPE = "SimpleCache",
-    CACHE_DEFAULT_TIMEOUT = 0
+    CACHE_DEFAULT_TIMEOUT = 200
     
     
