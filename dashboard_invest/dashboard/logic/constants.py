@@ -7,12 +7,9 @@ from dashboard.logic.io import get_sheet_names, get_sheet_urls
 # 3rd party imports
 import numpy as np
 
-
 # website URL
 GSHEETS_URL = "https://docs.google.com/spreadsheets/d/15-kxhuk4h1BdFuiSIueamEifJpjsG6Loi621KQ8hGuY/edit#gid=1755810028"
 
-# none type exlusion list
-NONE_LIKE_LIST = ["", " ", np.nan, 'nan', 'NA', None, 'none', 'None', NoneType]
 
 sheet_names = get_sheet_names(url=GSHEETS_URL) # [list] sheet names dynamically
 sheet_urls = get_sheet_urls(url=GSHEETS_URL) # [dict] sheet name:url dynamically
@@ -117,3 +114,8 @@ for name, url in sheet_urls.items():
 styling_vars = {
     'bg-color': '#2C2B2B'
 }
+
+### CONSTANTS IO ###
+def getMetaDataDict(route_name: str) -> dict:
+    """Returns sheet metadata dictionary based on route name."""
+    return nav_names[[k for k,v in nav_names.items() if nav_names[k]['route_name'] == route_name][0]]

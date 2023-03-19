@@ -24,11 +24,11 @@
         <!-- ADS CARDS -->
         <div class="container px-2 py-4" id="icon-grid">
             <h2 class="pb-1 border-bottom text-center">Affiliate Links</h2>
-            <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-3 justify-content-center">
+            <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center">
 
                 {% for i,row in df_ads.iterrows() %}
                 
-                    <div class="card d-flex align-items-start mx-2 my-2" style="width: 18rem;">
+                    <div class="card d-flex align-items-start mx-2 my-2" style="width: 16rem;">
                         <div class="card-body">
                             <h5 class="card-title fw-bold" style="color:rgb(118, 214, 118)">
                                 <i class="{{ row['new_icon_html'] }} pe-2 fs-4"></i>
@@ -49,7 +49,7 @@
             <div class="row">
                 <div class="col-lg-6 d-flex flex-column text-center">
                     <h2 class="border-bottom">Total Investements</h2>
-                    <div class="invest-table no-bottom-border d-flex justify-content-center pt-3 mb-0 pb-2 pb-lg-0"> {{styler_main.to_html()|safe }}</div>
+                    <div class="invest-table no-bottom-border d-flex justify-content-center pt-3 mb-0 pb-2 pb-lg-0"> {{df_main_styled.to_html()|safe }}</div>
                 </div>
                 <div class="col-lg-6 d-flex flex-column text-center" id="asset-allocation-plot">
                     <h2 class="border-bottom">Asset Allocations</h2>
@@ -72,9 +72,9 @@
                         data-bs-toggle="popover" 
                         data-bs-placement="top" 
                         data-bs-title="RISK: {{row['risk_word']}}" 
-                        data-bs-custom-class="custom-popover-{{row['li_group']}}"
+                        data-bs-custom-class="custom-investments-popover custom-popover-{{row['li_group']}}"
                         data-bs-trigger="hover click"
-                        data-bs-content="{{ row['comment'] }}">{{row['asset']}}</a>
+                        data-bs-content="{{ row['notes'] }}">{{row['asset']}}</a>
                         
                         {% endfor %}
                     </ul>

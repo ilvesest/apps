@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/tonu/Documents/apps/dashboard_invest/dashboard/logic/io.py", line 851, in wrapper
+    result = func(ddf)
+             ^^^^^^^^^
+  File "/home/tonu/Documents/apps/dashboard_invest/dashboard/route/investments.py", line 72, in investments_script
+    df_main = calcTotalUSD(df_main, col_name='Total Value') # calc total if errors
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tonu/Documents/apps/dashboard_invest/dashboard/logic/io.py", line 879, in calcTotalUSD
+    total_idx = np.where(a.apply(lambda x: x.str.contains(r"Total \(USD\)") == True))[0][0]
+                         ^
+NameError: name 'a' is not defined

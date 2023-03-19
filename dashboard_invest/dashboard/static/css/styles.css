@@ -17,7 +17,6 @@
 }
 
 /* NAVBAR */
-
 .text-white {
   --bs-text-opacity: 1;
   color: white,var(--bs-text-opacity)!important;
@@ -245,6 +244,11 @@ body {
 }
 
 /* Custom Popovers */
+.custom-investments-popover .popover-header {
+  font-weight: bold; 
+  padding-top: 1.25rem;
+}
+
 .custom-popover-success {
   --bs-popover-border-color: var(--bs-success);
   --bs-popover-header-bg: var(--bs-success);
