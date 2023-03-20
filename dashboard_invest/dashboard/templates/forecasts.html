@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}
+    2023 Economic Forecasts
+{% endblock %}
+
+
+{% block content %}
+
+    <head>
+        <link rel="stylesheet" href="static/css/table.css">
+        <!-- Difine custom css classes -->
+        {% for i, row in df_risks.iterrows() %}
+            <style>
+            
+                .{{row['css_ref']}}-popover {
+                    background-color: {{row['color']}};
+                    --bs-popover-header-bg: {{row['color']}};
+                    text-align: center;
+                    font-size: 1.5em;
+                    font-weight: bold;
+                }
+            
+            </style>
+        {% endfor %}
+    </head>
+
+    <body>
+        <section id="forecasts">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 pt-4">
+                        <h2 class="border-bottom text-center">2023 Forecasts</h2>
+                        <div class="no-bottom-border no-right-border d-flex justify-content-center py-2">
+                            {{ df_fore_styler.to_html(table_uuid='forecasts-table')|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="risks">
+            <!-- ASSET RISK -->
+            <div class="container pt-4 pb-5">
+                <div class="row d-flex justify-content-center text-center">
+                    <div class="col col-lg-12">
+                        <h2 class="border-bottom">Forecast Risk Scale</h2>
+
+                        <ul class="list-group list-group-horizontal-lg py-2 mx-auto" id="forecast-risk-list-group">
+                            
+                            {% for i, row in df_risks.iterrows() %}
+
+                            <a class="list-group-item text-center list-group-item-action 
+                            lg-item d-flex align-items-center justify-content-center" 
+                            data-bs-toggle="popover" 
+                            data-bs-placement="top" 
+                            data-bs-title="RISK Level in 2023" 
+                            data-bs-custom-class="custom-forecast-risk-popover {{row['css_ref']}}-popover"
+                            data-bs-trigger="hover" 
+                            data-bs-content="{{ row['string_risk'] }}" 
+                            style="background-color:{{row['color']}};font-weight:bold;color:white;">{{row['risk_name']}}</a>
+                            
+                            {% endfor %}
+                        
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </body>
+
+{% endblock%}
