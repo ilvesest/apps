@@ -6,7 +6,7 @@ from dashboard.route.investments import investments_script
 from dashboard.route.example_portf import example_portf_script
 from dashboard.route.forecasts import forecasts_script
 from dashboard.route.stocks import stocks_script
-# from dashboard.route.stocks_watchlist import stockswatchlistScript
+from dashboard.route.stocks_watchlist import stocks_watchlist_script
 
 # 3rd party imports
 from flask import render_template, flash
@@ -37,7 +37,6 @@ def home_page():
 
 @app.route("/Model Portfolios")
 def portfolios_page():
-    pass
     dfs = example_portf_script()
     return render_template("example_portf.html",
                            dfs=dfs)
@@ -49,14 +48,12 @@ def forecasts_page():
     
 @app.route("/Stocks")
 def stocks_page():
-    pass
     stocks_dict = stocks_script()
     return render_template("stocks.html", **stocks_dict)
     
 @app.route("/Stocks Watchlist")
 def stockswatchlist_page():
-    pass
-    stockswatchlist_dict = stockswatchlistScript()
+    stockswatchlist_dict = stocks_watchlist_script()
     return render_template("stocks_watchlist.html", **stockswatchlist_dict)
 
 
