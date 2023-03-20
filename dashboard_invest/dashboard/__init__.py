@@ -12,7 +12,7 @@ from flask_fontawesome import FontAwesome
 
 config = {
     # Flask configs
-    "DEBUG": True,                
+    "DEBUG": False,                
     'SECRET_KEY': os.environ.get('SECRET_KEY') or secrets.token_urlsafe(16),
     
     # Flask-Caching configs
