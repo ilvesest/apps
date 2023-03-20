@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "/home/tonu/Documents/apps/dashboard_invest/dashboard/logic/io.py", line 534, in wrapper
-    downloadSheet(spreadsheet_url=io,
-TypeError: downloadSheet() got an unexpected keyword argument 'spreadsheet_url'

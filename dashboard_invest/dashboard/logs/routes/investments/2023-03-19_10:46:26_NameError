@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "/tmp/ipykernel_256819/1712138456.py", line 330, in wrapper
-    result = func(ddf)
-             ^^^^^^^^^
-  File "/tmp/ipykernel_256819/1097006939.py", line 345, in investments_script
-    return (df[a] / df[a].sum() * 100).round(2)
-            ^^
-NameError: name 'df' is not defined

@@ -15,6 +15,7 @@ import pandas as pd
 
 # make sheet_names global variable for all templates
 @app.context_processor
+@cache.cached()
 def inject_sheet_names():
     return {'sheet_names': nav_names,
             'cdn_js': cdn_js}
@@ -22,6 +23,7 @@ def inject_sheet_names():
 @app.route("/")
 @app.route("/home")
 @app.route("/Portfolio")
+@cache.cached()
 def home_page():
     
     investment_dict = investments_script()
@@ -36,22 +38,26 @@ def home_page():
 
 
 @app.route("/Model Portfolios")
+@cache.cached()
 def portfolios_page():
     dfs = example_portf_script()
     return render_template("example_portf.html",
                            dfs=dfs)
 
 @app.route("/2023 Forecasts")
+@cache.cached()
 def forecasts_page():
     forecasts_dict = forecasts_script()
     return render_template("forecasts.html", **forecasts_dict)
     
 @app.route("/Stocks")
+@cache.cached()
 def stocks_page():
     stocks_dict = stocks_script()
     return render_template("stocks.html", **stocks_dict)
     
 @app.route("/Stocks Watchlist")
+@cache.cached()
 def stockswatchlist_page():
     stockswatchlist_dict = stocks_watchlist_script()
     return render_template("stocks_watchlist.html", **stockswatchlist_dict)

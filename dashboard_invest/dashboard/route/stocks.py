@@ -12,7 +12,7 @@ import pandas as pd
 
 metadata = getMetaDataDict(route_name='stocks')
 
-@ioCacheAndLog(url=metadata['url'], route=metadata['route_name'], testing=True)
+@ioCacheAndLog(url=metadata['url'], route=metadata['route_name'])
 def stocks_script(ddf:DDF) -> dict:
     
     results = {}

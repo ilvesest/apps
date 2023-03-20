@@ -7,7 +7,7 @@ import pandas as pd
 
 metadata = getMetaDataDict(route_name='stocks_watchlist')
 
-@ioCacheAndLog(url=metadata['url'], route=metadata['route_name'], testing=False)
+@ioCacheAndLog(url=metadata['url'], route=metadata['route_name'])
 def stocks_watchlist_script(ddf:DDF) -> dict:
     """Return dict of {'obj_name': object}. Object can be pd.Series, DF, styler."""
     

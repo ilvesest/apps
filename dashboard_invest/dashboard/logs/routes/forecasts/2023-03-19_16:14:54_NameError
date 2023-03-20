@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "/tmp/ipykernel_344186/4200741089.py", line 123, in wrapper
-    result = func(ddf)
-             ^^^^^^^^^
-  File "/tmp/ipykernel_344186/3903671936.py", line 277, in forecasts_script
-    df_risks = df.rename(columns={df_risks.columns[0]: "risk_name"})
-               ^^
-NameError: name 'df' is not defined

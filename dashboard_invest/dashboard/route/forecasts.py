@@ -9,7 +9,7 @@ import pandas as pd
 
 metadata = getMetaDataDict(route_name='forecasts')
 
-@ioCacheAndLog(url=metadata['url'], route=metadata['route_name'], testing=True)
+@ioCacheAndLog(url=metadata['url'], route=metadata['route_name'])
 def forecasts_script(ddf:DDF) -> dict:
     
     results = {}
