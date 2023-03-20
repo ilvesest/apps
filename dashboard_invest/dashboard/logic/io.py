@@ -180,7 +180,7 @@ class DDF(pd.DataFrame):
             html_string = " ".join(
                 (
                 f'<button type="button" class="{button_class}"', 
-                f"""data-bs-content='<div style="{style_str}">{data_value}</div>'""",
+                f"""data-bs-content='<div style={style_str}>{data_value}</div>'""",
                 f'data-bs-html="{data_bs_html}" data-bs-toggle={data_bs_toggle} data-bs-trigger="{data_bs_trigger}"', 
                 f'style="{button_style}">{button_name}</button>'
                 )
@@ -694,7 +694,7 @@ def formatToDollars(value, precision: int=2):
 
 def addButton(df: pd.DataFrame,
                   col_names: list[str]=None,
-                  popover_style_str: str="",
+                  popover_style_str: str=None,
                   button_name: str="Details",
                   button_class: str="btn btn-secondary btn-sm",
                   data_bs_html: str="true",
@@ -709,7 +709,7 @@ def addButton(df: pd.DataFrame,
             html_string = " ".join(
                 (
                 f'<button type="button" class="{button_class}"', 
-                f'data-bs-content="<div style="{popover_style_str}">{value}</div>"',
+                f"""data-bs-content="<div style={popover_style_str}>{value}</div>" """,
                 f'data-bs-html="{data_bs_html}" data-bs-toggle={data_bs_toggle} data-bs-trigger="{data_bs_trigger}"', 
                 f'style="{button_style}">{button_name}</button>'
                 )
@@ -836,11 +836,10 @@ def ioCacheAndLog(
     def my_decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            
+            cache_path = os.path.join("dashboard", "cache", route)
             if not testing:
             
                 # delete oldest file if 3 files present
-                cache_path = os.path.join("dashboard", "cache", route)
                 if not os.path.exists(cache_path):
                     os.mkdir(cache_path)
                 
@@ -865,13 +864,9 @@ def ioCacheAndLog(
                 if not testing:
                     # capture and save occurred error log
                     logError(route=route, exception=e)
-                else:
-                    print(e)
                 
                 # read data from the previous cached file
                 ddf = readXlsx(route=route, newest_file=False)
-                newest_file = getNewestFilename(files)
-                os.remove(os.path.join(cache_path, newest_file))
                 
                 result = func(ddf)
                 return result

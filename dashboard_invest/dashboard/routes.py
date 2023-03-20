@@ -1,12 +1,12 @@
 # local imports
-from dashboard import app
+from dashboard import app, cache
 from dashboard.logic.plots import cdn_js
 from dashboard.logic.constants import nav_names
 from dashboard.route.investments import investments_script
 from dashboard.route.example_portf import example_portf_script
+from dashboard.route.forecasts import forecasts_script
+from dashboard.route.stocks import stocks_script
 # from dashboard.route.stocks_watchlist import stockswatchlistScript
-# from dashboard.route.forecasts import forecastsScript
-# from dashboard.route.stocks import stocksScript
 
 # 3rd party imports
 from flask import render_template, flash
@@ -44,14 +44,13 @@ def portfolios_page():
 
 @app.route("/2023 Forecasts")
 def forecasts_page():
-    pass
-    forecasts_dict = forecastsScript()
+    forecasts_dict = forecasts_script()
     return render_template("forecasts.html", **forecasts_dict)
     
 @app.route("/Stocks")
 def stocks_page():
     pass
-    stocks_dict = stocksScript()
+    stocks_dict = stocks_script()
     return render_template("stocks.html", **stocks_dict)
     
 @app.route("/Stocks Watchlist")

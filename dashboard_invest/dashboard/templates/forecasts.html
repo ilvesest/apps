@@ -17,7 +17,7 @@
                     background-color: {{row['color']}};
                     --bs-popover-header-bg: {{row['color']}};
                     text-align: center;
-                    font-size: 1em;
+                    font-size: 1.5em;
                     font-weight: bold;
                 }
             
@@ -32,12 +32,7 @@
                     <div class="col-12 pt-4">
                         <h2 class="border-bottom text-center">2023 Forecasts</h2>
                         <div class="no-bottom-border no-right-border d-flex justify-content-center py-2">
-                            {{ df_fore.to_html(
-                                index=False, 
-                                index_names=False, 
-                                justify='center', 
-                                border=0, 
-                                classes='forecasts-table')|safe }}
+                            {{ df_fore_styler.to_html(table_uuid='forecasts-table')|safe }}
                         </div>
                     </div>
                 </div>
@@ -57,10 +52,13 @@
 
                             <a class="list-group-item text-center list-group-item-action 
                             lg-item d-flex align-items-center justify-content-center" 
-                            data-bs-toggle="popover" data-bs-placement="top" data-bs-title="RISK Level in 2023" 
-                            data-bs-custom-class="{{row['css_ref']}}-popover"
-                            data-bs-trigger="hover" data-bs-content="{{ row['Risk Level in 2023'] }}" 
-                            style="background-color:{{row['color']}};font-weight:bold;color:white;">{{row['Risks']}}</a>
+                            data-bs-toggle="popover" 
+                            data-bs-placement="top" 
+                            data-bs-title="RISK Level in 2023" 
+                            data-bs-custom-class="custom-forecast-risk-popover {{row['css_ref']}}-popover"
+                            data-bs-trigger="hover" 
+                            data-bs-content="{{ row['string_risk'] }}" 
+                            style="background-color:{{row['color']}};font-weight:bold;color:white;">{{row['risk_name']}}</a>
                             
                             {% endfor %}
                         

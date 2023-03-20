@@ -322,6 +322,11 @@ body {
   }
 }
 
+.custom-forecast-risk-popover .popover-header {
+  font-weight: bold; 
+  padding-top: 1.25rem;
+}
+
 /* FORECASTS RISK SCALE */
 @media (max-width: 991px) {
   #forecast-risk-list-group {

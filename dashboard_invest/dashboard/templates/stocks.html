@@ -40,12 +40,7 @@
                     <div class="col-12 pt-4">
                         <h2 class="border-bottom text-center">{{ stocks_ana_title }}</h2>
                         <div class="stocks table-sticky no-bottom-border no-right-border d-flex flex-column justify-content-center py-2">
-                            {{ df_stocks_ana.to_html(
-                                index=False, 
-                                index_names=False, 
-                                justify='center', 
-                                border=0,
-                                escape=False)|safe }}
+                            {{ df_ana_styled.to_html()|safe }}
                         </div>
                     </div>
                 </div>

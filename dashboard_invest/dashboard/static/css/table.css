@@ -159,11 +159,11 @@ table .btn-secondary:hover {
 }
 
 /* FORECASTS TABLE */
-.forecasts-table thead th {
+#T_forecasts-table thead th {
   text-align: center;
 }
 
-.forecasts-table thead th:first-child {
+#T_forecasts-table thead th:first-child {
   text-align: left;
 }
 
