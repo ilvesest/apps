@@ -1,5 +1,5 @@
 # native imports
-import os
+import os, secrets
 
 # local imports
 from config import Config
@@ -13,7 +13,7 @@ from flask_fontawesome import FontAwesome
 config = {
     # Flask configs
     "DEBUG": True,                
-    'SECRET_KEY': os.environ.get('SECRET_KEY') or 'fwefwefwdf900',
+    'SECRET_KEY': os.environ.get('SECRET_KEY') or secrets.token_urlsafe(16),
     
     # Flask-Caching configs
     "CACHE_TYPE": "SimpleCache",  
